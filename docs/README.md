@@ -36,6 +36,9 @@
 28. [厂商扩展、专有 HAL 与系统服务适配框架](28-vendor-extension-and-proprietary-service-adaptation.md)
 29. [ROM 导入、OTA 解析与分区转换流水线](29-rom-ingestion-ota-and-partition-transformation.md)
 30. [Host 虚拟化能力门控、权限与后端选择](30-host-virtualization-and-capability-gating.md)
+31. [跨层 API、JNI、C ABI 与 Backend 接口契约](31-cross-layer-api-and-abi-contracts.md)
+32. [VM、ROM、Guest Profile 与虚拟硬件数据结构规范](32-versioned-data-schemas-and-manifests.md)
+33. [Runtime 状态机、事件流与统一错误模型](33-runtime-state-events-and-error-model.md)
 
 ## 设计基线
 
