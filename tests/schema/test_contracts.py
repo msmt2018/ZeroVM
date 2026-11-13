@@ -1,4 +1,3 @@
-import copy
 import json
 import unittest
 from pathlib import Path
@@ -32,6 +31,8 @@ def semantic_errors(document):
         value = policy.get(key, {})
         if value.get("mode") == "adaptive" and value.get("min", 0) > value.get("max", -1):
             errors.append(f"resource_policy.{key}: min exceeds max")
+        if value.get("mode") == "fixed" and value.get("min") != value.get("max"):
+            errors.append(f"resource_policy.{key}: fixed value requires min == max")
     graph = document if document.get("schema_id") == "zerovm.partition-graph" else None
     if graph:
         ids = {node.get("node_id") for node in graph.get("nodes", [])}
