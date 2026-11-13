@@ -22,6 +22,7 @@
 14. [Native 构建与第三方依赖](14-native-build-dependencies.md)
 15. [开发路线与风险](15-roadmap-risks.md)
 16. [术语表](16-glossary.md)
+17. [Android Guest 完整启动条件清单](17-guest-boot-prerequisites.md)
 
 ## 设计基线
 
