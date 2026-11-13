@@ -39,6 +39,7 @@
 31. [跨层 API、JNI、C ABI 与 Backend 接口契约](31-cross-layer-api-and-abi-contracts.md)
 32. [VM、ROM、Guest Profile 与虚拟硬件数据结构规范](32-versioned-data-schemas-and-manifests.md)
 33. [Runtime 状态机、事件流与统一错误模型](33-runtime-state-events-and-error-model.md)
+34. [机器可读 Schema 与契约验证](34-machine-readable-schemas-and-validation.md)
 
 ## 设计基线
 
