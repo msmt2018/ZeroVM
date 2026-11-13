@@ -23,6 +23,14 @@
 15. [开发路线与风险](15-roadmap-risks.md)
 16. [术语表](16-glossary.md)
 17. [Android Guest 完整启动条件清单](17-guest-boot-prerequisites.md)
+18. [工程架构与技术选型总规范](18-engineering-architecture-and-technology-selection.md)
+19. [Android App、应用框架与 Runtime](19-android-app-framework-and-runtime.md)
+20. [Native Core、JNI 与虚拟化 Backend](20-native-core-jni-and-backend.md)
+21. [镜像仓库、分区引擎与 Guest Profile](21-image-storage-and-guest-profile-framework.md)
+22. [虚拟硬件与设备模型框架](22-virtual-hardware-and-device-frameworks.md)
+23. [Guest Platform：Kernel、HAL、Framework 与图形](23-guest-platform-kernel-hal-graphics.md)
+24. [安全、资源管理与 Host/Guest 桥接](24-security-resource-and-device-bridge-framework.md)
+25. [构建、CI、测试与可观测性](25-build-ci-testing-observability.md)
 
 ## 设计基线
 
