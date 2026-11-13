@@ -2,7 +2,7 @@ import json
 import unittest
 from pathlib import Path
 
-from jsonschema import Draft202012Validator, FormatChecker
+from jsonschema import Draft202012Validator, FormatChecker, ValidationError
 
 ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_PATH = ROOT / "schemas/v1/zerovm.schema.json"
@@ -76,7 +76,7 @@ class SchemaContractTests(unittest.TestCase):
     def test_unknown_schema_version_is_rejected(self):
         document = load_json(FIXTURES / "valid-vm-spec.json")
         document["schema_version"] = 2
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValidationError):
             self.validate("VmSpec", document)
 
     def test_schema_contains_all_nine_contracts(self):
