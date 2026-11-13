@@ -7,6 +7,8 @@ on:
       - "core/**"
       - "native/**"
       - "rust/**"
+      - "third_party/manifest/**"
+      - "third_party/scripts/**"
       - "Cargo.toml"
       - "Cargo.lock"
       - "settings.gradle.kts"
@@ -19,6 +21,8 @@ on:
       - "core/**"
       - "native/**"
       - "rust/**"
+      - "third_party/manifest/**"
+      - "third_party/scripts/**"
       - "Cargo.toml"
       - "Cargo.lock"
       - "settings.gradle.kts"
@@ -28,6 +32,34 @@ on:
 permissions:
   contents: read
 jobs:
+  source-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate source manifest XML
+        run: |
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          root = ET.parse("third_party/manifest/zerovm.xml").getroot()
+          projects = {p.get("name"): p for p in root.findall("project")}
+          required = {
+              "platform/system/core",
+              "platform/external/avb",
+              "platform/packages/modules/Virtualization",
+              "device/google/cuttlefish",
+              "kernel/common",
+              "google/crosvm",
+              "platform/external/minigbm",
+              "platform/hardware/google/gfxstream",
+          }
+          missing = required - projects.keys()
+          assert not missing, f"missing upstream projects: {sorted(missing)}"
+          assert projects["google/crosvm"].get("revision") == "9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe"
+          assert projects["kernel/common"].get("revision", "").endswith("android16-6.12-2025-12")
+          print(f"validated {len(projects)} upstream project entries")
+          PY
+      - name: Validate source sync shell syntax
+        run: bash -n third_party/scripts/sync_sources.sh
   native:
     runs-on: ubuntu-latest
     steps:
@@ -59,15 +91,11 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "9.6.0"
+      - uses: android-actions/setup-android@v3
       - name: Accept Android SDK licenses
-        shell: bash
-        run: |
-          yes | "$ANDROID_HOME/cmdline-tools/16.0/bin/sdkmanager" --licenses >/dev/null || true
+        run: yes | sdkmanager --licenses >/dev/null || true
       - name: Install Android SDK components
-        run: |
-          "$ANDROID_HOME/cmdline-tools/16.0/bin/sdkmanager" \
-            "platforms;android-37" "build-tools;36.0.0" \
-            "ndk;30.0.16248370" "cmake;3.31.6"
+        run: sdkmanager "platforms;android-37" "build-tools;36.0.0" "ndk;30.0.16248370" "cmake;3.31.6"
       - name: Generate wrapper for CI
         run: gradle wrapper --gradle-version 9.6.0
       - name: Assemble debug APK
