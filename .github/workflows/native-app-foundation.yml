@@ -97,7 +97,7 @@ jobs:
       - name: Accept Android SDK licenses
         run: yes | sdkmanager --licenses >/dev/null || true
       - name: Install Android SDK components
-        run: sdkmanager "platforms;android-37" "build-tools;36.0.0" "ndk;30.0.16248370" "cmake;3.31.6"
+        run: sdkmanager "platforms;android-37.0" "build-tools;37.0.0" "ndk;30.0.16248370" "cmake;3.31.6"
       - name: Generate wrapper for CI
         run: gradle wrapper --gradle-version 9.6.0
       - name: Assemble debug APK
