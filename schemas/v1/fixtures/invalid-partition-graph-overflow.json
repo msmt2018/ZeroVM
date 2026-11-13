@@ -1,0 +1,15 @@
+{
+  "schema_id": "zerovm.partition-graph",
+  "schema_version": 1,
+  "graph_id": "graph:bad",
+  "image_set_id": "imageset:demo",
+  "nodes": [
+    {
+      "node_id": "partition:overflow",
+      "kind": "gpt_partition",
+      "offset_bytes": 9223372036854776000,
+      "length_bytes": 9223372036854776000,
+      "read_only": true
+    }
+  ]
+}
