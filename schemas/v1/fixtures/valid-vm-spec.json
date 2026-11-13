@@ -1,0 +1,36 @@
+{
+  "schema_id": "zerovm.vm-spec",
+  "schema_version": 1,
+  "vm_id": "vm:demo-001",
+  "display_name": "Android Guest",
+  "guest_profile": {
+    "profile_id": "profile:aosp-api35-arm64",
+    "revision": "1"
+  },
+  "image_set_id": "imageset:demo-001",
+  "resource_policy": {
+    "cpu": {
+      "mode": "adaptive",
+      "min": 2,
+      "max": 6
+    },
+    "memory": {
+      "mode": "adaptive",
+      "min": 2147483648,
+      "max": 6442450944
+    },
+    "storage": {
+      "quota_bytes": 34359738368
+    }
+  },
+  "device_policy": {
+    "display": "required",
+    "network": "optional",
+    "camera": "disabled",
+    "microphone": "disabled"
+  },
+  "security": {
+    "vm_isolation": "required",
+    "verified_boot_policy": "profile_defined"
+  }
+}
