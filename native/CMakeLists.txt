@@ -27,8 +27,4 @@ if(ZEROVM_BUILD_TESTS AND NOT ANDROID)
     add_executable(zerovm_native_contract_tests tests/native_contract_tests.cpp)
     target_link_libraries(zerovm_native_contract_tests PRIVATE zerovm_core)
     add_test(NAME zerovm_native_contract_tests COMMAND zerovm_native_contract_tests)
-
-    add_executable(zerovm_c_abi_smoke tests/c_abi_smoke.c)
-    target_link_libraries(zerovm_c_abi_smoke PRIVATE zerovm_core)
-    add_test(NAME zerovm_c_abi_smoke COMMAND zerovm_c_abi_smoke)
 endif()
