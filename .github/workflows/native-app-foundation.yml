@@ -8,6 +8,7 @@ on:
       - "native/**"
       - "rust/**"
       - "Cargo.toml"
+      - "Cargo.lock"
       - "settings.gradle.kts"
       - "build.gradle.kts"
       - "gradle/**"
@@ -19,6 +20,7 @@ on:
       - "native/**"
       - "rust/**"
       - "Cargo.toml"
+      - "Cargo.lock"
       - "settings.gradle.kts"
       - "build.gradle.kts"
       - "gradle/**"
@@ -53,11 +55,11 @@ jobs:
           java-version: "25"
       - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: "9.6"
+          gradle-version: "9.6.0"
       - uses: android-actions/setup-android@v3
       - name: Install Android SDK components
         run: sdkmanager "platforms;android-37" "build-tools;36.0.0" "ndk;30.0.16248370" "cmake;3.31.6"
       - name: Generate wrapper for CI
-        run: gradle wrapper --gradle-version 9.6
+        run: gradle wrapper --gradle-version 9.6.0
       - name: Assemble debug APK
         run: ./gradlew --no-daemon :app:assembleDebug
