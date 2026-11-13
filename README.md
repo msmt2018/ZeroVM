@@ -1,9 +1,34 @@
 # ZeroVM
 
-Supporting the GSI universal system's Android virtual machine, it provides an independent Android operating environment on mobile phones. It can be used to experience new systems and manage applications and data separately.
+ZeroVM aims to provide an independent Android Guest system environment on Android devices. The intended Guest has its own kernel, Android userspace, virtual hardware, storage and security boundary; it is not a container or process sandbox.
 
-## Technical Documentation
+## Repository layout
 
-The project architecture, Android virtualization concepts, adaptive host hardware management, virtual hardware platform, Guest Kernel and boot chain, GSI image and partition handling, Vendor HAL/VINTF, graphics, device bridges, security, VM lifecycle, compatibility testing, build dependencies and roadmap are documented in the [docs directory](docs/README.md).
+- app/: Android application shell.
+- core/: Kotlin common, model, runtime API and JNI bridge modules.
+- native/: public C ABI and C++ runtime foundation.
+- rust/: memory-safe image parsing primitives.
+- schemas/: versioned machine-readable contracts.
+- third_party/manifest/: selected upstream source manifest.
+- third_party/scripts/: reproducible source checkout and lock generation.
+- docs/: architecture, security, interfaces and validation specifications.
 
-> The documentation describes the intended architecture and design constraints. It does not imply that the corresponding runtime, native components, drivers or hardware support have already been implemented. See the documentation for capability and validation requirements.
+## Pull upstream core source
+
+Install Git, Python 3 and the official Android repo launcher, then run:
+
+    bash third_party/scripts/sync_sources.sh
+
+This checks out selected AOSP image/partition libraries, AVF, Android Common Kernel, Cuttlefish reference sources, minigbm, libdrm, gfxstream, crosvm and support libraries into third_party/aosp/. The manifest pins crosvm to an immutable commit and records exact resolved revisions in generated source-lock files.
+
+This is a selective source intake, not a full AOSP mirror. Source checkout does not mean ZeroVM has integrated, built or validated those components. See docs/36-upstream-source-checkout-and-license-governance.md.
+
+## Toolchain baseline
+
+AGP 9.5.0 / Gradle 9.6.0, JDK 25, Android API 37, NDK r30 30.0.16248370, C++20 and Rust 2024. Android bytecode targets Java 17 while Gradle runs on JDK 25.
+
+## Runtime status
+
+The current application and native code are foundation modules only. No production AVF/crosvm/KVM backend is wired. Ordinary APKs are not assumed to possess privileged virtualization permissions. No arbitrary OEM ROM compatibility, universal Cuttlefish Vendor, or default AVB/SELinux bypass is claimed.
+
+See docs/README.md for the full technical documentation index.
