@@ -72,26 +72,6 @@
           "if": {
             "properties": {
               "mode": {
-                "const": "fixed"
-              }
-            },
-            "required": [
-              "mode"
-            ]
-          },
-          "then": {
-            "properties": {
-              "max": {
-                "const": 0
-              }
-            },
-            "description": "For fixed resources, min carries the exact value and max is zero."
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "mode": {
                 "const": "adaptive"
               }
             },
@@ -613,7 +593,7 @@
                 },
                 "api_level": {
                   "type": "integer",
-                  "minimum": 28
+                  "minimum": 1
                 },
                 "abi": {
                   "enum": [
