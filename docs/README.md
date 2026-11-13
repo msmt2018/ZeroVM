@@ -31,6 +31,11 @@
 23. [Guest Platform：Kernel、HAL、Framework 与图形](23-guest-platform-kernel-hal-graphics.md)
 24. [安全、资源管理与 Host/Guest 桥接](24-security-resource-and-device-bridge-framework.md)
 25. [构建、CI、测试与可观测性](25-build-ci-testing-observability.md)
+26. [ROM 家族兼容性与全品类 ROM 适配架构](26-rom-family-compatibility-architecture.md)
+27. [虚拟手机硬件模型、固件材料与完整启动链](27-physical-device-model-firmware-and-boot-chain.md)
+28. [厂商扩展、专有 HAL 与系统服务适配框架](28-vendor-extension-and-proprietary-service-adaptation.md)
+29. [ROM 导入、OTA 解析与分区转换流水线](29-rom-ingestion-ota-and-partition-transformation.md)
+30. [Host 虚拟化能力门控、权限与后端选择](30-host-virtualization-and-capability-gating.md)
 
 ## 设计基线
 
