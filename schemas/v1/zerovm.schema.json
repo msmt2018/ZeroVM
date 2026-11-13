@@ -1,0 +1,1235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/msmt2018/ZeroVM/blob/main/schemas/v1/zerovm.schema.json",
+  "title": "ZeroVM v1 contract schemas",
+  "description": "Machine-readable contracts for persisted VM, ROM, profile, virtual-device, partition and host resource data. Each schema is addressable through $defs.",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-fA-F0-9]{64}$"
+    },
+    "bytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9223372036854776000
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Envelope": {
+      "type": "object",
+      "properties": {
+        "schema_id": {
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "schema_id",
+        "schema_version"
+      ],
+      "additionalProperties": true
+    },
+    "ResourceRange": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "enum": [
+            "fixed",
+            "adaptive"
+          ]
+        },
+        "min": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "mode",
+        "min",
+        "max"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "fixed"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "max": {
+                "const": 0
+              }
+            },
+            "description": "For fixed resources, min carries the exact value and max is zero."
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "adaptive"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "max": {
+                "minimum": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "VmSpec": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Envelope"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_id": {
+              "const": "zerovm.vm-spec"
+            },
+            "vm_id": {
+              "$ref": "#/$defs/id"
+            },
+            "display_name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "guest_profile": {
+              "type": "object",
+              "properties": {
+                "profile_id": {
+                  "$ref": "#/$defs/id"
+                },
+                "revision": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                }
+              },
+              "required": [
+                "profile_id",
+                "revision"
+              ],
+              "additionalProperties": false
+            },
+            "image_set_id": {
+              "$ref": "#/$defs/id"
+            },
+            "resource_policy": {
+              "type": "object",
+              "properties": {
+                "cpu": {
+                  "$ref": "#/$defs/ResourceRange"
+                },
+                "memory": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/ResourceRange"
+                    },
+                    {
+                      "properties": {
+                        "min": {
+                          "maximum": 9223372036854776000
+                        },
+                        "max": {
+                          "maximum": 9223372036854776000
+                        }
+                      }
+                    }
+                  ]
+                },
+                "storage": {
+                  "type": "object",
+                  "properties": {
+                    "quota_bytes": {
+                      "$ref": "#/$defs/bytes"
+                    }
+                  },
+                  "required": [
+                    "quota_bytes"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "cpu",
+                "memory",
+                "storage"
+              ],
+              "additionalProperties": false
+            },
+            "device_policy": {
+              "type": "object",
+              "additionalProperties": {
+                "enum": [
+                  "required",
+                  "optional",
+                  "disabled"
+                ]
+              },
+              "minProperties": 1
+            },
+            "security": {
+              "type": "object",
+              "properties": {
+                "vm_isolation": {
+                  "const": "required"
+                },
+                "verified_boot_policy": {
+                  "enum": [
+                    "profile_defined",
+                    "required",
+                    "user_managed"
+                  ]
+                }
+              },
+              "required": [
+                "vm_isolation",
+                "verified_boot_policy"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "schema_id",
+            "schema_version",
+            "vm_id",
+            "display_name",
+            "guest_profile",
+            "image_set_id",
+            "resource_policy",
+            "device_policy",
+            "security"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "RuntimeSnapshot": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Envelope"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_id": {
+              "const": "zerovm.runtime-snapshot"
+            },
+            "vm_id": {
+              "$ref": "#/$defs/id"
+            },
+            "runtime_generation": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "state": {
+              "enum": [
+                "CREATED",
+                "PREFLIGHT",
+                "PREPARED",
+                "STARTING",
+                "RUNNING",
+                "STOPPING",
+                "STOPPED",
+                "FAILED",
+                "DESTROYING",
+                "DESTROYED"
+              ]
+            },
+            "state_revision": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "backend_id": {
+              "$ref": "#/$defs/id"
+            },
+            "requested_resources": {
+              "type": "object"
+            },
+            "negotiated_resources": {
+              "type": "object"
+            },
+            "observed_usage": {
+              "type": "object"
+            },
+            "negotiated_devices": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "current_operation_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "last_error": {
+              "type": [
+                "object",
+                "null"
+              ]
+            },
+            "guest_boot_stage": {
+              "enum": [
+                "UNKNOWN",
+                "KERNEL_BOOTING",
+                "ANDROID_BOOTING",
+                "FRAMEWORK_READY",
+                "UI_READY",
+                "DEGRADED",
+                "UNHEALTHY"
+              ]
+            },
+            "created_at": {
+              "$ref": "#/$defs/timestamp"
+            },
+            "updated_at": {
+              "$ref": "#/$defs/timestamp"
+            }
+          },
+          "required": [
+            "schema_id",
+            "schema_version",
+            "vm_id",
+            "runtime_generation",
+            "state",
+            "state_revision",
+            "backend_id",
+            "guest_boot_stage",
+            "created_at",
+            "updated_at"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "RomManifest": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Envelope"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_id": {
+              "const": "zerovm.rom-manifest"
+            },
+            "manifest_id": {
+              "$ref": "#/$defs/id"
+            },
+            "source": {
+              "type": "object",
+              "properties": {
+                "source_type": {
+                  "enum": [
+                    "local_file",
+                    "archive",
+                    "ota",
+                    "payload",
+                    "transfer"
+                  ]
+                },
+                "source_digest": {
+                  "$ref": "#/$defs/digest"
+                },
+                "source_size_bytes": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "source_name": {
+                  "type": "string",
+                  "maxLength": 255
+                }
+              },
+              "required": [
+                "source_type",
+                "source_digest",
+                "source_size_bytes"
+              ],
+              "additionalProperties": false
+            },
+            "detected_format": {
+              "enum": [
+                "android_sparse",
+                "raw",
+                "super",
+                "payload",
+                "ota_zip",
+                "boot_image",
+                "unknown"
+              ]
+            },
+            "partitions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "size_bytes": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "digest": {
+                    "$ref": "#/$defs/digest"
+                  },
+                  "slot": {
+                    "enum": [
+                      "a",
+                      "b",
+                      "none"
+                    ]
+                  },
+                  "logical": {
+                    "type": "boolean"
+                  },
+                  "filesystem": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "name",
+                  "size_bytes",
+                  "logical"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "boot_artifacts": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "boot",
+                  "vendor_boot",
+                  "init_boot",
+                  "dtb",
+                  "dtbo",
+                  "vbmeta",
+                  "recovery"
+                ]
+              }
+            },
+            "avb_assessment": {
+              "enum": [
+                "not_present",
+                "verified",
+                "unverified",
+                "invalid",
+                "unknown"
+              ]
+            },
+            "vintf_assessment": {
+              "enum": [
+                "not_parsed",
+                "parsed",
+                "compatible",
+                "incompatible",
+                "unknown"
+              ]
+            },
+            "parser_version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "warnings": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "errors": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "schema_id",
+            "schema_version",
+            "manifest_id",
+            "source",
+            "detected_format",
+            "partitions",
+            "parser_version"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ImageSet": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Envelope"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_id": {
+              "const": "zerovm.image-set"
+            },
+            "image_set_id": {
+              "$ref": "#/$defs/id"
+            },
+            "source_manifest_id": {
+              "$ref": "#/$defs/id"
+            },
+            "partitions": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "image_digest": {
+                    "$ref": "#/$defs/digest"
+                  },
+                  "size_bytes": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "role": {
+                    "enum": [
+                      "system",
+                      "vendor",
+                      "product",
+                      "system_ext",
+                      "odm",
+                      "boot",
+                      "vendor_boot",
+                      "init_boot",
+                      "vbmeta",
+                      "userdata",
+                      "metadata",
+                      "other"
+                    ]
+                  },
+                  "read_only": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "name",
+                  "image_digest",
+                  "size_bytes",
+                  "role",
+                  "read_only"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "compatibility_assessment": {
+              "enum": [
+                "not_checked",
+                "compatible",
+                "incompatible",
+                "conditional"
+              ]
+            },
+            "transformation_history": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          "required": [
+            "schema_id",
+            "schema_version",
+            "image_set_id",
+            "source_manifest_id",
+            "partitions",
+            "compatibility_assessment"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "GuestPlatformProfile": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Envelope"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_id": {
+              "const": "zerovm.guest-platform-profile"
+            },
+            "profile_id": {
+              "$ref": "#/$defs/id"
+            },
+            "revision": {
+              "type": "string",
+              "minLength": 1
+            },
+            "android": {
+              "type": "object",
+              "properties": {
+                "release": {
+                  "type": "string"
+                },
+                "api_level": {
+                  "type": "integer",
+                  "minimum": 28
+                },
+                "abi": {
+                  "enum": [
+                    "arm64-v8a",
+                    "armeabi-v7a",
+                    "x86_64",
+                    "x86"
+                  ]
+                },
+                "vndk_level": {
+                  "type": [
+                    "integer",
+                    "string"
+                  ]
+                },
+                "vintf_level": {
+                  "type": [
+                    "integer",
+                    "string"
+                  ]
+                }
+              },
+              "required": [
+                "release",
+                "api_level",
+                "abi"
+              ],
+              "additionalProperties": false
+            },
+            "kernel": {
+              "type": "object",
+              "properties": {
+                "source": {
+                  "type": "string"
+                },
+                "revision": {
+                  "type": "string"
+                },
+                "config_digest": {
+                  "$ref": "#/$defs/digest"
+                },
+                "kmi": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "source",
+                "revision"
+              ],
+              "additionalProperties": false
+            },
+            "boot": {
+              "type": "object",
+              "properties": {
+                "header_version": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "artifacts": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "boot",
+                      "vendor_boot",
+                      "init_boot",
+                      "dtb",
+                      "dtbo",
+                      "ramdisk",
+                      "bootconfig"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "header_version",
+                "artifacts"
+              ],
+              "additionalProperties": false
+            },
+            "partition_layout_id": {
+              "$ref": "#/$defs/id"
+            },
+            "virtual_hardware_abi": {
+              "type": "string"
+            },
+            "backend_constraints": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "validation_state": {
+              "enum": [
+                "DRAFT",
+                "PARSED",
+                "COMPATIBILITY_CHECKED",
+                "BOOT_TESTED",
+                "FRAMEWORK_TESTED",
+                "DEVICE_VALIDATED",
+                "DEPRECATED"
+              ]
+            },
+            "validated_targets": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rom_family": {
+                    "type": "string"
+                  },
+                  "device": {
+                    "type": "string"
+                  },
+                  "build_fingerprint": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "evidence_uri": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "level": {
+                    "enum": [
+                      "R0",
+                      "R1",
+                      "R2",
+                      "R3",
+                      "R4",
+                      "R5",
+                      "R6"
+                    ]
+                  }
+                },
+                "required": [
+                  "rom_family",
+                  "device",
+                  "level"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "schema_id",
+            "schema_version",
+            "profile_id",
+            "revision",
+            "android",
+            "kernel",
+            "boot",
+            "virtual_hardware_abi",
+            "validation_state"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "VirtualHardwareManifest": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Envelope"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_id": {
+              "const": "zerovm.virtual-hardware-manifest"
+            },
+            "manifest_id": {
+              "$ref": "#/$defs/id"
+            },
+            "devices": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "device_id": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "device_type": {
+                    "enum": [
+                      "virtio-block",
+                      "virtio-net",
+                      "virtio-console",
+                      "virtio-vsock",
+                      "virtio-gpu",
+                      "virtio-input",
+                      "virtio-snd",
+                      "rtc",
+                      "battery",
+                      "sensor-bridge",
+                      "camera-bridge",
+                      "other"
+                    ]
+                  },
+                  "abi_major": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "abi_minor": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "transport": {
+                    "enum": [
+                      "virtio-mmio",
+                      "virtio-pci",
+                      "backend-native",
+                      "host-bridge"
+                    ]
+                  },
+                  "required_features": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "optional_features": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "validation_state": {
+                    "enum": [
+                      "requested",
+                      "negotiated",
+                      "validated",
+                      "degraded",
+                      "unavailable"
+                    ]
+                  }
+                },
+                "required": [
+                  "device_id",
+                  "device_type",
+                  "abi_major",
+                  "abi_minor",
+                  "transport",
+                  "required_features",
+                  "optional_features",
+                  "validation_state"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "schema_id",
+            "schema_version",
+            "manifest_id",
+            "devices"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "PartitionGraph": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Envelope"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_id": {
+              "const": "zerovm.partition-graph"
+            },
+            "graph_id": {
+              "$ref": "#/$defs/id"
+            },
+            "image_set_id": {
+              "$ref": "#/$defs/id"
+            },
+            "nodes": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "node_id": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "kind": {
+                    "enum": [
+                      "disk",
+                      "gpt_partition",
+                      "super_container",
+                      "logical_partition",
+                      "filesystem",
+                      "boot_artifact"
+                    ]
+                  },
+                  "parent_id": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "offset_bytes": {
+                    "$ref": "#/$defs/bytes"
+                  },
+                  "length_bytes": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "slot": {
+                    "enum": [
+                      "a",
+                      "b",
+                      "none"
+                    ]
+                  },
+                  "filesystem": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "backing_digest": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/$defs/digest"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "read_only": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "node_id",
+                  "kind",
+                  "offset_bytes",
+                  "length_bytes",
+                  "read_only"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "schema_id",
+            "schema_version",
+            "graph_id",
+            "image_set_id",
+            "nodes"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "HostCapabilityManifest": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Envelope"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_id": {
+              "const": "zerovm.host-capability"
+            },
+            "host_snapshot_id": {
+              "$ref": "#/$defs/id"
+            },
+            "probed_at": {
+              "$ref": "#/$defs/timestamp"
+            },
+            "platform": {
+              "type": "object",
+              "properties": {
+                "android_api": {
+                  "type": "integer",
+                  "minimum": 21
+                },
+                "kernel_release": {
+                  "type": "string"
+                },
+                "abi": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "android_api",
+                "abi"
+              ],
+              "additionalProperties": false
+            },
+            "virtualization": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "backend_id": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "advertised": {
+                    "type": "boolean"
+                  },
+                  "probed": {
+                    "type": "boolean"
+                  },
+                  "authorized": {
+                    "type": "boolean"
+                  },
+                  "available": {
+                    "type": "boolean"
+                  },
+                  "reason": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "backend_id",
+                  "advertised",
+                  "probed",
+                  "authorized",
+                  "available"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "resources": {
+              "type": "object",
+              "properties": {
+                "memory_total_bytes": {
+                  "$ref": "#/$defs/bytes"
+                },
+                "memory_available_bytes": {
+                  "$ref": "#/$defs/bytes"
+                },
+                "storage_available_bytes": {
+                  "$ref": "#/$defs/bytes"
+                },
+                "thermal_status": {
+                  "enum": [
+                    "none",
+                    "light",
+                    "moderate",
+                    "severe",
+                    "critical",
+                    "emergency",
+                    "shutdown",
+                    "unknown"
+                  ]
+                }
+              },
+              "required": [
+                "memory_total_bytes",
+                "memory_available_bytes",
+                "storage_available_bytes"
+              ],
+              "additionalProperties": false
+            },
+            "probe_confidence": {
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "probe_errors": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "schema_id",
+            "schema_version",
+            "host_snapshot_id",
+            "probed_at",
+            "platform",
+            "virtualization",
+            "resources",
+            "probe_confidence"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ResourceBudget": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Envelope"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema_id": {
+              "const": "zerovm.resource-budget"
+            },
+            "budget_id": {
+              "$ref": "#/$defs/id"
+            },
+            "host_snapshot_id": {
+              "$ref": "#/$defs/id"
+            },
+            "computed_at": {
+              "$ref": "#/$defs/timestamp"
+            },
+            "valid_until": {
+              "$ref": "#/$defs/timestamp"
+            },
+            "cpu": {
+              "type": "object",
+              "properties": {
+                "requested_min": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "requested_max": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "allocated_vcpus": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "backend_limit": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "requested_min",
+                "requested_max",
+                "allocated_vcpus"
+              ],
+              "additionalProperties": false
+            },
+            "memory": {
+              "type": "object",
+              "properties": {
+                "requested_min_bytes": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "requested_max_bytes": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "host_reserve_bytes": {
+                  "$ref": "#/$defs/bytes"
+                },
+                "allocated_bytes": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "backend_limit_bytes": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/bytes"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "requested_min_bytes",
+                "requested_max_bytes",
+                "host_reserve_bytes",
+                "allocated_bytes"
+              ],
+              "additionalProperties": false
+            },
+            "pressure_policy": {
+              "enum": [
+                "none",
+                "reduce_uncommitted",
+                "pause_optional_devices",
+                "reject_start",
+                "stop_guest"
+              ]
+            },
+            "decision_reasons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "schema_id",
+            "schema_version",
+            "budget_id",
+            "host_snapshot_id",
+            "computed_at",
+            "valid_until",
+            "cpu",
+            "memory",
+            "pressure_policy"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}
