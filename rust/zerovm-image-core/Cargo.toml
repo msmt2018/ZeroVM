@@ -1,0 +1,9 @@
+[package]
+name = "zerovm-image-core"
+version = "0.1.0"
+edition = "2024"
+license = "Apache-2.0"
+description = "Bounded primitives for ZeroVM image parsing"
+[lib]
+crate-type = ["rlib"]
+[dependencies]
