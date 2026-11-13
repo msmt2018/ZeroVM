@@ -1,4 +1,3 @@
-# Gradle files
 .gradle/
 build/
 .kotlin/
@@ -20,7 +19,8 @@ render.experimental.xml
 google-services.json
 *.hprof
 
-# Downloaded upstream worktrees; resolved revisions are tracked separately.
+# Downloaded upstream worktrees and local manifest Git repo.
 third_party/aosp/
+third_party/.manifest-repo/
 third_party/SOURCE_LOCK.xml
 third_party/SOURCE_LOCK.json

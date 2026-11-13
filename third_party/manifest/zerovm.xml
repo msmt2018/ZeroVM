@@ -2,7 +2,10 @@
 <manifest>
   <remote name="aosp" fetch="https://android.googlesource.com/" />
   <remote name="github" fetch="https://github.com/" />
-  <default remote="aosp" revision="refs/heads/android-latest-release" sync-j="4" />
+  <!-- Resolved from AOSP's android-latest-release manifest at the time this baseline was created. -->
+  <default remote="aosp" revision="refs/heads/android16-qpr1-release" sync-j="4" />
+
+  <!-- Android image, partition, boot and low-level runtime primitives. -->
   <project name="platform/system/core" path="system/core" groups="default,zerovm-core,image" />
   <project name="platform/external/avb" path="external/avb" groups="default,zerovm-core,image,security" />
   <project name="platform/system/libbase" path="system/libbase" groups="default,zerovm-core" />
@@ -17,11 +20,22 @@
   <project name="platform/external/libxml2" path="external/libxml2" groups="default,zerovm-core,image" />
   <project name="platform/external/protobuf" path="external/protobuf" groups="default,zerovm-core,protocol" />
   <project name="platform/external/googletest" path="external/googletest" groups="default,zerovm-core,test" />
+  <project name="platform/external/e2fsprogs" path="external/e2fsprogs" groups="default,zerovm-image,image" />
+  <project name="platform/external/f2fs-tools" path="external/f2fs-tools" groups="default,zerovm-image,image" />
+  <project name="platform/external/erofs-utils" path="external/erofs-utils" groups="default,zerovm-image,image" />
+
+  <!-- AVF, Cuttlefish and Guest Kernel source references. -->
   <project name="platform/packages/modules/Virtualization" path="packages/modules/Virtualization" groups="default,zerovm-avf,backend" />
   <project name="device/google/cuttlefish" path="device/google/cuttlefish" groups="default,zerovm-reference,guest-platform" />
   <project name="kernel/common" path="kernel/common" revision="refs/heads/android16-6.12-2025-12" groups="default,zerovm-kernel,guest-kernel" />
+
+  <!-- Graphics source inputs; acceleration is not implied by checkout. -->
   <project name="platform/external/minigbm" path="external/minigbm" groups="default,zerovm-graphics,graphics" />
   <project name="platform/external/libdrm" path="external/libdrm" groups="default,zerovm-graphics,graphics" />
   <project name="platform/hardware/google/gfxstream" path="hardware/google/gfxstream" groups="default,zerovm-graphics,graphics" />
-  <project name="google/crosvm" remote="github" path="external/crosvm" revision="9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe" upstream="refs/heads/main" groups="default,zerovm-vmm,vmm,virtio" />
+
+  <!-- crosvm is pinned to an immutable upstream commit. -->
+  <project name="google/crosvm" remote="github" path="external/crosvm"
+           revision="9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe"
+           upstream="refs/heads/main" groups="default,zerovm-vmm,vmm,virtio" />
 </manifest>

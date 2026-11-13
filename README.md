@@ -19,7 +19,7 @@ Install Git, Python 3 and the official Android repo launcher, then run:
 
     bash third_party/scripts/sync_sources.sh
 
-This checks out selected AOSP image/partition libraries, AVF, Android Common Kernel, Cuttlefish reference sources, minigbm, libdrm, gfxstream, crosvm and support libraries into third_party/aosp/. The manifest pins crosvm to an immutable commit and records exact resolved revisions in generated source-lock files.
+This checks out selected AOSP image/partition libraries, AVF, Android Common Kernel, Cuttlefish reference sources, minigbm, libdrm, gfxstream, crosvm, filesystem tools and support libraries into third_party/aosp/. The manifest pins crosvm to an immutable commit and records exact resolved revisions in generated source-lock files.
 
 This is a selective source intake, not a full AOSP mirror. Source checkout does not mean ZeroVM has integrated, built or validated those components. See docs/36-upstream-source-checkout-and-license-governance.md.
 

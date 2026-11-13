@@ -42,6 +42,8 @@
 34. [机器可读 Schema 与契约验证](34-machine-readable-schemas-and-validation.md)
 35. [Implementation foundation 与工具链基线](35-implementation-foundation-and-toolchain.md)
 36. [上游核心源码拉取与许可证治理](36-upstream-source-checkout-and-license-governance.md)
+35. [Implementation foundation 与工具链基线](35-implementation-foundation-and-toolchain.md)
+36. [上游核心源码拉取与许可证治理](36-upstream-source-checkout-and-license-governance.md)
 
 ## 设计基线
 

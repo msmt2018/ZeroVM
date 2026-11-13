@@ -2,7 +2,7 @@
 
 ## Goal
 
-The repository now has an executable source-intake manifest. Selected sources are checked out into the local ZeroVM workspace by the official Android repo tool. The manifest and sync script are tracked; downloaded upstream worktrees are not copied into ZeroVM source blobs.
+The repository has an executable source-intake manifest. Selected sources are checked out into the local ZeroVM workspace by the official Android repo tool. The manifest and sync script are tracked; downloaded upstream worktrees are not copied into ZeroVM source blobs.
 
 ## Selected source groups
 
@@ -17,6 +17,7 @@ The repository now has an executable source-intake manifest. Selected sources ar
 | Cuttlefish | third_party/aosp/device/google/cuttlefish | Complete virtual-device reference |
 | minigbm/libdrm/gfxstream | third_party/aosp/external/* and hardware/google/gfxstream | Graphics source reference |
 | crosvm | third_party/aosp/external/crosvm | VMM and VirtIO device source |
+| e2fsprogs/f2fs-tools/erofs-utils | third_party/aosp/external/* | Guest filesystem tooling |
 | BoringSSL/zstd/lz4/libxml2/protobuf/googletest | third_party/aosp/external/* | Support libraries and tests |
 
 The manifest is selective and does not sync the entire AOSP tree. Add projects only when a concrete build or source dependency is identified.
@@ -27,9 +28,9 @@ Run:
 
     bash third_party/scripts/sync_sources.sh
 
-The script requires Git, Python 3 and the official Android repo launcher. It creates a temporary local manifest repository from the tracked XML, initializes third_party/aosp, syncs selected Android Git projects and the pinned GitHub crosvm commit, then exports a fully resolved Repo manifest and JSON source lock.
+The script requires Git, Python 3 and the official Android repo launcher. It creates a persistent local manifest Git repository from the tracked XML, initializes third_party/aosp, syncs selected Android Git projects and the pinned GitHub crosvm commit, then exports a fully resolved Repo manifest and JSON source lock.
 
-AOSP projects default to android-latest-release. Android Common Kernel is selected from the Android 16 / 6.12 maintenance line. crosvm is pinned to immutable commit 9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe. The generated SOURCE_LOCK.xml records exact resolved SHAs for all checked-out projects. Review and commit both generated lock files when updating the baseline.
+The selected Android release baseline is android16-qpr1-release, matching the android-latest-release manifest at the time this baseline was prepared. Android Common Kernel is selected from the Android 16 / 6.12 maintenance line. crosvm is pinned to immutable commit 9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe. The generated SOURCE_LOCK.xml records exact resolved SHAs for all checked-out projects. Review and commit both generated lock files when updating the baseline.
 
 The default checkout is shallow. Set ZEROVM_SYNC_DEPTH=0 for full history and ZEROVM_SYNC_JOBS to control parallelism.
 
