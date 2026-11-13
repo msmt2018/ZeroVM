@@ -1,0 +1,33 @@
+{
+  "schema_id": "zerovm.vm-spec",
+  "schema_version": 1,
+  "vm_id": "vm:bad-001",
+  "display_name": "Invalid Guest",
+  "guest_profile": {
+    "profile_id": "profile:aosp-api35-arm64",
+    "revision": "1"
+  },
+  "image_set_id": "imageset:demo-001",
+  "resource_policy": {
+    "cpu": {
+      "mode": "adaptive",
+      "min": 8,
+      "max": 4
+    },
+    "memory": {
+      "mode": "adaptive",
+      "min": 4294967296,
+      "max": 2147483648
+    },
+    "storage": {
+      "quota_bytes": 0
+    }
+  },
+  "device_policy": {
+    "display": "required"
+  },
+  "security": {
+    "vm_isolation": "required",
+    "verified_boot_policy": "profile_defined"
+  }
+}
