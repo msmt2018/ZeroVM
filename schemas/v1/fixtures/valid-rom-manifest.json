@@ -1,0 +1,32 @@
+{
+  "schema_id": "zerovm.rom-manifest",
+  "schema_version": 1,
+  "manifest_id": "manifest:demo",
+  "source": {
+    "source_type": "local_file",
+    "source_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "source_size_bytes": 1048576,
+    "source_name": "system.img"
+  },
+  "detected_format": "raw",
+  "partitions": [
+    {
+      "name": "system",
+      "size_bytes": 1073741824,
+      "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "slot": "none",
+      "logical": true,
+      "filesystem": "ext4"
+    }
+  ],
+  "boot_artifacts": [
+    "boot",
+    "vendor_boot",
+    "vbmeta"
+  ],
+  "avb_assessment": "unknown",
+  "vintf_assessment": "not_parsed",
+  "parser_version": "0.1.0",
+  "warnings": [],
+  "errors": []
+}
