@@ -21,15 +21,17 @@ Install Git, Python 3 and the official Android `repo` launcher, then run:
 bash third_party/scripts/sync_sources.sh
 ```
 
-The manifest contains 73 upstream projects. Its default group includes selected AOSP platform/runtime and archive codec sources, Android Common Kernel (KVM/pKVM/VirtIO source), AVF/Microdroid, crosvm, Cuttlefish, Android Emulator QEMU/goldfish/AEMU sources, virtual graphics, GSI/DSU, recovery/OTA, payload.bin extraction, legacy .dat/.patch OTA reconstruction, super.img/lpunpack/lpmake, sparse/raw conversion, ext4/EROFS/F2FS, boot/vendor_boot/init_boot unpack/repack, AVB/vbmeta and DTB/DTBO tools. Optional groups add broader ROM suites, OEM firmware extractors, mainline Linux and CTS/VTS.
+The manifest contains 73 upstream projects. The default group contains the hardware-virtualization runtime foundation: Android Common Kernel (ARM64 KVM/pKVM/VirtIO), AVF/Microdroid, crosvm as a VMM candidate, Android platform/Guest framework, virtual-device interfaces, graphics/audio bridges, Guest boot chain, GSI/DSU, recovery/OTA, payload.bin extraction, legacy .dat/.patch OTA reconstruction, super.img/lpunpack/lpmake, sparse/raw conversion, ext4/EROFS/F2FS, boot/vendor_boot/init_boot tooling, AVB/vbmeta and DTB/DTBO tools. Optional groups add ROM-format references, mainline Linux comparison, UEFI firmware reference, Bluetooth and CTS/VTS validation.
 
-To additionally fetch the optional upstream mainline Linux comparison tree and Android CTS/VTS validation sources:
+**QEMU, Android Emulator, Goldfish, AEMU and Cuttlefish emulator/device images are deliberately excluded.** ZeroDroid does not boot Android images through a software CPU emulator. Its target execution path is hardware-assisted ARM64 virtualization (AVF/KVM/pKVM) with a VMM and paravirtualized devices. A device without a usable hardware virtualization path must be reported as unsupported; it must not silently fall back to QEMU-style CPU emulation.
+
+To fetch every manifest group, including optional ROM references, Linux/UEFI/Bluetooth references and CTS/VTS:
 
 ```bash
 ZERODROID_SYNC_GROUPS=default,zerodroid-rom-reference,zerodroid-optional,zerodroid-test bash third_party/scripts/sync_sources.sh
 ```
 
-This is a curated source intake, not a complete AOSP or Android Studio mirror. The script creates separate upstream worktrees under `third_party/aosp/` and generates `SOURCE_LOCK.xml` / `SOURCE_LOCK.json` with exact resolved revisions. Source checkout does not mean ZeroDroid has integrated, built or validated those components. See [source matrix](third_party/UPSTREAMS.md) and [source governance](docs/36-upstream-source-checkout-and-license-governance.md).
+This is a curated source intake, not a complete AOSP mirror. The script creates separate upstream worktrees under `third_party/aosp/` and generates `SOURCE_LOCK.xml` / `SOURCE_LOCK.json` with exact resolved revisions. Source checkout does not mean ZeroDroid has integrated, built or validated those components. See [source matrix](third_party/UPSTREAMS.md) and [source governance](docs/36-upstream-source-checkout-and-license-governance.md).
 
 ## Toolchain baseline
 
