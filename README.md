@@ -4,24 +4,32 @@ ZeroDroid aims to provide an independent Android Guest system environment on And
 
 ## Repository layout
 
-- app/: Android application shell.
-- core/: Kotlin common, model, runtime API and JNI bridge modules.
-- native/: public C ABI and C++ runtime foundation.
-- rust/: memory-safe image parsing primitives.
-- schemas/: versioned machine-readable contracts.
-- third_party/manifest/: selected upstream source manifest.
-- third_party/scripts/: reproducible source checkout and lock generation.
-- docs/: architecture, security, interfaces and validation specifications.
+- `app/`: Android application shell.
+- `core/`: Kotlin common, model, runtime API and JNI bridge modules.
+- `native/`: public C ABI and C++ runtime foundation.
+- `rust/`: memory-safe image parsing primitives.
+- `schemas/`: versioned machine-readable contracts.
+- `third_party/manifest/`: selected upstream source manifest.
+- `third_party/scripts/`: reproducible source checkout and lock generation.
+- `docs/`: architecture, security, interfaces and validation specifications.
 
-## Pull upstream core source
+## Pull upstream source projects
 
-Install Git, Python 3 and the official Android repo launcher, then run:
+Install Git, Python 3 and the official Android `repo` launcher, then run:
 
-    bash third_party/scripts/sync_sources.sh
+```bash
+bash third_party/scripts/sync_sources.sh
+```
 
-This checks out selected AOSP image/partition libraries, AVF, Android Common Kernel, Cuttlefish reference sources, minigbm, libdrm, gfxstream, crosvm, filesystem tools and support libraries into third_party/aosp/. The manifest pins crosvm to an immutable commit and records exact resolved revisions in generated source-lock files.
+The default manifest includes selected AOSP platform/runtime sources, Android Common Kernel (KVM/pKVM/VirtIO source), AVF/Microdroid, crosvm, Cuttlefish, Android Emulator QEMU/goldfish/AEMU sources, virtual graphics projects, recovery/OTA/boot image tooling and filesystem dependencies.
 
-This is a selective source intake, not a full AOSP mirror. Source checkout does not mean ZeroDroid has integrated, built or validated those components. See docs/36-upstream-source-checkout-and-license-governance.md.
+For the optional upstream mainline Linux comparison tree:
+
+```bash
+ZERODROID_SYNC_GROUPS=default,zerodroid-optional bash third_party/scripts/sync_sources.sh
+```
+
+This is a curated source intake, not a complete AOSP or Android Studio mirror. The script creates separate upstream worktrees under `third_party/aosp/` and generates `SOURCE_LOCK.xml` / `SOURCE_LOCK.json` with exact resolved revisions. Source checkout does not mean ZeroDroid has integrated, built or validated those components. See [source matrix](third_party/UPSTREAMS.md) and [source governance](docs/36-upstream-source-checkout-and-license-governance.md).
 
 ## Toolchain baseline
 
@@ -31,4 +39,4 @@ AGP 9.5.0 / Gradle 9.6.0, JDK 25, Android API 37, NDK r30 30.0.16248370, C++20 a
 
 The current application and native code are foundation modules only. No production AVF/crosvm/KVM backend is wired. Ordinary APKs are not assumed to possess privileged virtualization permissions. No arbitrary OEM ROM compatibility, universal Cuttlefish Vendor, or default AVB/SELinux bypass is claimed.
 
-See docs/README.md for the full technical documentation index.
+See [technical documentation index](docs/README.md).
