@@ -21,12 +21,12 @@ Install Git, Python 3 and the official Android `repo` launcher, then run:
 bash third_party/scripts/sync_sources.sh
 ```
 
-The default manifest includes selected AOSP platform/runtime sources, Android Common Kernel (KVM/pKVM/VirtIO source), AVF/Microdroid, crosvm, Cuttlefish, Android Emulator QEMU/goldfish/AEMU sources, virtual graphics projects, GSI/DSU installer, recovery/OTA/boot image tooling, kernel build infrastructure and filesystem dependencies.
+The manifest contains 71 upstream projects. Its default group includes selected AOSP platform/runtime sources, Android Common Kernel (KVM/pKVM/VirtIO source), AVF/Microdroid, crosvm, Cuttlefish, Android Emulator QEMU/goldfish/AEMU sources, virtual graphics, GSI/DSU, recovery/OTA, payload.bin extraction, legacy .dat/.patch OTA reconstruction, super.img/lpunpack/lpmake, sparse/raw conversion, ext4/EROFS/F2FS, boot/vendor_boot/init_boot unpack/repack, AVB/vbmeta and DTB/DTBO tools. Optional groups add broader ROM suites, OEM firmware extractors, mainline Linux and CTS/VTS.
 
 To additionally fetch the optional upstream mainline Linux comparison tree and Android CTS/VTS validation sources:
 
 ```bash
-ZERODROID_SYNC_GROUPS=default,zerodroid-optional,zerodroid-test bash third_party/scripts/sync_sources.sh
+ZERODROID_SYNC_GROUPS=default,zerodroid-rom-reference,zerodroid-optional,zerodroid-test bash third_party/scripts/sync_sources.sh
 ```
 
 This is a curated source intake, not a complete AOSP or Android Studio mirror. The script creates separate upstream worktrees under `third_party/aosp/` and generates `SOURCE_LOCK.xml` / `SOURCE_LOCK.json` with exact resolved revisions. Source checkout does not mean ZeroDroid has integrated, built or validated those components. See [source matrix](third_party/UPSTREAMS.md) and [source governance](docs/36-upstream-source-checkout-and-license-governance.md).
