@@ -44,14 +44,14 @@ AOSP `system/extras/partition_tools` is the source of `lpdump`, `lpunpack` and `
 
 ## Source groups and full checkout
 
-The manifest currently contains 71 project entries:
+The manifest currently contains 73 project entries:
 
 - `default`: 62 projects, including the core ROM/image pipeline and primary Android platform/runtime sources.
 - `zerodroid-rom-reference`: 6 optional references (TIK, RomTools, standalone sparse converter, OEM firmware extractor, Magisk and AnyKernel3).
 - `zerodroid-optional`: 1 upstream mainline Linux reference tree.
 - `zerodroid-test`: 2 large CTS/VTS test trees.
 
-Install Git, Python 3 and the official Android `repo` launcher, then run from the repository root to download all 71 projects:
+Install Git, Python 3 and the official Android `repo` launcher, then run from the repository root to download all 73 projects:
 
     ZERODROID_SYNC_GROUPS=default,zerodroid-rom-reference,zerodroid-optional,zerodroid-test bash third_party/scripts/sync_sources.sh
 
