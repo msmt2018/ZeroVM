@@ -1,8 +1,8 @@
 # 17. 启动 Android Guest 所需的完整条件清单
 
-本文回答一个核心工程问题：ZeroVM 要具备什么条件，才能把 Android 的 `system.img`、`boot.img`、Linux Kernel 和其他镜像组合成一台真正可启动的 Android Guest 设备。
+本文回答一个核心工程问题：ZeroDroid 要具备什么条件，才能把 Android 的 `system.img`、`boot.img`、Linux Kernel 和其他镜像组合成一台真正可启动的 Android Guest 设备。
 
-> 本文描述启动所需的输入、依赖和验证条件，不代表这些模块已经在 ZeroVM 中实现。镜像文件名并不能证明其内容、版本或相互兼容。
+> 本文描述启动所需的输入、依赖和验证条件，不代表这些模块已经在 ZeroDroid 中实现。镜像文件名并不能证明其内容、版本或相互兼容。
 
 ## 1. 先明确：启动的不是一个 IMG，而是一整套设备平台
 
@@ -10,7 +10,7 @@ Android 启动至少涉及以下关系：
 
 ```text
 Host Android
-  └─ ZeroVM Runtime
+  └─ ZeroDroid Runtime
       └─ Virtualization Backend / Hypervisor
           ├─ vCPU + Guest RAM + Interrupt Controller
           ├─ Virtual Devices (Block / Net / Console / Vsock / GPU ...)
@@ -24,7 +24,7 @@ Host Android
                     └─ System Server → SurfaceFlinger → Launcher
 ```
 
-`system.img` 通常只提供 Android System 分区内容。它不会自动提供适用于 ZeroVM 虚拟硬件的 Guest Kernel、DTB、Vendor HAL、启动 Ramdisk、设备驱动和 VMM。
+`system.img` 通常只提供 Android System 分区内容。它不会自动提供适用于 ZeroDroid 虚拟硬件的 Guest Kernel、DTB、Vendor HAL、启动 Ramdisk、设备驱动和 VMM。
 
 因此必须把“镜像是否齐全”和“镜像是否能组成兼容的 Guest 设备”分开检查。
 
@@ -74,7 +74,7 @@ CPU 有 ARM64 指令集不等于具备可供普通 App 使用的硬件虚拟化�
 | product.img / system_ext.img / odm.img | 额外系统组件、产品定制和设备扩展 | 视分区布局而定 |
 | super.img | Dynamic Partitions 的容器，保存逻辑分区和 LP metadata | 仅适用于采用动态分区布局的镜像集 |
 | vbmeta.img | AVB 验证元数据和分区描述符 | 按验证链和镜像方案提供 |
-| userdata.img | Guest 应用、用户设置和数据 | 可由 ZeroVM 创建独立虚拟数据盘 |
+| userdata.img | Guest 应用、用户设置和数据 | 可由 ZeroDroid 创建独立虚拟数据盘 |
 | metadata.img | 部分设备的元数据/加密相关存储 | 取决于 Guest 加密和 fstab 方案 |
 | dtbo.img | 设备树覆盖集合 | 仅在相应启动方案需要时提供 |
 | recovery / vendor_dlkm / system_dlkm | Recovery 环境或 Kernel 模块 | 按 Guest Profile 和驱动加载方式决定 |
@@ -129,7 +129,7 @@ Guest Kernel 是 Android 虚拟设备的基础。它必须针对 VMM 暴露的�
 - 模块加载路径必须在 first-stage init 可访问的分区或 Ramdisk 中。
 - 模块签名和加载策略必须符合 Guest Kernel 安全配置。
 
-优先以 Android Common Kernel 和 Cuttlefish 对应 Guest 平台为起点，构建 ZeroVM 专用 Kernel 配置和必要补丁；不要直接把任意手机的 vendor kernel 当作通用 Guest Kernel。
+优先以 Android Common Kernel 和 Cuttlefish 对应 Guest 平台为起点，构建 ZeroDroid 专用 Kernel 配置和必要补丁；不要直接把任意手机的 vendor kernel 当作通用 Guest Kernel。
 
 ## 5. boot.img、vendor_boot.img 和 init_boot.img 的解析条件
 
@@ -190,7 +190,7 @@ ARM64 Guest 通常需要设备树描述运行平台。DTB 至少应正确表达�
 
 DTB 不能照搬宿主手机的设备树：宿主物理设备地址、中断号、IOMMU、GPIO 和驱动节点不代表 Guest 虚拟设备。
 
-ZeroVM 应实现或集成版本化 DTB Builder，并从同一份 Virtual Hardware Manifest 生成 VMM 设备配置和 Guest DTB，避免两边描述不一致。
+ZeroDroid 应实现或集成版本化 DTB Builder，并从同一份 Virtual Hardware Manifest 生成 VMM 设备配置和 Guest DTB，避免两边描述不一致。
 
 ## 7. system.img 与 Android 分区必须满足的条件
 
@@ -229,10 +229,10 @@ ZeroVM 应实现或集成版本化 DTB Builder，并从同一份 Virtual Hardwar
 - Treble/VINTF 约束满足；
 - 所需 VNDK/系统接口版本可用；
 - Guest Kernel 满足 GSI 所需内核功能；
-- Guest Vendor HAL 和虚拟设备驱动与 ZeroVM 虚拟硬件匹配；
+- Guest Vendor HAL 和虚拟设备驱动与 ZeroDroid 虚拟硬件匹配；
 - fstab、分区布局和 AVB 验证策略一致。
 
-**GSI 不是通用完整 ROM。** 仅有 GSI system.img 时，ZeroVM 必须提供经过验证的 Guest Platform Base（Kernel + Boot/Ramdisk + Vendor/HAL + VINTF + 虚拟硬件支持）。不能宣称一份 Cuttlefish vendor.img 可以兼容所有 GSI。
+**GSI 不是通用完整 ROM。** 仅有 GSI system.img 时，ZeroDroid 必须提供经过验证的 Guest Platform Base（Kernel + Boot/Ramdisk + Vendor/HAL + VINTF + 虚拟硬件支持）。不能宣称一份 Cuttlefish vendor.img 可以兼容所有 GSI。
 
 ## 8. Vendor、HAL 和 VINTF 必须满足的条件
 
@@ -299,7 +299,7 @@ Android Framework 启动后，需要找到与 Guest System 版本匹配的 HAL �
 
 只有达到预先定义的 Guest Ready 标准，才可把 VM 标记为 RUNNING。仅仅看到 Kernel Console 或 init 日志不算 Android 系统启动完成。
 
-## 12. ZeroVM 应实现的启动前检查器
+## 12. ZeroDroid 应实现的启动前检查器
 
 建议实现 `GuestBootPreflight`，在真正创建 VM 前生成结构化报告：
 
@@ -328,12 +328,12 @@ Android Framework 启动后，需要找到与 Guest System 版本匹配的 HAL �
 
 ## 13. 最小可行 Guest 平台建议
 
-ZeroVM 不应第一步就尝试启动“任意 GSI”。建议先固定一套可追溯的参考 Guest Platform：
+ZeroDroid 不应第一步就尝试启动“任意 GSI”。建议先固定一套可追溯的参考 Guest Platform：
 
 1. 选定一个目标 Android release/API 和 ARM64 ABI。
 2. 选用与该版本匹配的 Cuttlefish Guest Kernel、Boot/Ramdisk、DTB 和 Vendor/HAL 作为参考材料。
 3. 在 Linux/KVM/Cuttlefish 环境先验证完整 Guest 设备可启动。
-4. 在 ZeroVM 目标 Android 设备上验证实际可用的 AVF/KVM 后端、权限和 Guest 启动能力。
+4. 在 ZeroDroid 目标 Android 设备上验证实际可用的 AVF/KVM 后端、权限和 Guest 启动能力。
 5. 建立与 VMM 一致的 VirtIO 设备拓扑和 DTB。
 6. 先启动 Guest Kernel 和 Console，再推进 first-stage init、分区挂载、Android Framework。
 7. 先保证参考 Guest System 完整启动，再替换为一个明确版本的 GSI system.img。
