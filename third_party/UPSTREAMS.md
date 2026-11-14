@@ -1,6 +1,6 @@
 # Third-party source intake and checkout plan
 
-The executable manifest is `third_party/manifest/zerodroid.xml`. Run `bash third_party/scripts/sync_sources.sh` to download the 69 default projects into `third_party/aosp/`. The manifest contains 80 projects in total: 69 default, 6 optional ROM-suite references, 3 optional platform/firmware references and 2 optional Android compatibility test trees.
+The executable manifest is `third_party/manifest/zerodroid.xml`. Run `bash third_party/scripts/sync_sources.sh` to download all 80 upstream projects, including optional ROM references, Linux/UEFI/Bluetooth references and CTS/VTS test trees, into `third_party/aosp/`. The default is a full-history checkout of each selected branch, not a shallow clone. The manifest contains 80 projects in total: 69 default, 6 optional ROM-suite references, 3 optional platform/firmware references and 2 optional Android compatibility test trees. The canonical acquisition command selects every group; group filtering is only for deliberate partial workspaces.
 
 ## Android ROM and image pipeline source matrix
 
