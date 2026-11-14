@@ -21,7 +21,7 @@ Install Git, Python 3 and the official Android `repo` launcher, then run:
 bash third_party/scripts/sync_sources.sh
 ```
 
-The manifest contains 71 upstream projects. Its default group includes selected AOSP platform/runtime sources, Android Common Kernel (KVM/pKVM/VirtIO source), AVF/Microdroid, crosvm, Cuttlefish, Android Emulator QEMU/goldfish/AEMU sources, virtual graphics, GSI/DSU, recovery/OTA, payload.bin extraction, legacy .dat/.patch OTA reconstruction, super.img/lpunpack/lpmake, sparse/raw conversion, ext4/EROFS/F2FS, boot/vendor_boot/init_boot unpack/repack, AVB/vbmeta and DTB/DTBO tools. Optional groups add broader ROM suites, OEM firmware extractors, mainline Linux and CTS/VTS.
+The manifest contains 73 upstream projects. Its default group includes selected AOSP platform/runtime and archive codec sources, Android Common Kernel (KVM/pKVM/VirtIO source), AVF/Microdroid, crosvm, Cuttlefish, Android Emulator QEMU/goldfish/AEMU sources, virtual graphics, GSI/DSU, recovery/OTA, payload.bin extraction, legacy .dat/.patch OTA reconstruction, super.img/lpunpack/lpmake, sparse/raw conversion, ext4/EROFS/F2FS, boot/vendor_boot/init_boot unpack/repack, AVB/vbmeta and DTB/DTBO tools. Optional groups add broader ROM suites, OEM firmware extractors, mainline Linux and CTS/VTS.
 
 To additionally fetch the optional upstream mainline Linux comparison tree and Android CTS/VTS validation sources:
 
