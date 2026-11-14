@@ -2,7 +2,7 @@
 
 ## 1. Guest Platform 的定义
 
-Guest Platform 是让 Android System 能在 ZeroVM 虚拟硬件上运行的完整底座，不等于一份 Vendor 镜像。它包含 Kernel、模块、DTB、启动材料、分区布局、Vendor/HAL、VINTF、SELinux policy、init 配置和虚拟设备 ABI。
+Guest Platform 是让 Android System 能在 ZeroDroid 虚拟硬件上运行的完整底座，不等于一份 Vendor 镜像。它包含 Kernel、模块、DTB、启动材料、分区布局、Vendor/HAL、VINTF、SELinux policy、init 配置和虚拟设备 ABI。
 
 ## 2. 版本化平台策略
 
