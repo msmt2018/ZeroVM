@@ -6,6 +6,9 @@ ZeroDroid 必须依据真实 Host 设备和系统环境选择后端。SoC 理论
 
 ## 2. 分层能力探测
 
+Native Core exposes a bounded `/dev/kvm` probe through the C ABI and JNI. It reports the compile-time host architecture, whether the process can open `/dev/kvm`, the KVM API version, and the captured `errno` when access fails. The probe never creates a VM and never requests elevated privileges. `AVAILABLE` means only that the device node was opened and `KVM_GET_API_VERSION` returned the expected interface version; it does not establish AVF authorization, `KVM_CREATE_VM` permission, EL2 ownership, or Guest boot capability. `ACCESS_DENIED`, `UNAVAILABLE`, `INCOMPATIBLE`, and `ERROR` remain distinct outcomes. The Android layer must combine this evidence with API/service/permission probes before selecting a backend.
+
+
 每项能力分别记录 silicon、firmware、kernel、device node、service、app permission、backend API 和 end-to-end 状态。CPU feature 检测结果不能直接当作 KVM/AVF 可用结论。
 
 ## 3. Backend 选择

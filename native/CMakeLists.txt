@@ -6,6 +6,7 @@ option(ZERODROID_BUILD_TESTS "Build host-side native contract tests" ON)
 add_library(zerodroid_core STATIC
     src/status.cpp
     src/runtime.cpp
+    src/host_capabilities.cpp
 )
 target_include_directories(zerodroid_core PUBLIC include)
 target_compile_features(zerodroid_core PUBLIC cxx_std_20)
