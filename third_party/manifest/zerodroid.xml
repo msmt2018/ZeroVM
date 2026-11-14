@@ -78,7 +78,6 @@
   <project name="kernel/build" path="kernel/build" revision="refs/heads/main-kernel" groups="default,zerodroid-kernel,kernel-build" />
   <project name="kernel/common" path="kernel/common" revision="refs/heads/android16-6.12-lts" groups="default,zerodroid-kernel,guest-kernel,kvm,virtio" />
 
-  <!-- Official Android Emulator / QEMU source references. Not the production phone VMM. -->
 
   <!-- Virtual graphics, software rendering and Android graphics translation. -->
   <project name="platform/external/minigbm" path="external/minigbm" groups="default,zerodroid-graphics,graphics" />
