@@ -1,5 +1,5 @@
 {
-  "schema_id": "zerovm.partition-graph",
+  "schema_id": "zerodroid.partition-graph",
   "schema_version": 1,
   "graph_id": "graph:bad",
   "image_set_id": "imageset:demo",
