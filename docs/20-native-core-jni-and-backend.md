@@ -2,7 +2,7 @@
 
 ## 1. 设计目标
 
-Native Core 提供稳定的 VM 管理、镜像处理、启动编排和设备抽象。它不实现 Hypervisor，而是通过 Backend Adapter 使用平台真实提供的虚拟化能力。
+Native Core 提供稳定的 VM 管理、镜像处理、启动编排和设备抽象。ARM64 Guest 指令必须由硬件虚拟化扩展执行；Native Core/VMM 负责 KVM/AVF 接入、vCPU/内存/中断/设备运行管理，不得以 QEMU TCG 等软件 CPU 模拟替代。Hypervisor 能力来自 Host Kernel/固件/AVF，不是普通 App 可自行创建的功能。
 
 ## 2. Native 模块边界
 
@@ -11,7 +11,7 @@ Native Core 提供稳定的 VM 管理、镜像处理、启动编排和设备抽�
 - `vm/`：VM 对象、状态机、操作协调和句柄。
 - `backend/api/`：抽象接口和能力模型。
 - `backend/avf/`：AVF 适配。
-- `backend/crosvm/`：条件性 crosvm/KVM 适配。
+- `backend/kvm/`：经系统授权的 ARM64 KVM Backend 与 ZeroDroid VMM 设备运行时。\n- `backend/crosvm/`：可选的 VMM 实现适配/代码复用层，只有通过 Android ARM64 KVM、权限、设备模型和启动闭环验证后才启用；它不是 Hypervisor。
 - `backend/fake/`：测试后端。
 - `boot/`：Guest Boot Profile、启动参数和 Boot Orchestrator。
 - `image/`：镜像探测、解析、验证和分区。
@@ -86,7 +86,7 @@ Kotlin 不直接接触 C++ 对象、STL 类型或裸指针。JNI 边界采用：
 
 ## 8. Backend 适配策略
 
-AVF 和 crosvm 的配置模型不同。上层使用统一 Guest Profile 和 Virtual Hardware Manifest；Backend Adapter 将其转换为后端配置，并返回实际协商后的能力与资源。
+AVF 与直接 KVM/VMM 的配置模型不同。上层使用统一 Guest Profile 和 Virtual Hardware Manifest；Backend Adapter 将其转换为 AVF 或 KVM/VMM 配置，并返回实际协商后的能力与资源。QEMU/TCG、Android Emulator、Goldfish、AEMU 和 Cuttlefish 镜像启动明确不在候选后端中。
 
 启动前进行两次检查：
 - Static preflight：镜像、Profile、接口和权限。
