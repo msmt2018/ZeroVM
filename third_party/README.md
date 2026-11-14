@@ -1,4 +1,4 @@
-# ZeroVM third-party source workspace
+# ZeroDroid third-party source workspace
 
 Install Git, Python 3 and the official Android repo launcher, then run from the repository root:
 
