@@ -112,6 +112,10 @@ Android UI / Compose
 - ADR-006 Host/Guest Device Bridge Security
 - ADR-007 Guest Profile Versioning
 
-## 8. 工程完成标准
+## 8. Android ARM64 宿主适配强制门槛
+
+所有上游项目先按 ISA、Android ABI/Bionic、Linux 用户态依赖、Kernel ioctl/driver、PC 设备假设、SELinux/权限和 Guest ABI 七个维度审计。PC/x86/PCI/ACPI/APIC 等路径必须禁用或重写；Android 适配层不得伪造缺失的硬件或内核能力。详细决策和验收见 [Android ARM64 宿主移植规范](37-android-arm64-host-porting-and-adaptation.md)。
+
+## 9. 工程完成标准
 
 每个模块必须具备接口定义、实现、单元测试、集成测试、失败路径、日志/诊断、资源释放、文档和兼容性声明。未具备真实后端验证的功能标记为 planned 或 experimental。
