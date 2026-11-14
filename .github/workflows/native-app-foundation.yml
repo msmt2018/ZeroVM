@@ -72,6 +72,8 @@ jobs:
               "platform/external/f2fs-tools",
               "platform/external/erofs-utils",
               "platform/external/brotli",
+              "platform/external/zlib",
+              "platform/external/xz",
               "platform/external/libarchive",
               "platform/system/libufdt",
               "erfanoabdi/imgpatchtools",
