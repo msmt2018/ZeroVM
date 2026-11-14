@@ -1,6 +1,6 @@
-# ZeroVM
+# ZeroDroid
 
-ZeroVM aims to provide an independent Android Guest system environment on Android devices. The intended Guest has its own kernel, Android userspace, virtual hardware, storage and security boundary; it is not a container or process sandbox.
+ZeroDroid aims to provide an independent Android Guest system environment on Android devices. The intended Guest has its own kernel, Android userspace, virtual hardware, storage and security boundary; it is not a container or process sandbox.
 
 ## Repository layout
 
@@ -21,7 +21,7 @@ Install Git, Python 3 and the official Android repo launcher, then run:
 
 This checks out selected AOSP image/partition libraries, AVF, Android Common Kernel, Cuttlefish reference sources, minigbm, libdrm, gfxstream, crosvm, filesystem tools and support libraries into third_party/aosp/. The manifest pins crosvm to an immutable commit and records exact resolved revisions in generated source-lock files.
 
-This is a selective source intake, not a full AOSP mirror. Source checkout does not mean ZeroVM has integrated, built or validated those components. See docs/36-upstream-source-checkout-and-license-governance.md.
+This is a selective source intake, not a full AOSP mirror. Source checkout does not mean ZeroDroid has integrated, built or validated those components. See docs/36-upstream-source-checkout-and-license-governance.md.
 
 ## Toolchain baseline
 
