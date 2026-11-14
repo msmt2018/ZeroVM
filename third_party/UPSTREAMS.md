@@ -1,12 +1,12 @@
 # Third-party source intake and checkout plan
 
-The executable manifest is `third_party/manifest/zerodroid.xml`. Run `bash third_party/scripts/sync_sources.sh` to download the 62 default projects into `third_party/aosp/`. The manifest contains 71 projects in total: 62 default, 6 optional ROM-suite references, 1 upstream Linux reference and 2 optional Android compatibility test trees.
+The executable manifest is `third_party/manifest/zerodroid.xml`. Run `bash third_party/scripts/sync_sources.sh` to download the 64 default projects into `third_party/aosp/`. The manifest contains 73 projects in total: 62 default, 6 optional ROM-suite references, 1 upstream Linux reference and 2 optional Android compatibility test trees.
 
 ## Android ROM and image pipeline source matrix
 
 | Stage / format | Source project | What ZeroDroid can use it for |
 |---|---|---|
-| ROM ZIP / OTA ZIP | AOSP `system/core/libziparchive`, `external/libarchive`, zlib, bzip2, xz, Brotli, zstd, lz4 | Safe archive listing and extraction, compression codec support; ZIP metadata and path validation |
+| ROM ZIP / OTA ZIP | AOSP `system/core/libziparchive`, `external/libarchive`, AOSP zlib, bzip2, xz, Brotli, zstd, lz4 | Safe archive listing and extraction, compression codec support; ZIP metadata and path validation |
 | OTA `payload.bin` | AOSP `system/update_engine` | Authoritative payload metadata, operation, partition and delta-OTA semantics; OTA extractor and payload verification reference |
 | OTA `payload.bin` | `ssut/payload-dumper-go` | Standalone fast payload partition extraction, ZIP-in-place input, incremental OTA support and hash verification |
 | Legacy block OTA `.dat.br` | AOSP Brotli + `xpirt/sdat2img` | Decode Brotli-compressed block data and reconstruct raw partition image from transfer list + data |
