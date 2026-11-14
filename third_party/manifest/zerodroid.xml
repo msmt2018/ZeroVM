@@ -32,6 +32,8 @@
   <project name="platform/external/brotli" path="external/brotli" groups="default,zerodroid-image,compression" />
   <project name="platform/external/libarchive" path="external/libarchive" groups="default,zerodroid-image,archive" />
   <project name="platform/external/bzip2" path="external/bzip2" groups="default,zerodroid-image,compression" />
+  <project name="platform/external/zlib" path="external/zlib" groups="default,zerodroid-image,compression" />
+  <project name="platform/external/xz" path="external/xz" groups="default,zerodroid-image,compression,payload" />
   <project name="platform/system/libufdt" path="system/libufdt" groups="default,zerodroid-image,dtb,boot" />
   <project name="platform/external/googletest" path="external/googletest" groups="default,zerodroid-core,test" />
 
