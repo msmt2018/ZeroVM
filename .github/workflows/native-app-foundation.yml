@@ -51,11 +51,22 @@ jobs:
               "google/crosvm",
               "platform/external/minigbm",
               "platform/hardware/google/gfxstream",
+              "platform/bootable/recovery",
+              "platform/system/update_engine",
+              "platform/tools/emulator",
+              "platform/external/qemu",
+              "platform/external/crosvm",
+              "platform/frameworks/base",
+              "platform/hardware/interfaces",
           }
           missing = required - projects.keys()
           assert not missing, f"missing upstream projects: {sorted(missing)}"
           assert projects["google/crosvm"].get("revision") == "9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe"
-          assert projects["kernel/common"].get("revision", "").endswith("android16-6.12-2025-12")
+          paths = [p.get("path") for p in root.findall("project")]
+          assert len(paths) == len(set(paths)), "duplicate checkout paths in upstream manifest"
+          remote_names = {r.get("name") for r in root.findall("remote")}
+          assert all((p.get("remote") or root.find("default").get("remote")) in remote_names for p in root.findall("project"))
+          assert projects["kernel/common"].get("revision") == "refs/heads/android16-6.12-lts"
           print(f"validated {len(projects)} upstream project entries")
           PY
       - name: Validate source sync shell syntax
