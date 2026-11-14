@@ -2,55 +2,69 @@
 
 ## Goal
 
-The repository has an executable source-intake manifest. Selected sources are checked out into the local ZeroDroid workspace by the official Android repo tool. The manifest and sync script are tracked; downloaded upstream worktrees are not copied into ZeroDroid source blobs.
+ZeroDroid maintains an executable, curated upstream source manifest. The official Android `repo` tool checks selected AOSP repositories into a local workspace. The manifest and sync tooling are tracked in Git; large upstream worktrees are not copied into ZeroDroid-owned source modules.
 
-## Selected source groups
+## Source coverage
 
-| Source | Local checkout | Main use |
+| Source family | Local checkout examples | Primary purpose |
 |---|---|---|
-| AOSP platform/system/core | third_party/aosp/system/core | libsparse, liblp, fs_mgr, image and boot primitives |
-| AOSP external/avb | third_party/aosp/external/avb | libavb and AVB metadata |
-| AOSP libbase/logging/libfmq/libvintf | third_party/aosp/system/* | Native base, logging, IPC and VINTF |
-| AOSP SELinux + system/sepolicy | third_party/aosp/external/selinux and system/sepolicy | Guest policy/security reference |
-| AOSP AVF | third_party/aosp/packages/modules/Virtualization | Platform VM API/service reference |
-| Android Common Kernel | third_party/aosp/kernel/common | Guest ARM64 kernel baseline |
-| Cuttlefish | third_party/aosp/device/google/cuttlefish | Complete virtual-device reference |
-| minigbm/libdrm/gfxstream | third_party/aosp/external/* and hardware/google/gfxstream | Graphics source reference |
-| crosvm | third_party/aosp/external/crosvm | VMM and VirtIO device source |
-| e2fsprogs/f2fs-tools/erofs-utils | third_party/aosp/external/* | Guest filesystem tooling |
-| BoringSSL/zstd/lz4/libxml2/protobuf/googletest | third_party/aosp/external/* | Support libraries and tests |
+| AOSP core/runtime | `system/core`, `system/extras`, `libbase`, `libutils`, `libcutils`, `libprocessgroup` | init-adjacent utilities, fs_mgr, libsparse, liblp, resource and native foundations |
+| Boot/ROM/OTA | `bootable/recovery`, `system/update_engine`, `system/tools/mkbootimg`, AVB, e2fsprogs, f2fs-tools, erofs-utils | boot images, recovery, payload OTA, dynamic partitions and filesystems |
+| Security/IPC/HAL | SELinux, system/sepolicy, Binder, HIDL, FMQ, VINTF, hardware/interfaces, libhardware | Guest policy, service IPC, HAL and compatibility contracts |
+| Android Guest platform | frameworks/base, frameworks/native, frameworks/av, ADB | Guest Framework, native services, media and debug bridge references |
+| AVF / VM | packages/modules/Virtualization, crosvm | AVF, Microdroid, pVM lifecycle, VMM and VirtIO device model references |
+| Android Guest kernel | kernel/common | Primary Android Common Kernel source including Android KVM/pKVM and VirtIO changes |
+| Emulator references | kernel/goldfish, device/generic/goldfish*, tools/emulator, external/qemu, hardware/google/aemu | Official Android Emulator, QEMU, goldfish devices and emulator utility source |
+| Virtual device reference | device/google/cuttlefish | Complete Cuttlefish virtual-device configuration and host orchestration |
+| Graphics | minigbm, libdrm, gfxstream, ANGLE, SwiftShader, virglrenderer | Virtual GPU, graphics translation and software rendering reference |
+| Support | BoringSSL, zstd, lz4, libxml2, protobuf, googletest | Crypto, compression, serialization, XML and test support |
+| Mainline Linux (optional) | torvalds/linux | Compare generic upstream ARM64 KVM, VirtIO and driver changes |
 
-The manifest is selective and does not sync the entire AOSP tree. Add projects only when a concrete build or source dependency is identified.
+The executable source list and per-project revisions are defined in `third_party/manifest/zerodroid.xml`. The default checkout group contains relevant Android platform, VM, kernel, image, emulator and graphics projects. The upstream mainline Linux tree is deliberately optional because it is very large and Android Common Kernel is the primary Guest kernel.
 
-## Sync and lock workflow
+## Sync and source locks
 
-Run:
+Install Git, Python 3 and the official Android `repo` launcher, then run from the repository root:
 
     bash third_party/scripts/sync_sources.sh
 
-The script requires Git, Python 3 and the official Android repo launcher. It creates a persistent local manifest Git repository from the tracked XML, initializes third_party/aosp, syncs selected Android Git projects and the pinned GitHub crosvm commit, then exports a fully resolved Repo manifest and JSON source lock.
+To also fetch the upstream mainline Linux reference tree:
 
-The selected Android release baseline is android16-qpr1-release, matching the android-latest-release manifest at the time this baseline was prepared. Android Common Kernel is selected from the Android 16 / 6.12 maintenance line. crosvm is pinned to immutable commit 9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe. The generated SOURCE_LOCK.xml records exact resolved SHAs for all checked-out projects. Review and commit both generated lock files when updating the baseline.
+    ZERODROID_SYNC_GROUPS=default,zerodroid-optional bash third_party/scripts/sync_sources.sh
 
-The default checkout is shallow. Set ZERODROID_SYNC_DEPTH=0 for full history and ZERODROID_SYNC_JOBS to control parallelism.
+Controls:
 
-## License and provenance rules
+- `ZERODROID_SYNC_JOBS`: parallel project sync jobs (default 4).
+- `ZERODROID_SYNC_DEPTH`: shallow depth (default 1); set to 0 for full history.
+- `ZERODROID_SYNC_GROUPS`: repo groups (default `default`).
+- Successful sync emits `third_party/SOURCE_LOCK.xml` and `third_party/SOURCE_LOCK.json` with resolved revisions.
+
+The selected Android platform baseline is `android16-qpr1-release`. Android Common Kernel uses `android16-6.12-lts`; emulator-only projects use their own maintained branches where needed. Upstream crosvm is pinned to immutable commit `9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe`. The AOSP crosvm mirror is also checked out for Android-specific integration context.
+
+## Correct architectural interpretation
+
+- Android Common Kernel is the primary Android Guest kernel. It contains Android-specific patches, KMI expectations and virtualization/driver work; generic upstream Linux is comparison material, not a replacement.
+- KVM/pKVM are hypervisor technologies. crosvm is a VMM. VirtIO is a device/transport protocol family. Guest VirtIO drivers and host device backends must implement matching features, queues, memory sharing, interrupts and lifecycle semantics.
+- AVF, KVM and pKVM source availability does not grant a normal APK `/dev/kvm`, `MANAGE_VIRTUAL_MACHINE`, hypervisor access, protected VM firmware access or privileged system service permissions.
+- Android Emulator's QEMU/goldfish/AEMU stack is a valuable source-level reference and test target. It is not automatically the production backend for an ARM64 Android phone.
+- Cuttlefish is a complete reference virtual device with its own kernel, Vendor and host environment. Its Vendor image is not universal for arbitrary OEM ROMs.
+- GSI is only the Android System image. A compatible image set must account for boot, vendor_boot, init_boot, vbmeta, super/dynamic partitions, kernel, DTB, firmware, Vendor HAL and VINTF.
+- Graphics source checkout does not prove accelerated rendering. Host GPU, Guest driver, virtio-gpu/gfxstream protocol, memory sharing, sync fences and compositor integration all need end-to-end validation.
+- ROM ingestion and image transformation are not host flashing. Never write guest images to the physical host partitions as part of import/analysis.
+
+## Excluded from bulk source sync
+
+The manifest does not mirror the whole Android Studio/IntelliJ IDE, every AOSP repository, prebuilt SDK/Emulator binary archives, proprietary Vendor blobs, device firmware, secure-world binaries, KeyMint/TEE secrets, DRM keys, Google Play closed-source components or signing keys. These are unrelated to the core Guest runtime, are device/license restricted, or cannot be redistributed as generic source dependencies. The Android Emulator source is included separately because its QEMU/goldfish/AEMU implementation is useful for reference and testing.
+
+## License, provenance and status
 
 - Preserve upstream LICENSE, NOTICE, COPYING and module-level license files.
-- Review file-level and transitive licenses before copying or redistributing any code or binary.
-- Track local modifications as narrow patch files with upstream commit, rationale and tests.
+- Review file-level and transitive licenses before copying or redistributing code or binaries.
+- Keep upstream projects in separate worktrees; track local modifications as narrow patches with source commit, rationale and tests.
 - Generate an SBOM/license inventory from resolved revisions before distributing binaries.
-- AOSP repositories may contain mixed-license subdirectories; repository-level metadata is not enough.
-- Preserve crosvm's upstream license and Cargo dependency metadata.
-
-## Capability and compatibility boundaries
-
-- AVF source is not an authorization mechanism. A regular APK is not assumed to have MANAGE_VIRTUAL_MACHINE, KVM access or privileged service access.
-- The selected Kernel branch is a source baseline only. A usable Guest Kernel requires matching config, modules, DTB, boot artifacts, VINTF and Guest Profile evidence.
-- Cuttlefish is a reference virtual platform. Its Vendor image and HAL set are not generic Vendor for arbitrary OEM ROMs.
-- minigbm, libdrm and gfxstream do not independently provide Android Guest graphics acceleration.
-- Downloaded source status is SOURCE_CHECKED_OUT, not INTEGRATED, BUILT, TESTED or DEVICE_VALIDATED.
+- AOSP repositories can contain mixed-license subdirectories; repository-level license metadata is insufficient.
+- Downloaded source status is `SOURCE_CHECKED_OUT`, not `INTEGRATED`, `BUILT`, `TESTED` or `DEVICE_VALIDATED`.
 
 ## Verification status
 
-The manifest and synchronization script are repository artifacts. This GitHub editing session cannot execute repo sync or download large upstream worktrees into the user's local checkout. Actual checkout completion is pending the user's build environment running the script. The script emits resolved source locks to make the result auditable.
+The manifest and synchronization script are committed project artifacts. GitHub repository editing cannot execute `repo sync` or transfer the multi-gigabyte upstream worktrees into the user's local checkout. Actual source download is pending execution in a machine with network access, Git, Python 3 and the official repo launcher. The generated source lock makes that checkout auditable.
