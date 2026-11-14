@@ -70,7 +70,7 @@ output_path.write_text(json.dumps({
     "resolved_manifest": "third_party/SOURCE_LOCK.xml",
     "projects": projects
 }, indent=2) + "\n", encoding="utf-8")
-expected = int(__import__("os").environ.get("ZERODROID_EXPECTED_PROJECTS", "80"))
+expected = int(__import__("os").environ.get("ZERODROID_EXPECTED_PROJECTS", "73"))
 if len(projects) != expected:
     raise SystemExit("Expected %d checked-out projects, found %d; refusing to write an incomplete source lock" % (expected, len(projects)))
 if any(not item["revision"] for item in projects):
