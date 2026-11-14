@@ -1,4 +1,4 @@
-#include "zerovm/zerovm.h"
+#include "zerodroid/zerodroid.h"
 #include <atomic>
 #include <cstring>
 #include <mutex>
@@ -56,7 +56,7 @@ extern "C" ZVM_API zvm_status zvm_runtime_create(
         return fail(ZVM_STATUS_INVALID_ARGUMENT, "Invalid runtime options or output", out_error);
     }
     if (options->abi_version != ZVM_ABI_VERSION) {
-        return fail(ZVM_STATUS_ABI_MISMATCH, "Unsupported ZeroVM ABI version", out_error);
+        return fail(ZVM_STATUS_ABI_MISMATCH, "Unsupported ZeroDroid ABI version", out_error);
     }
 
     zvm_handle handle = 0;
