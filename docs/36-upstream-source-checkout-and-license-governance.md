@@ -2,7 +2,7 @@
 
 ## Goal
 
-The repository has an executable source-intake manifest. Selected sources are checked out into the local ZeroVM workspace by the official Android repo tool. The manifest and sync script are tracked; downloaded upstream worktrees are not copied into ZeroVM source blobs.
+The repository has an executable source-intake manifest. Selected sources are checked out into the local ZeroDroid workspace by the official Android repo tool. The manifest and sync script are tracked; downloaded upstream worktrees are not copied into ZeroDroid source blobs.
 
 ## Selected source groups
 
