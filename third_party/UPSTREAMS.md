@@ -61,7 +61,7 @@ ZERODROID_SYNC_GROUPS=default,zerodroid-rom-reference,zerodroid-optional,zerodro
   bash third_party/scripts/sync_sources.sh
 ```
 
-Source checkout is not integration, build success or device validation. Keep `SOURCE_LOCK.xml` and `SOURCE_LOCK.json` tied to the actual checked-out revisions.
+Source checkout is not integration, build success or device validation. Keep `SOURCE_LOCK.xml` and `SOURCE_LOCK.json` tied to the actual checked-out revisions. Every source must pass the Android ARM64 host portability review before production use; see [porting and adaptation policy](../docs/37-android-arm64-host-porting-and-adaptation.md). Do not assume that an upstream Linux/x86_64 build or generic AArch64 build is Android-compatible.
 
 ## Image safety requirements
 
