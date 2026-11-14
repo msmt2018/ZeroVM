@@ -40,7 +40,6 @@
 32. [VM、ROM、Guest Profile 与虚拟硬件数据结构规范](32-versioned-data-schemas-and-manifests.md)
 33. [Runtime 状态机、事件流与统一错误模型](33-runtime-state-events-and-error-model.md)
 34. [机器可读 Schema 与契约验证](34-machine-readable-schemas-and-validation.md)
-35. [上游源码完整下载与许可证治理](36-upstream-source-checkout-and-license-governance.md)
 35. [Implementation foundation 与工具链基线](35-implementation-foundation-and-toolchain.md)
 36. [上游核心源码拉取与许可证治理](36-upstream-source-checkout-and-license-governance.md)
 
@@ -50,7 +49,7 @@
 - GSI 是 Android 通用 System 镜像，不是完整虚拟设备镜像。运行 GSI 仍需匹配的 Guest Kernel、Vendor HAL、VINTF、启动配置和分区布局。
 - 宿主硬件配置必须按设备实际能力和实时资源状态计算，不使用适用于所有手机的固定 CPU/RAM/GPU 配置。
 - 虚拟硬件 ABI 尽量稳定；设备能力可以协商，资源预算可以动态变化，但不能破坏 Guest 已建立的设备契约。
-- 优先复用 AVF、KVM、crosvm、Linux VirtIO、AOSP 和 Cuttlefish 的成熟实现。
+- 优先使用 Android AVF 与 ARM64 KVM/pKVM 硬件虚拟化能力；VMM 与 VirtIO 设备模型必须直接运行在该硬件虚拟化路径上。crosvm 可作为 VMM 候选/代码参考，不是 Hypervisor。明确排除 QEMU、Android Emulator、Goldfish、AEMU 和 Cuttlefish 模拟器运行链。
 - 不将容器、chroot、proot 或普通应用进程隔离描述为完整 Android VM。
 - 不默认关闭 AVB 或 SELinux 来换取启动成功。
 - 所有能力必须区分设计目标、代码实现、构建通过、模拟环境验证和真机验证。
