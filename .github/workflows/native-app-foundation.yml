@@ -52,12 +52,16 @@ jobs:
               "platform/external/minigbm",
               "platform/hardware/google/gfxstream",
               "platform/bootable/recovery",
+              "platform/system/gsid",
+              "kernel/build",
               "platform/system/update_engine",
               "platform/tools/emulator",
               "platform/external/qemu",
               "platform/external/crosvm",
               "platform/frameworks/base",
               "platform/hardware/interfaces",
+              "platform/test/vts",
+              "platform/cts",
           }
           missing = required - projects.keys()
           assert not missing, f"missing upstream projects: {sorted(missing)}"
@@ -67,6 +71,7 @@ jobs:
           remote_names = {r.get("name") for r in root.findall("remote")}
           assert all((p.get("remote") or root.find("default").get("remote")) in remote_names for p in root.findall("project"))
           assert projects["kernel/common"].get("revision") == "refs/heads/android16-6.12-lts"
+          assert projects["kernel/build"].get("revision") == "refs/heads/main-kernel"
           print(f"validated {len(projects)} upstream project entries")
           PY
       - name: Validate source sync shell syntax
