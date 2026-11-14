@@ -2,7 +2,7 @@
 
 ## 1. 目标与边界
 
-ZeroVM 的目标是尽可能扩大 Android ROM 的可运行范围，包括 AOSP GSI、AOSP 派生系统、Pixel 系统映像，以及 HyperOS/MIUI、One UI、ColorOS、OriginOS 等厂商定制系统。
+ZeroDroid 的目标是尽可能扩大 Android ROM 的可运行范围，包括 AOSP GSI、AOSP 派生系统、Pixel 系统映像，以及 HyperOS/MIUI、One UI、ColorOS、OriginOS 等厂商定制系统。
 
 “任意 ROM”不是单一通用 Vendor 或万能 Stub 可以保证的工程承诺。ROM 可能依赖特定 SoC、设备树、内核驱动、专有 HAL、TEE、基带、分区布局、AVB 信任链和厂商服务。缺少对应硬件或专有实现时，可能无法启动，或启动后关键功能不可用。
 
