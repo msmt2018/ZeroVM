@@ -17,6 +17,9 @@ int main() {
     CHECK(zdroid_get_abi_version() == ZDROID_ABI_VERSION);
     CHECK(zdroid_status_name(ZDROID_STATUS_OK)[0] == 'O');
 
+    zdroid_runtime_options options{ZDROID_ABI_VERSION, sizeof(zdroid_runtime_options), 0};
+    zdroid_error_info error{};
+    error.struct_size = sizeof(zdroid_error_info);
     CHECK(zdroid_host_probe_capabilities(nullptr, &error) == ZDROID_STATUS_INVALID_ARGUMENT);
     zdroid_host_capabilities host{};
     host.struct_size = sizeof(host);
@@ -26,9 +29,6 @@ int main() {
     CHECK(host.kvm_state >= ZDROID_KVM_PROBE_AVAILABLE &&
           host.kvm_state <= ZDROID_KVM_PROBE_ERROR);
 
-    zdroid_runtime_options options{ZDROID_ABI_VERSION, sizeof(zdroid_runtime_options), 0};
-    zdroid_error_info error{};
-    error.struct_size = sizeof(zdroid_error_info);
     zdroid_handle runtime = 0;
 
     CHECK(zdroid_runtime_create(&options, &runtime, &error) == ZDROID_STATUS_OK);
