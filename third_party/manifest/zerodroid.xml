@@ -82,6 +82,6 @@
   <project name="platform/cts" path="cts" revision="refs/heads/main" groups="zerodroid-test,validation,cts" />
 
   <!-- Upstream Linux is a comparison/reference tree; Android Common Kernel remains primary. -->
-  <project name="torvalds/linux" remote="github" path="reference/linux-mainline"
+  <project name="torvalds/linux" remote="linux" path="reference/linux-mainline"
            revision="refs/heads/master" groups="zerodroid-optional,linux-reference,kvm,virtio" />
 </manifest>
