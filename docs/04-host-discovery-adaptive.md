@@ -2,7 +2,7 @@
 
 ## 目标
 
-ZeroVM 不采用适用于所有手机的固定 CPU、RAM、GPU 和磁盘配置。每台 Host 基于真实能力生成 VM 配置，并在运行期间根据负载、内存压力、温度、电量和多 VM 竞争调整资源预算。
+ZeroDroid 不采用适用于所有手机的固定 CPU、RAM、GPU 和磁盘配置。每台 Host 基于真实能力生成 VM 配置，并在运行期间根据负载、内存压力、温度、电量和多 VM 竞争调整资源预算。
 
 ## 能力分层
 
@@ -41,7 +41,7 @@ ZeroVM 不采用适用于所有手机的固定 CPU、RAM、GPU 和磁盘配置�
 
 ## 资源预算
 
-预算必须为 Host Android、系统服务、ZeroVM Runtime、VM Backend 和安全余量保留空间。不能按 Host 总 RAM 的固定百分比盲目分配。
+预算必须为 Host Android、系统服务、ZeroDroid Runtime、VM Backend 和安全余量保留空间。不能按 Host 总 RAM 的固定百分比盲目分配。
 
 预算考虑 MemAvailable 和内存压力、同时运行的 VM 数量、Guest 最低启动需求、后端开销、Host 负载、热状态、电量、图形 Buffer 和共享内存。所有预算设置硬上限和硬下限。超过预算时拒绝创建、降低可选功能或回收可回收资源，不得无限增长。
 
