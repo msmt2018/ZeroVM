@@ -1,4 +1,4 @@
-#include "zerovm/zerovm.h"
+#include "zerodroid/zerodroid.h"
 extern "C" ZVM_API const char* zvm_status_name(zvm_status status) {
  switch (status) {
  case ZVM_STATUS_OK: return "OK";
