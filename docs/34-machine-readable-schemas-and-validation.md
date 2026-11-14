@@ -8,17 +8,17 @@
 
 | Definition | schema_id |
 |---|---|
-| VmSpec | `zerovm.vm-spec` |
-| RuntimeSnapshot | `zerovm.runtime-snapshot` |
-| RomManifest | `zerovm.rom-manifest` |
-| ImageSet | `zerovm.image-set` |
-| GuestPlatformProfile | `zerovm.guest-platform-profile` |
-| VirtualHardwareManifest | `zerovm.virtual-hardware-manifest` |
-| PartitionGraph | `zerovm.partition-graph` |
-| HostCapabilityManifest | `zerovm.host-capability` |
-| ResourceBudget | `zerovm.resource-budget` |
+| VmSpec | `zerodroid.vm-spec` |
+| RuntimeSnapshot | `zerodroid.runtime-snapshot` |
+| RomManifest | `zerodroid.rom-manifest` |
+| ImageSet | `zerodroid.image-set` |
+| GuestPlatformProfile | `zerodroid.guest-platform-profile` |
+| VirtualHardwareManifest | `zerodroid.virtual-hardware-manifest` |
+| PartitionGraph | `zerodroid.partition-graph` |
+| HostCapabilityManifest | `zerodroid.host-capability` |
+| ResourceBudget | `zerodroid.resource-budget` |
 
-规范文件：`schemas/v1/zerovm.schema.json`。每个定义位于 `$defs`，由测试 Harness 通过根 schema 引用对应 definition，确保内部引用在同一资源中解析。
+规范文件：`schemas/v1/zerodroid.schema.json`。每个定义位于 `$defs`，由测试 Harness 通过根 schema 引用对应 definition，确保内部引用在同一资源中解析。
 
 ## 本地测试
 
