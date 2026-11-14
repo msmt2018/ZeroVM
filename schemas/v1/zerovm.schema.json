@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/msmt2018/ZeroVM/blob/main/schemas/v1/zerovm.schema.json",
-  "title": "ZeroVM v1 contract schemas",
+  "$id": "https://github.com/msmt2018/ZeroDroid/blob/main/schemas/v1/zerodroid.schema.json",
+  "title": "ZeroDroid v1 contract schemas",
   "description": "Machine-readable contracts for persisted VM, ROM, profile, virtual-device, partition and host resource data. Each schema is addressable through $defs.",
   "$defs": {
     "id": {
@@ -98,7 +98,7 @@
           "type": "object",
           "properties": {
             "schema_id": {
-              "const": "zerovm.vm-spec"
+              "const": "zerodroid.vm-spec"
             },
             "vm_id": {
               "$ref": "#/$defs/id"
@@ -228,7 +228,7 @@
           "type": "object",
           "properties": {
             "schema_id": {
-              "const": "zerovm.runtime-snapshot"
+              "const": "zerodroid.runtime-snapshot"
             },
             "vm_id": {
               "$ref": "#/$defs/id"
@@ -328,7 +328,7 @@
           "type": "object",
           "properties": {
             "schema_id": {
-              "const": "zerovm.rom-manifest"
+              "const": "zerodroid.rom-manifest"
             },
             "manifest_id": {
               "$ref": "#/$defs/id"
@@ -486,7 +486,7 @@
           "type": "object",
           "properties": {
             "schema_id": {
-              "const": "zerovm.image-set"
+              "const": "zerodroid.image-set"
             },
             "image_set_id": {
               "$ref": "#/$defs/id"
@@ -576,7 +576,7 @@
           "type": "object",
           "properties": {
             "schema_id": {
-              "const": "zerovm.guest-platform-profile"
+              "const": "zerodroid.guest-platform-profile"
             },
             "profile_id": {
               "$ref": "#/$defs/id"
@@ -765,7 +765,7 @@
           "type": "object",
           "properties": {
             "schema_id": {
-              "const": "zerovm.virtual-hardware-manifest"
+              "const": "zerodroid.virtual-hardware-manifest"
             },
             "manifest_id": {
               "$ref": "#/$defs/id"
@@ -867,7 +867,7 @@
           "type": "object",
           "properties": {
             "schema_id": {
-              "const": "zerovm.partition-graph"
+              "const": "zerodroid.partition-graph"
             },
             "graph_id": {
               "$ref": "#/$defs/id"
@@ -965,7 +965,7 @@
           "type": "object",
           "properties": {
             "schema_id": {
-              "const": "zerovm.host-capability"
+              "const": "zerodroid.host-capability"
             },
             "host_snapshot_id": {
               "$ref": "#/$defs/id"
@@ -1099,7 +1099,7 @@
           "type": "object",
           "properties": {
             "schema_id": {
-              "const": "zerovm.resource-budget"
+              "const": "zerodroid.resource-budget"
             },
             "budget_id": {
               "$ref": "#/$defs/id"
