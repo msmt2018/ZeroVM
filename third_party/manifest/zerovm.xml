@@ -6,36 +6,36 @@
   <default remote="aosp" revision="refs/heads/android16-qpr1-release" sync-j="4" />
 
   <!-- Android image, partition, boot and low-level runtime primitives. -->
-  <project name="platform/system/core" path="system/core" groups="default,zerovm-core,image" />
-  <project name="platform/external/avb" path="external/avb" groups="default,zerovm-core,image,security" />
-  <project name="platform/system/libbase" path="system/libbase" groups="default,zerovm-core" />
-  <project name="platform/system/logging" path="system/logging" groups="default,zerovm-core" />
-  <project name="platform/system/libfmq" path="system/libfmq" groups="default,zerovm-core,ipc" />
-  <project name="platform/system/libvintf" path="system/libvintf" groups="default,zerovm-core,guest-platform" />
-  <project name="platform/external/selinux" path="external/selinux" groups="default,zerovm-core,security" />
-  <project name="platform/system/sepolicy" path="system/sepolicy" groups="default,zerovm-core,security" />
-  <project name="platform/external/boringssl" path="external/boringssl" groups="default,zerovm-core,security" />
-  <project name="platform/external/zstd" path="external/zstd" groups="default,zerovm-core,image" />
-  <project name="platform/external/lz4" path="external/lz4" groups="default,zerovm-core,image" />
-  <project name="platform/external/libxml2" path="external/libxml2" groups="default,zerovm-core,image" />
-  <project name="platform/external/protobuf" path="external/protobuf" groups="default,zerovm-core,protocol" />
-  <project name="platform/external/googletest" path="external/googletest" groups="default,zerovm-core,test" />
-  <project name="platform/external/e2fsprogs" path="external/e2fsprogs" groups="default,zerovm-image,image" />
-  <project name="platform/external/f2fs-tools" path="external/f2fs-tools" groups="default,zerovm-image,image" />
-  <project name="platform/external/erofs-utils" path="external/erofs-utils" groups="default,zerovm-image,image" />
+  <project name="platform/system/core" path="system/core" groups="default,zerodroid-core,image" />
+  <project name="platform/external/avb" path="external/avb" groups="default,zerodroid-core,image,security" />
+  <project name="platform/system/libbase" path="system/libbase" groups="default,zerodroid-core" />
+  <project name="platform/system/logging" path="system/logging" groups="default,zerodroid-core" />
+  <project name="platform/system/libfmq" path="system/libfmq" groups="default,zerodroid-core,ipc" />
+  <project name="platform/system/libvintf" path="system/libvintf" groups="default,zerodroid-core,guest-platform" />
+  <project name="platform/external/selinux" path="external/selinux" groups="default,zerodroid-core,security" />
+  <project name="platform/system/sepolicy" path="system/sepolicy" groups="default,zerodroid-core,security" />
+  <project name="platform/external/boringssl" path="external/boringssl" groups="default,zerodroid-core,security" />
+  <project name="platform/external/zstd" path="external/zstd" groups="default,zerodroid-core,image" />
+  <project name="platform/external/lz4" path="external/lz4" groups="default,zerodroid-core,image" />
+  <project name="platform/external/libxml2" path="external/libxml2" groups="default,zerodroid-core,image" />
+  <project name="platform/external/protobuf" path="external/protobuf" groups="default,zerodroid-core,protocol" />
+  <project name="platform/external/googletest" path="external/googletest" groups="default,zerodroid-core,test" />
+  <project name="platform/external/e2fsprogs" path="external/e2fsprogs" groups="default,zerodroid-image,image" />
+  <project name="platform/external/f2fs-tools" path="external/f2fs-tools" groups="default,zerodroid-image,image" />
+  <project name="platform/external/erofs-utils" path="external/erofs-utils" groups="default,zerodroid-image,image" />
 
   <!-- AVF, Cuttlefish and Guest Kernel source references. -->
-  <project name="platform/packages/modules/Virtualization" path="packages/modules/Virtualization" groups="default,zerovm-avf,backend" />
-  <project name="device/google/cuttlefish" path="device/google/cuttlefish" groups="default,zerovm-reference,guest-platform" />
-  <project name="kernel/common" path="kernel/common" revision="refs/heads/android16-6.12-2025-12" groups="default,zerovm-kernel,guest-kernel" />
+  <project name="platform/packages/modules/Virtualization" path="packages/modules/Virtualization" groups="default,zerodroid-avf,backend" />
+  <project name="device/google/cuttlefish" path="device/google/cuttlefish" groups="default,zerodroid-reference,guest-platform" />
+  <project name="kernel/common" path="kernel/common" revision="refs/heads/android16-6.12-2025-12" groups="default,zerodroid-kernel,guest-kernel" />
 
   <!-- Graphics source inputs; acceleration is not implied by checkout. -->
-  <project name="platform/external/minigbm" path="external/minigbm" groups="default,zerovm-graphics,graphics" />
-  <project name="platform/external/libdrm" path="external/libdrm" groups="default,zerovm-graphics,graphics" />
-  <project name="platform/hardware/google/gfxstream" path="hardware/google/gfxstream" groups="default,zerovm-graphics,graphics" />
+  <project name="platform/external/minigbm" path="external/minigbm" groups="default,zerodroid-graphics,graphics" />
+  <project name="platform/external/libdrm" path="external/libdrm" groups="default,zerodroid-graphics,graphics" />
+  <project name="platform/hardware/google/gfxstream" path="hardware/google/gfxstream" groups="default,zerodroid-graphics,graphics" />
 
   <!-- crosvm is pinned to an immutable upstream commit. -->
   <project name="google/crosvm" remote="github" path="external/crosvm"
            revision="9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe"
-           upstream="refs/heads/main" groups="default,zerovm-vmm,vmm,virtio" />
+           upstream="refs/heads/main" groups="default,zerodroid-vmm,vmm,virtio" />
 </manifest>
