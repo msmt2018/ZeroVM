@@ -8,7 +8,7 @@ MANIFEST_REPO="$THIRD_PARTY/.manifest-repo"
 MANIFEST="$THIRD_PARTY/manifest/zerodroid.xml"
 JOBS="${ZERODROID_SYNC_JOBS:-4}"
 DEPTH="${ZERODROID_SYNC_DEPTH:-0}"
-GROUPS="${ZERODROID_SYNC_GROUPS:-default,zerodroid-rom-reference,zerodroid-optional,zerodroid-test}"
+SYNC_GROUPS="${ZERODROID_SYNC_GROUPS:-default,zerodroid-rom-reference,zerodroid-optional,zerodroid-test}"
 
 if ! command -v repo >/dev/null 2>&1; then
   echo "Install the official Android repo launcher: https://source.android.com/docs/setup/reference/repo" >&2
@@ -39,7 +39,7 @@ if [[ "$DEPTH" != "0" ]]; then INIT_ARGS+=(--depth="$DEPTH"); fi
 (
   cd "$AOSP_DIR"
   repo "${INIT_ARGS[@]}"
-  repo sync -c -g "$GROUPS" -j"$JOBS"
+  repo sync -c -g "$SYNC_GROUPS" -j"$JOBS"
   repo manifest -r -o "$THIRD_PARTY/.SOURCE_LOCK.xml.tmp"
 )
 

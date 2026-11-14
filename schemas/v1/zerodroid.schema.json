@@ -41,7 +41,6 @@
         "schema_id",
         "schema_version"
       ],
-      "additionalProperties": true
     },
     "ResourceRange": {
       "type": "object",

@@ -73,6 +73,12 @@ class SchemaContractTests(unittest.TestCase):
         self.validate("PartitionGraph", document)
         self.assertTrue(any("overflows int64" in item for item in semantic_errors(document)))
 
+    def test_unknown_top_level_vm_spec_property_is_rejected(self):
+        document = load_json(FIXTURES / "valid-vm-spec.json")
+        document["unexpected_top_level"] = True
+        with self.assertRaises(ValidationError):
+            self.validate("VmSpec", document)
+
     def test_unknown_schema_version_is_rejected(self):
         document = load_json(FIXTURES / "valid-vm-spec.json")
         document["schema_version"] = 2
