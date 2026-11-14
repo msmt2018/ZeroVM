@@ -74,6 +74,12 @@ jobs:
               "platform/external/brotli",
               "platform/external/libarchive",
               "platform/system/libufdt",
+              "erfanoabdi/imgpatchtools",
+              "ColdWindScholar/TIK",
+              "Danda420/RomTools",
+              "erfanoabdi/Firmware_extractor",
+              "topjohnwu/Magisk",
+              "osm0sis/AnyKernel3",
           }
           missing = required - projects.keys()
           assert not missing, f"missing upstream projects: {sorted(missing)}"
@@ -88,6 +94,15 @@ jobs:
           assert projects["cfig/Android_boot_image_editor"].get("revision") == "refs/heads/master"
           assert projects["erfanoabdi/imgpatchtools"].get("revision") == "refs/heads/Stable"
           assert "zerodroid-rom-reference" in projects["ColdWindScholar/TIK"].get("groups", "")
+          for name in (
+              "ssut/payload-dumper-go",
+              "cfig/Android_boot_image_editor",
+              "xpirt/sdat2img",
+              "xpirt/img2sdat",
+              "erfanoabdi/imgpatchtools",
+          ):
+              assert "default" in projects[name].get("groups", "").split(","), f"{name} must be in default source group"
+          assert len(projects) >= 70, "expected complete ZeroDroid upstream source matrix"
           print(f"validated {len(projects)} upstream project entries")
           PY
       - name: Validate source sync shell syntax
