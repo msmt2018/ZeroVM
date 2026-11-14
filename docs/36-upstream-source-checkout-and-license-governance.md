@@ -34,10 +34,8 @@ AOSP `system/extras/partition_tools` is the source of `lpdump`, `lpunpack` and `
 | AOSP core/runtime | system/core, system/extras, libbase, libutils, libcutils, libprocessgroup | init-adjacent utilities, fs_mgr, libsparse, liblp, resource and native foundations |
 | Security/IPC/HAL | SELinux, system/sepolicy, Binder, HIDL, FMQ, VINTF, hardware/interfaces, libhardware | Guest policy, service IPC, HAL and compatibility contracts |
 | Android Guest platform | frameworks/base, frameworks/native, frameworks/av, system/media, tinyalsa, ADB | Guest Framework, native services, audio/media and debug bridge references |
-| AVF / VM | packages/modules/Virtualization, crosvm | AVF, Microdroid, pVM lifecycle, VMM and VirtIO device model references |
+| AVF / VM | packages/modules/Virtualization, crosvm | AVF, Microdroid, pVM lifecycle and hardware-assisted VMM/VirtIO integration references |
 | Android Guest kernel | kernel/common, kernel/build | Primary Android Guest kernel including KVM/pKVM/VirtIO and Kleaf build infrastructure |
-| Emulator references | kernel/goldfish, device/generic/goldfish*, tools/emulator, external/qemu, hardware/google/aemu | Official Android Emulator, QEMU, goldfish devices and emulator utility source |
-| Virtual device reference | device/google/cuttlefish | Complete Cuttlefish virtual-device configuration and host orchestration |
 | Graphics | minigbm, libdrm, gfxstream, ANGLE, SwiftShader, virglrenderer, Mesa, Vulkan-Headers | Virtual GPU, graphics translation, Vulkan interfaces and software rendering reference |
 | Mainline Linux (optional) | torvalds/linux | Compare generic upstream ARM64 KVM, VirtIO and driver changes |
 | Optional firmware/peripherals | tianocore/edk2, packages/modules/Bluetooth | UEFI boot reference and Guest Bluetooth stack; neither is required for a minimal direct-kernel boot |
@@ -80,7 +78,7 @@ Controls:
 - Android Common Kernel is the primary Android Guest kernel; upstream Linux is comparison material.
 - KVM/pKVM are hypervisor technologies; crosvm is a VMM; VirtIO is a device/transport protocol.
 - AVF/KVM source availability does not grant a normal APK privileged VM permissions or /dev/kvm access.
-- Android Emulator/QEMU and Cuttlefish are references, not universal production phone backends or Vendor images.
+- QEMU/TCG、Android Emulator、Goldfish、AEMU 和 Cuttlefish 模拟器源码明确不在 ZeroDroid 的上游清单与运行时架构中。ZeroDroid 不提供软件 CPU 模拟 fallback。
 - GSI is only the System image. Boot, vendor_boot, init_boot, vbmeta, super, kernel, Vendor HAL, VINTF and firmware must form a compatible image set.
 - Keep upstream projects separate, preserve LICENSE/NOTICE/COPYING and transitive dependency metadata, and carry local changes as narrow auditable patches.
 - Third-party ROM tools may have different licenses and security posture. Do not link them into production runtime without license, maintenance, dependency and security review.
