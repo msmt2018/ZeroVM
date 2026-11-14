@@ -20,7 +20,7 @@ The default group includes the normative AOSP image tools plus focused independe
 | F2FS | external/f2fs-tools | — | Inspect, dump, validate and create F2FS images |
 | Boot containers | system/tools/mkbootimg (mkbootimg/unpack_bootimg) | cfig/Android_boot_image_editor | Parse/repack boot, vendor_boot, init_boot, recovery, kernel, ramdisk, vendor ramdisk fragments and bootconfig |
 | AVB / vbmeta | external/avb | cfig/Android_boot_image_editor as a secondary parser | Parse descriptors, verify hash/hashtree metadata and preserve signing relationships |
-| DTB / DTBO | system/libufdt and AOSP device-tree tooling | — | Parse flattened device tree and device-tree overlays |
+| DTB / DTBO | system/libufdt and external/dtc (dtc/libfdt) | — | Parse, compile and validate DTS/DTB/DTBO and flattened device tree overlays |
 | OEM firmware | — | erfanoabdi/Firmware_extractor (optional) | Reference for vendor-specific container extraction; never assume universal format support |
 | End-to-end ROM suites | AOSP tools remain normative | ColdWindScholar/TIK and Danda420/RomTools (optional) | Compare format detection and unpack/repack coverage; audit licenses before integration |
 | Boot ramdisk / kernel package | AOSP boot tooling | Magisk and AnyKernel3 (optional) | Study boot patch and kernel installer package workflows; never auto-execute imported scripts |
@@ -33,25 +33,26 @@ AOSP `system/extras/partition_tools` is the source of `lpdump`, `lpunpack` and `
 |---|---|---|
 | AOSP core/runtime | system/core, system/extras, libbase, libutils, libcutils, libprocessgroup | init-adjacent utilities, fs_mgr, libsparse, liblp, resource and native foundations |
 | Security/IPC/HAL | SELinux, system/sepolicy, Binder, HIDL, FMQ, VINTF, hardware/interfaces, libhardware | Guest policy, service IPC, HAL and compatibility contracts |
-| Android Guest platform | frameworks/base, frameworks/native, frameworks/av, ADB | Guest Framework, native services, media and debug bridge references |
+| Android Guest platform | frameworks/base, frameworks/native, frameworks/av, system/media, tinyalsa, ADB | Guest Framework, native services, audio/media and debug bridge references |
 | AVF / VM | packages/modules/Virtualization, crosvm | AVF, Microdroid, pVM lifecycle, VMM and VirtIO device model references |
 | Android Guest kernel | kernel/common, kernel/build | Primary Android Guest kernel including KVM/pKVM/VirtIO and Kleaf build infrastructure |
 | Emulator references | kernel/goldfish, device/generic/goldfish*, tools/emulator, external/qemu, hardware/google/aemu | Official Android Emulator, QEMU, goldfish devices and emulator utility source |
 | Virtual device reference | device/google/cuttlefish | Complete Cuttlefish virtual-device configuration and host orchestration |
-| Graphics | minigbm, libdrm, gfxstream, ANGLE, SwiftShader, virglrenderer | Virtual GPU, graphics translation and software rendering reference |
+| Graphics | minigbm, libdrm, gfxstream, ANGLE, SwiftShader, virglrenderer, Mesa, Vulkan-Headers | Virtual GPU, graphics translation, Vulkan interfaces and software rendering reference |
 | Mainline Linux (optional) | torvalds/linux | Compare generic upstream ARM64 KVM, VirtIO and driver changes |
+| Optional firmware/peripherals | tianocore/edk2, packages/modules/Bluetooth | UEFI boot reference and Guest Bluetooth stack; neither is required for a minimal direct-kernel boot |
 | Android CTS/VTS (optional) | platform/cts, platform/test/vts | Compatibility, HAL, kernel and system validation suites |
 
 ## Source groups and full checkout
 
-The manifest currently contains 73 project entries:
+The manifest currently contains 80 project entries:
 
-- `default`: 62 projects, including the core ROM/image pipeline and primary Android platform/runtime sources.
-- `zerodroid-rom-reference`: 6 optional references (TIK, RomTools, standalone sparse converter, OEM firmware extractor, Magisk and AnyKernel3).
-- `zerodroid-optional`: 1 upstream mainline Linux reference tree.
+- `default`: 69 projects, including the core ROM/image pipeline, DTB compiler, audio stack, Mesa/Vulkan graphics references and primary Android platform/runtime sources.
+- `zerodroid-rom-reference`: 6 optional ROM references (TIK, RomTools, standalone sparse converter, OEM firmware extractor, Magisk and AnyKernel3).
+- `zerodroid-optional`: 3 references (upstream mainline Linux, EDK II UEFI firmware and AOSP Bluetooth guest stack).
 - `zerodroid-test`: 2 large CTS/VTS test trees.
 
-Install Git, Python 3 and the official Android `repo` launcher, then run from the repository root to download all 73 projects:
+Install Git, Python 3 and the official Android `repo` launcher, then run from the repository root to download all 80 projects:
 
     ZERODROID_SYNC_GROUPS=default,zerodroid-rom-reference,zerodroid-optional,zerodroid-test bash third_party/scripts/sync_sources.sh
 
@@ -87,4 +88,4 @@ Controls:
 
 ## Download status
 
-The manifest and sync tooling are committed artifacts. The 71 upstream worktrees have not yet been downloaded by GitHub repository editing. Execute the command above in a networked development environment with Git, Python 3 and the official repo launcher. A successful sync generates exact resolved revisions in SOURCE_LOCK files. Downloaded source status is `SOURCE_CHECKED_OUT`, not `INTEGRATED`, `BUILT`, `TESTED` or `DEVICE_VALIDATED`.
+The manifest and sync tooling are committed artifacts. The 80 upstream worktrees have not yet been downloaded by GitHub repository editing. Execute the command above in a networked development environment with Git, Python 3 and the official repo launcher. A successful sync generates exact resolved revisions in SOURCE_LOCK files. Downloaded source status is `SOURCE_CHECKED_OUT`, not `INTEGRATED`, `BUILT`, `TESTED` or `DEVICE_VALIDATED`.
