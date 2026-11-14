@@ -76,6 +76,13 @@ jobs:
               "platform/external/xz",
               "platform/external/libarchive",
               "platform/system/libufdt",
+              "platform/external/dtc",
+              "platform/system/media",
+              "platform/external/tinyalsa",
+              "platform/external/mesa3d",
+              "platform/external/vulkan-headers",
+              "platform/packages/modules/Bluetooth",
+              "tianocore/edk2",
               "erfanoabdi/imgpatchtools",
               "ColdWindScholar/TIK",
               "Danda420/RomTools",
@@ -104,7 +111,11 @@ jobs:
               "erfanoabdi/imgpatchtools",
           ):
               assert "default" in projects[name].get("groups", "").split(","), f"{name} must be in default source group"
-          assert len(projects) >= 70, "expected complete ZeroDroid upstream source matrix"
+          assert len(projects) >= 80, "expected complete ZeroDroid upstream source matrix"
+          default_projects = [p for p in root.findall("project") if "default" in p.get("groups", "").split(",")]
+          assert len(default_projects) == 69, f"expected 69 default projects, got {len(default_projects)}"
+          assert "zerodroid-optional" in projects["tianocore/edk2"].get("groups", "").split(",")
+          assert "zerodroid-optional" in projects["platform/packages/modules/Bluetooth"].get("groups", "").split(",")
           print(f"validated {len(projects)} upstream project entries")
           PY
       - name: Validate source sync shell syntax
