@@ -46,7 +46,6 @@ jobs:
               "platform/system/core",
               "platform/external/avb",
               "platform/packages/modules/Virtualization",
-              "device/google/cuttlefish",
               "kernel/common",
               "google/crosvm",
               "platform/external/minigbm",
@@ -55,8 +54,6 @@ jobs:
               "platform/system/gsid",
               "kernel/build",
               "platform/system/update_engine",
-              "platform/tools/emulator",
-              "platform/external/qemu",
               "platform/external/crosvm",
               "platform/frameworks/base",
               "platform/hardware/interfaces",
@@ -111,9 +108,15 @@ jobs:
               "erfanoabdi/imgpatchtools",
           ):
               assert "default" in projects[name].get("groups", "").split(","), f"{name} must be in default source group"
-          assert len(projects) >= 80, "expected complete ZeroDroid upstream source matrix"
+          assert len(projects) == 73, f"expected 73 hardware-virtualization source projects, got {len(projects)}"
+          forbidden_tokens = ("qemu", "emulator", "goldfish", "aemu", "cuttlefish")
+          forbidden = sorted(name for name in projects if any(token in name.lower() for token in forbidden_tokens))
+          assert not forbidden, f"emulator-only sources must not enter ZeroDroid: {forbidden}"
           default_projects = [p for p in root.findall("project") if "default" in p.get("groups", "").split(",")]
-          assert len(default_projects) == 69, f"expected 69 default projects, got {len(default_projects)}"
+          assert len(default_projects) == 62, f"expected 62 default projects, got {len(default_projects)}"
+          assert projects["kernel/common"].get("groups") and "kvm" in projects["kernel/common"].get("groups").split(",")
+          assert "zerodroid-avf" in projects["platform/packages/modules/Virtualization"].get("groups", "").split(",")
+          assert "zerodroid-vmm" in projects["google/crosvm"].get("groups", "").split(",")
           assert "zerodroid-optional" in projects["tianocore/edk2"].get("groups", "").split(",")
           assert "zerodroid-optional" in projects["platform/packages/modules/Bluetooth"].get("groups", "").split(",")
           print(f"validated {len(projects)} upstream project entries")
