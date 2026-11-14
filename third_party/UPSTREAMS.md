@@ -1,6 +1,6 @@
 # Third-party source intake and checkout plan
 
-The executable manifest is third_party/manifest/zerovm.xml. Run bash third_party/scripts/sync_sources.sh to download selected source projects into third_party/aosp/.
+The executable manifest is third_party/manifest/zerodroid.xml. Run bash third_party/scripts/sync_sources.sh to download selected source projects into third_party/aosp/.
 
 | Upstream | Purpose | Checkout / pin policy |
 |---|---|---|
@@ -18,4 +18,4 @@ The executable manifest is third_party/manifest/zerovm.xml. Run bash third_party
 
 The manifest is intentionally selective and does not clone all of AOSP. New projects require a concrete dependency. Each successful sync exports SOURCE_LOCK.xml and SOURCE_LOCK.json; review and commit these when accepting a new baseline.
 
-Do not bulk-copy upstream code into ZeroVM-owned modules. Keep upstream repositories in their own checkouts, preserve license files and carry local changes as auditable patches. Repository-level license metadata is not a substitute for file-level and transitive license review.
+Do not bulk-copy upstream code into ZeroDroid-owned modules. Keep upstream repositories in their own checkouts, preserve license files and carry local changes as auditable patches. Repository-level license metadata is not a substitute for file-level and transitive license review.
