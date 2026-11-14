@@ -5,7 +5,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 THIRD_PARTY="$ROOT/third_party"
 AOSP_DIR="$THIRD_PARTY/aosp"
 MANIFEST_REPO="$THIRD_PARTY/.manifest-repo"
-MANIFEST="$THIRD_PARTY/manifest/zerovm.xml"
+MANIFEST="$THIRD_PARTY/manifest/zerodroid.xml"
 JOBS="${ZEROVM_SYNC_JOBS:-4}"
 DEPTH="${ZEROVM_SYNC_DEPTH:-1}"
 
@@ -22,15 +22,15 @@ test -f "$MANIFEST" || { echo "Missing manifest: $MANIFEST" >&2; exit 2; }
 mkdir -p "$MANIFEST_REPO" "$AOSP_DIR"
 if [[ ! -d "$MANIFEST_REPO/.git" ]]; then
   git -C "$MANIFEST_REPO" init -q -b main
-  git -C "$MANIFEST_REPO" config user.name "ZeroVM Source Sync"
-  git -C "$MANIFEST_REPO" config user.email "zerovm-source-sync@localhost"
+  git -C "$MANIFEST_REPO" config user.name "ZeroDroid Source Sync"
+  git -C "$MANIFEST_REPO" config user.email "zerodroid-source-sync@localhost"
 fi
 cp "$MANIFEST" "$MANIFEST_REPO/default.xml"
 git -C "$MANIFEST_REPO" add default.xml
 if ! git -C "$MANIFEST_REPO" diff --cached --quiet; then
-  git -C "$MANIFEST_REPO" config user.name "ZeroVM Source Sync"
-  git -C "$MANIFEST_REPO" config user.email "zerovm-source-sync@localhost"
-  git -C "$MANIFEST_REPO" commit -q -m "Update ZeroVM upstream manifest"
+  git -C "$MANIFEST_REPO" config user.name "ZeroDroid Source Sync"
+  git -C "$MANIFEST_REPO" config user.email "zerodroid-source-sync@localhost"
+  git -C "$MANIFEST_REPO" commit -q -m "Update ZeroDroid upstream manifest"
 fi
 
 INIT_ARGS=(init -u "file://$MANIFEST_REPO" -b main -m default.xml --repo-url=https://gerrit.googlesource.com/git-repo --no-clone-bundle)
@@ -63,9 +63,9 @@ for node in root.findall("project"):
         "groups": node.get("groups", "")
     })
 output_path.write_text(json.dumps({
-    "format": "zerovm-source-lock",
+    "format": "zerodroid-source-lock",
     "format_version": 1,
-    "manifest": "third_party/manifest/zerovm.xml",
+    "manifest": "third_party/manifest/zerodroid.xml",
     "resolved_manifest": "third_party/SOURCE_LOCK.xml",
     "projects": projects
 }, indent=2) + "\n", encoding="utf-8")
