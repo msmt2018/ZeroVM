@@ -3,30 +3,30 @@
 #include <cstddef>
 
 int main() {
-    static_assert(sizeof(zvm_handle) == 8);
-    static_assert(offsetof(zvm_runtime_options, abi_version) == 0);
-    static_assert(offsetof(zvm_runtime_options, struct_size) == 4);
-    static_assert(offsetof(zvm_error_info, operation_id) == 16);
-    assert(zvm_get_abi_version() == ZVM_ABI_VERSION);
-    assert(zvm_status_name(ZVM_STATUS_OK)[0] == 'O');
+    static_assert(sizeof(zdroid_handle) == 8);
+    static_assert(offsetof(zdroid_runtime_options, abi_version) == 0);
+    static_assert(offsetof(zdroid_runtime_options, struct_size) == 4);
+    static_assert(offsetof(zdroid_error_info, operation_id) == 16);
+    assert(zdroid_get_abi_version() == ZDROID_ABI_VERSION);
+    assert(zdroid_status_name(ZDROID_STATUS_OK)[0] == 'O');
 
-    zvm_runtime_options options{ZVM_ABI_VERSION, sizeof(zvm_runtime_options), 0};
-    zvm_error_info error{};
-    error.struct_size = sizeof(zvm_error_info);
-    zvm_handle runtime = 0;
+    zdroid_runtime_options options{ZDROID_ABI_VERSION, sizeof(zdroid_runtime_options), 0};
+    zdroid_error_info error{};
+    error.struct_size = sizeof(zdroid_error_info);
+    zdroid_handle runtime = 0;
 
-    assert(zvm_runtime_create(&options, &runtime, &error) == ZVM_STATUS_OK);
+    assert(zdroid_runtime_create(&options, &runtime, &error) == ZDROID_STATUS_OK);
     assert(runtime != 0);
-    assert(error.code == ZVM_STATUS_OK);
-    assert(zvm_runtime_destroy(runtime, &error) == ZVM_STATUS_OK);
-    assert(zvm_runtime_destroy(runtime, &error) == ZVM_STATUS_STALE_HANDLE);
+    assert(error.code == ZDROID_STATUS_OK);
+    assert(zdroid_runtime_destroy(runtime, &error) == ZDROID_STATUS_OK);
+    assert(zdroid_runtime_destroy(runtime, &error) == ZDROID_STATUS_STALE_HANDLE);
 
     runtime = 99;
     options.abi_version = 99;
-    assert(zvm_runtime_create(&options, &runtime, &error) == ZVM_STATUS_ABI_MISMATCH);
+    assert(zdroid_runtime_create(&options, &runtime, &error) == ZDROID_STATUS_ABI_MISMATCH);
     assert(runtime == 0);
-    assert(error.code == ZVM_STATUS_ABI_MISMATCH);
+    assert(error.code == ZDROID_STATUS_ABI_MISMATCH);
 
-    assert(zvm_runtime_destroy(0, &error) == ZVM_STATUS_INVALID_ARGUMENT);
+    assert(zdroid_runtime_destroy(0, &error) == ZDROID_STATUS_INVALID_ARGUMENT);
     return 0;
 }
