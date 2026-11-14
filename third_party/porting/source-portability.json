@@ -1,0 +1,1855 @@
+{
+  "format": "zerovm-android-arm64-portability-matrix",
+  "schema_version": 1,
+  "target_host": {
+    "os": "Android",
+    "abi": "arm64-v8a",
+    "cpu_isa": "AArch64"
+  },
+  "policy": "No upstream project is production-compatible until every audit dimension has evidence and the required build/device/integration gates pass.",
+  "project_count": 73,
+  "projects": [
+    {
+      "name": "platform/system/core",
+      "path": "system/core",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "image",
+        "boot"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/extras",
+      "path": "system/extras",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "image",
+        "boot"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/logging",
+      "path": "system/logging",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/libbase",
+      "path": "system/libbase",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/libutils",
+      "path": "system/libutils",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/libcutils",
+      "path": "system/libcutils",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/libprocessgroup",
+      "path": "system/libprocessgroup",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "resource"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/libvintf",
+      "path": "system/libvintf",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "guest-platform"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/libfmq",
+      "path": "system/libfmq",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "ipc"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/libbinder",
+      "path": "system/libbinder",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "ipc"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/libhidl",
+      "path": "system/libhidl",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "ipc"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/vold",
+      "path": "system/vold",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "image"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/gsid",
+      "path": "system/gsid",
+      "remote": "aosp",
+      "revision": "refs/heads/main",
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "gsi",
+        "installer"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/netd",
+      "path": "system/netd",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "network"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/sepolicy",
+      "path": "system/sepolicy",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "security"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/selinux",
+      "path": "external/selinux",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "security"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/avb",
+      "path": "external/avb",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "image",
+        "security"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/boringssl",
+      "path": "external/boringssl",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "security"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/protobuf",
+      "path": "external/protobuf",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "protocol"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/libxml2",
+      "path": "external/libxml2",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "image"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/zstd",
+      "path": "external/zstd",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "image"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/lz4",
+      "path": "external/lz4",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "image"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/brotli",
+      "path": "external/brotli",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "compression"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/libarchive",
+      "path": "external/libarchive",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "archive"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/bzip2",
+      "path": "external/bzip2",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "compression"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/zlib",
+      "path": "external/zlib",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "compression"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/xz",
+      "path": "external/xz",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "compression",
+        "payload"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/libufdt",
+      "path": "system/libufdt",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "dtb",
+        "boot"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/dtc",
+      "path": "external/dtc",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "dtb",
+        "boot"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/googletest",
+      "path": "external/googletest",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-core",
+        "test"
+      ],
+      "role": "platform-support-library",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/bootable/recovery",
+      "path": "bootable/recovery",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "ota",
+        "recovery"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/update_engine",
+      "path": "system/update_engine",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "ota"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/tools/mkbootimg",
+      "path": "system/tools/mkbootimg",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "boot"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "ssut/payload-dumper-go",
+      "path": "tools/rom/payload-dumper-go",
+      "remote": "github",
+      "revision": "refs/heads/main",
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "payload",
+        "ota"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "cfig/Android_boot_image_editor",
+      "path": "tools/rom/Android_boot_image_editor",
+      "remote": "github",
+      "revision": "refs/heads/master",
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "boot",
+        "avb",
+        "payload"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "xpirt/sdat2img",
+      "path": "tools/rom/sdat2img",
+      "remote": "github",
+      "revision": "refs/heads/master",
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "sdat",
+        "legacy-ota"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "xpirt/img2sdat",
+      "path": "tools/rom/img2sdat",
+      "remote": "github",
+      "revision": "refs/heads/master",
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "sdat",
+        "legacy-ota"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "erfanoabdi/imgpatchtools",
+      "path": "tools/rom/imgpatchtools",
+      "remote": "github",
+      "revision": "refs/heads/Stable",
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "legacy-ota",
+        "block-patch"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/e2fsprogs",
+      "path": "external/e2fsprogs",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "filesystem"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/f2fs-tools",
+      "path": "external/f2fs-tools",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "filesystem"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/erofs-utils",
+      "path": "external/erofs-utils",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-image",
+        "filesystem"
+      ],
+      "role": "image-and-boot-tool",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "ColdWindScholar/TIK",
+      "path": "reference/rom-tools/TIK",
+      "remote": "github",
+      "revision": "refs/heads/master",
+      "groups": [
+        "zerodroid-rom-reference",
+        "rom-suite"
+      ],
+      "role": "reference-only",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "Danda420/RomTools",
+      "path": "reference/rom-tools/RomTools",
+      "remote": "github",
+      "revision": "refs/heads/main",
+      "groups": [
+        "zerodroid-rom-reference",
+        "rom-suite"
+      ],
+      "role": "reference-only",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "erfanoabdi/Firmware_extractor",
+      "path": "reference/rom-tools/Firmware_extractor",
+      "remote": "github",
+      "revision": "refs/heads/master",
+      "groups": [
+        "zerodroid-rom-reference",
+        "oem-firmware"
+      ],
+      "role": "reference-only",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "topjohnwu/Magisk",
+      "path": "reference/rom-tools/Magisk",
+      "remote": "github",
+      "revision": "refs/heads/master",
+      "groups": [
+        "zerodroid-rom-reference",
+        "boot-patching"
+      ],
+      "role": "reference-only",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "osm0sis/AnyKernel3",
+      "path": "reference/rom-tools/AnyKernel3",
+      "remote": "github",
+      "revision": "refs/heads/master",
+      "groups": [
+        "zerodroid-rom-reference",
+        "kernel-package"
+      ],
+      "role": "reference-only",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "anestisb/android-simg2img",
+      "path": "reference/rom-tools/android-simg2img",
+      "remote": "github",
+      "revision": "refs/heads/master",
+      "groups": [
+        "zerodroid-rom-reference",
+        "sparse-image"
+      ],
+      "role": "reference-only",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/frameworks/base",
+      "path": "frameworks/base",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-guest",
+        "framework"
+      ],
+      "role": "guest-platform-source",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/frameworks/native",
+      "path": "frameworks/native",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-guest",
+        "framework",
+        "native"
+      ],
+      "role": "guest-platform-source",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/frameworks/av",
+      "path": "frameworks/av",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-guest",
+        "media"
+      ],
+      "role": "guest-platform-source",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/system/media",
+      "path": "system/media",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-guest",
+        "media",
+        "audio"
+      ],
+      "role": "guest-platform-source",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/tinyalsa",
+      "path": "external/tinyalsa",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-guest",
+        "audio"
+      ],
+      "role": "guest-platform-source",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/hardware/interfaces",
+      "path": "hardware/interfaces",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-guest",
+        "hal",
+        "vintf"
+      ],
+      "role": "guest-platform-source",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/hardware/libhardware",
+      "path": "hardware/libhardware",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-guest",
+        "hal"
+      ],
+      "role": "guest-platform-source",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/packages/modules/adb",
+      "path": "packages/modules/adb",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-guest",
+        "bridge",
+        "debug"
+      ],
+      "role": "guest-platform-source",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/packages/modules/Virtualization",
+      "path": "packages/modules/Virtualization",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-avf",
+        "backend",
+        "pvm"
+      ],
+      "role": "android-virtualization-api",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/crosvm",
+      "path": "external/crosvm-aosp",
+      "remote": "aosp",
+      "revision": "refs/heads/main",
+      "groups": [
+        "default",
+        "zerodroid-vmm",
+        "vmm",
+        "virtio"
+      ],
+      "role": "vmm-candidate",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "kernel/build",
+      "path": "kernel/build",
+      "remote": "aosp",
+      "revision": "refs/heads/main-kernel",
+      "groups": [
+        "default",
+        "zerodroid-kernel",
+        "kernel-build"
+      ],
+      "role": "guest-kernel-source",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "kernel/common",
+      "path": "kernel/common",
+      "remote": "aosp",
+      "revision": "refs/heads/android16-6.12-lts",
+      "groups": [
+        "default",
+        "zerodroid-kernel",
+        "guest-kernel",
+        "kvm",
+        "virtio"
+      ],
+      "role": "guest-kernel-source",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/minigbm",
+      "path": "external/minigbm",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-graphics",
+        "graphics"
+      ],
+      "role": "guest-graphics-stack",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/libdrm",
+      "path": "external/libdrm",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-graphics",
+        "graphics"
+      ],
+      "role": "guest-graphics-stack",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/hardware/google/gfxstream",
+      "path": "hardware/google/gfxstream",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-graphics",
+        "graphics"
+      ],
+      "role": "guest-graphics-stack",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/angle",
+      "path": "external/angle",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-graphics",
+        "graphics"
+      ],
+      "role": "guest-graphics-stack",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/swiftshader",
+      "path": "external/swiftshader",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-graphics",
+        "graphics"
+      ],
+      "role": "guest-graphics-stack",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/virglrenderer",
+      "path": "external/virglrenderer",
+      "remote": "aosp",
+      "revision": "refs/heads/main",
+      "groups": [
+        "default",
+        "zerodroid-graphics",
+        "graphics",
+        "virtio-gpu"
+      ],
+      "role": "guest-graphics-stack",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/mesa3d",
+      "path": "external/mesa3d",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-graphics",
+        "graphics",
+        "virtio-gpu"
+      ],
+      "role": "guest-graphics-stack",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/external/vulkan-headers",
+      "path": "external/vulkan-headers",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "default",
+        "zerodroid-graphics",
+        "graphics",
+        "vulkan"
+      ],
+      "role": "guest-graphics-stack",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "google/crosvm",
+      "path": "external/crosvm-upstream",
+      "remote": "github",
+      "revision": "9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe",
+      "groups": [
+        "default",
+        "zerodroid-vmm",
+        "vmm",
+        "virtio"
+      ],
+      "role": "vmm-candidate",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/test/vts",
+      "path": "test/vts",
+      "remote": "aosp",
+      "revision": "refs/heads/main",
+      "groups": [
+        "zerodroid-test",
+        "validation",
+        "vts"
+      ],
+      "role": "validation-only",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/cts",
+      "path": "cts",
+      "remote": "aosp",
+      "revision": "refs/heads/main",
+      "groups": [
+        "zerodroid-test",
+        "validation",
+        "cts"
+      ],
+      "role": "validation-only",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "torvalds/linux",
+      "path": "reference/linux-mainline",
+      "remote": "linux",
+      "revision": "refs/heads/master",
+      "groups": [
+        "zerodroid-optional",
+        "linux-reference",
+        "kvm",
+        "virtio"
+      ],
+      "role": "optional-reference",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "tianocore/edk2",
+      "path": "reference/firmware/edk2",
+      "remote": "github",
+      "revision": "refs/tags/edk2-stable202608",
+      "groups": [
+        "zerodroid-optional",
+        "uefi",
+        "firmware-reference"
+      ],
+      "role": "optional-reference",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    },
+    {
+      "name": "platform/packages/modules/Bluetooth",
+      "path": "packages/modules/Bluetooth",
+      "remote": "aosp",
+      "revision": null,
+      "groups": [
+        "zerodroid-optional",
+        "guest-platform",
+        "bluetooth"
+      ],
+      "role": "optional-reference",
+      "portability_status": "unreviewed",
+      "audit": {
+        "isa": "unreviewed",
+        "android_abi_bionic": "unreviewed",
+        "host_os_dependencies": "unreviewed",
+        "kernel_interfaces": "unreviewed",
+        "soc_hardware_assumptions": "unreviewed",
+        "android_security_permissions": "unreviewed",
+        "runtime_integration": "unreviewed"
+      },
+      "evidence": [],
+      "required_adaptations": [],
+      "blockers": []
+    }
+  ]
+}
