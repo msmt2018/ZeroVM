@@ -1,6 +1,6 @@
 # Third-party source intake and checkout plan
 
-The executable manifest is `third_party/manifest/zerodroid.xml`. Run `bash third_party/scripts/sync_sources.sh` to download the 64 default projects into `third_party/aosp/`. The manifest contains 73 projects in total: 62 default, 6 optional ROM-suite references, 1 upstream Linux reference and 2 optional Android compatibility test trees.
+The executable manifest is `third_party/manifest/zerodroid.xml`. Run `bash third_party/scripts/sync_sources.sh` to download the 69 default projects into `third_party/aosp/`. The manifest contains 80 projects in total: 69 default, 6 optional ROM-suite references, 3 optional platform/firmware references and 2 optional Android compatibility test trees.
 
 ## Android ROM and image pipeline source matrix
 
@@ -20,13 +20,20 @@ The executable manifest is `third_party/manifest/zerodroid.xml`. Run `bash third
 | F2FS | AOSP f2fs-tools | Inspect, dump, validate and build F2FS images |
 | boot / vendor_boot / init_boot / recovery | AOSP `system/tools/mkbootimg` | Official `mkbootimg`, `unpack_bootimg`, repack support and boot header formats |
 | boot / vendor_boot / vbmeta / payload | `cfig/Android_boot_image_editor` | Cross-check parsing and unpack/repack of boot images, AVB metadata and payload images |
-| DTB / DTBO | AOSP `system/libufdt`, device-tree-compiler source/toolchain references | Flattened device tree parsing and DTBO image operations |
+| DTB / DTBO | AOSP `system/libufdt` and `external/dtc` (dtc/libfdt) | DTS/DTB compilation, flattened device tree parsing and DTBO operations |
 | OEM firmware containers | `erfanoabdi/Firmware_extractor` (optional reference) | Study vendor-specific firmware container extraction; keep device formats isolated |
 | Integrated ROM suites | `ColdWindScholar/TIK`, `Danda420/RomTools` (optional references) | Compare end-to-end format detection, unpack/repack workflows and format coverage |
 | Boot ramdisk patching | `topjohnwu/Magisk` (optional reference) | Study boot image/ramdisk patch workflow; not a ZeroDroid dependency |
 | Kernel installer ZIP | `osm0sis/AnyKernel3` (optional reference) | Study kernel ZIP packaging and installer scripts; never execute untrusted scripts automatically |
 
 ## Other upstream source matrix
+
+| Source project | Role | Policy |
+|---|---|---|
+| AOSP `system/media` + `external/tinyalsa` | Android audio formats, low-level PCM and audio HAL-adjacent references | Reference only; actual audio needs a working Guest HAL and Host audio bridge |
+| AOSP `external/mesa3d` + `external/vulkan-headers` | Mesa graphics stack and Vulkan API headers for virtual GPU integration | Build only against a validated Guest/Host driver and VMM path |
+| AOSP `packages/modules/Bluetooth` (optional) | Fluoride Guest Bluetooth stack | Requires a separately implemented virtual controller or permissioned Host bridge |
+| `tianocore/edk2` (optional) | UEFI firmware reference for a firmware-based Guest boot path | Not required for direct-kernel loading; do not treat generic firmware as a phone bootloader |
 
 | Source project | Role in ZeroDroid | Policy |
 |---|---|---|
