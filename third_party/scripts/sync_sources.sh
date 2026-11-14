@@ -40,16 +40,16 @@ if [[ "$DEPTH" != "0" ]]; then INIT_ARGS+=(--depth="$DEPTH"); fi
   cd "$AOSP_DIR"
   repo "${INIT_ARGS[@]}"
   repo sync -c -g "$GROUPS" -j"$JOBS"
-  repo manifest -r -o "$THIRD_PARTY/SOURCE_LOCK.xml"
+  repo manifest -r -o "$THIRD_PARTY/.SOURCE_LOCK.xml.tmp"
 )
 
-python3 - "$THIRD_PARTY/SOURCE_LOCK.xml" "$THIRD_PARTY/SOURCE_LOCK.json" <<'PY'
+python3 - "$THIRD_PARTY/.SOURCE_LOCK.xml.tmp" "$THIRD_PARTY/SOURCE_LOCK.xml" "$THIRD_PARTY/SOURCE_LOCK.json" <<'PY'
 import json
 import pathlib
 import sys
 import xml.etree.ElementTree as ET
 
-manifest_path, output_path = map(pathlib.Path, sys.argv[1:])
+manifest_path, resolved_path, output_path = map(pathlib.Path, sys.argv[1:])
 root = ET.parse(manifest_path).getroot()
 remotes = {node.get("name"): node.get("fetch", "") for node in root.findall("remote")}
 default = root.find("default")
@@ -63,6 +63,16 @@ for node in root.findall("project"):
         "revision": node.get("revision"),
         "groups": node.get("groups", "")
     })
+expected = int(__import__("os").environ.get("ZERODROID_EXPECTED_PROJECTS", "73"))
+if len(projects) != expected:
+    raise SystemExit("Expected %d checked-out projects, found %d; refusing to write source lock files" % (expected, len(projects)))
+if any(not item["revision"] for item in projects):
+    missing = [item["name"] for item in projects if not item["revision"]]
+    raise SystemExit("Unpinned projects in resolved source manifest: " + ", ".join(missing))
+
+# Publish the resolved manifest and JSON lock only after complete validation.
+resolved_path.replace(resolved_path.with_name("SOURCE_LOCK.xml"))
+resolved_path = resolved_path.with_name("SOURCE_LOCK.xml")
 output_path.write_text(json.dumps({
     "format": "zerodroid-source-lock",
     "format_version": 1,
@@ -70,12 +80,7 @@ output_path.write_text(json.dumps({
     "resolved_manifest": "third_party/SOURCE_LOCK.xml",
     "projects": projects
 }, indent=2) + "\n", encoding="utf-8")
-expected = int(__import__("os").environ.get("ZERODROID_EXPECTED_PROJECTS", "73"))
-if len(projects) != expected:
-    raise SystemExit("Expected %d checked-out projects, found %d; refusing to write an incomplete source lock" % (expected, len(projects)))
-if any(not item["revision"] for item in projects):
-    raise SystemExit("Resolved source lock contains an unpinned project revision")
-print("Wrote %s with %d resolved revisions" % (output_path, len(projects)))
+print("Wrote %s and %s with %d resolved revisions" % (resolved_path, output_path, len(projects)))
 PY
 
 echo "Source sync complete. Review and commit SOURCE_LOCK.xml and SOURCE_LOCK.json."
