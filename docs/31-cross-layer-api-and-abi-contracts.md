@@ -48,8 +48,10 @@ C ABI 是跨语言稳定边界：
     } zdroid_runtime_options;
 
     typedef struct {
+        uint32_t struct_size;
         uint32_t code;
         uint32_t domain;
+        uint32_t reserved;
         uint64_t operation_id;
         char message[256];
     } zdroid_error_info;

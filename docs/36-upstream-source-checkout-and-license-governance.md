@@ -43,14 +43,14 @@ AOSP `system/extras/partition_tools` is the source of `lpdump`, `lpunpack` and `
 
 ## Source groups and full checkout
 
-The manifest currently contains 80 project entries:
+The manifest currently contains 73 project entries:
 
-- `default`: 69 projects, including the core ROM/image pipeline, DTB compiler, audio stack, Mesa/Vulkan graphics references and primary Android platform/runtime sources.
+- `default`: 62 projects, including the core ROM/image pipeline, DTB compiler, audio stack, Mesa/Vulkan graphics references and primary Android platform/runtime sources.
 - `zerodroid-rom-reference`: 6 optional ROM references (TIK, RomTools, standalone sparse converter, OEM firmware extractor, Magisk and AnyKernel3).
 - `zerodroid-optional`: 3 references (upstream mainline Linux, EDK II UEFI firmware and AOSP Bluetooth guest stack).
 - `zerodroid-test`: 2 large CTS/VTS test trees.
 
-Install Git, Python 3 and the official Android `repo` launcher, then run from the repository root to download all 80 projects:
+Install Git, Python 3 and the official Android `repo` launcher, then run from the repository root to download all 73 projects:
 
     bash third_party/scripts/sync_sources.sh
 
@@ -58,7 +58,7 @@ Controls:
 
 - `ZERODROID_SYNC_JOBS`: parallel project sync jobs (default 4).
 - `ZERODROID_SYNC_DEPTH`: default 0 checks out full history for each selected branch; set to 1 only for an intentional shallow checkout.
-- `ZERODROID_SYNC_GROUPS`: default selects `default,zerodroid-rom-reference,zerodroid-optional,zerodroid-test`, covering all 80 manifest projects. Override only for a deliberate partial checkout.
+- `ZERODROID_SYNC_GROUPS`: default selects `default,zerodroid-rom-reference,zerodroid-optional,zerodroid-test`, covering all 73 manifest projects. Override only for a deliberate partial checkout.
 - Successful sync emits `third_party/SOURCE_LOCK.xml` and `third_party/SOURCE_LOCK.json` with resolved revisions.
 
 ## Image processing safety and correctness
