@@ -1,6 +1,6 @@
 # ZeroDroid upstream source matrix
 
-The executable manifest is `third_party/manifest/zerodroid.xml`. It contains **73 upstream projects** after removing all emulator-only source trees. The default sync selects the core hardware-virtualization, Android Guest platform, kernel, VMM candidate, virtual-device, boot and image pipeline. Optional groups include ROM format references, mainline Linux comparison, UEFI/Bluetooth references and CTS/VTS.
+The executable manifest is `third_party/manifest/zerodroid.xml`. It contains **73 upstream projects**, of which **62 are in the default group**, after removing all emulator-only source trees. The default group selects the core hardware-virtualization, Android Guest platform, kernel, VMM candidate, virtual-device, boot and image pipeline. Optional groups include ROM format references, mainline Linux comparison, UEFI/Bluetooth references and CTS/VTS.
 
 ## Explicit exclusions
 
