@@ -6,8 +6,8 @@ THIRD_PARTY="$ROOT/third_party"
 AOSP_DIR="$THIRD_PARTY/aosp"
 MANIFEST_REPO="$THIRD_PARTY/.manifest-repo"
 MANIFEST="$THIRD_PARTY/manifest/zerodroid.xml"
-JOBS="${ZEROVM_SYNC_JOBS:-4}"
-DEPTH="${ZEROVM_SYNC_DEPTH:-1}"
+JOBS="${ZERODROID_SYNC_JOBS:-4}"
+DEPTH="${ZERODROID_SYNC_DEPTH:-1}"
 
 if ! command -v repo >/dev/null 2>&1; then
   echo "Install the official Android repo launcher: https://source.android.com/docs/setup/reference/repo" >&2
