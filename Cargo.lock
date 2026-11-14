@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "zerovm-image-core"
+name = "zerodroid-image-core"
 version = "0.1.0"
