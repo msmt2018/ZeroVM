@@ -32,7 +32,7 @@ The script requires Git, Python 3 and the official Android repo launcher. It cre
 
 The selected Android release baseline is android16-qpr1-release, matching the android-latest-release manifest at the time this baseline was prepared. Android Common Kernel is selected from the Android 16 / 6.12 maintenance line. crosvm is pinned to immutable commit 9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe. The generated SOURCE_LOCK.xml records exact resolved SHAs for all checked-out projects. Review and commit both generated lock files when updating the baseline.
 
-The default checkout is shallow. Set ZEROVM_SYNC_DEPTH=0 for full history and ZEROVM_SYNC_JOBS to control parallelism.
+The default checkout is shallow. Set ZERODROID_SYNC_DEPTH=0 for full history and ZERODROID_SYNC_JOBS to control parallelism.
 
 ## License and provenance rules
 
