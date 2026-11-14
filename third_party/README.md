@@ -7,29 +7,36 @@ This workspace keeps upstream projects as separate Git checkouts. It is not a so
 Install Git, Python 3 and the official Android `repo` launcher, then run from the repository root:
 
 ```bash
-bash third_party/scripts/sync_sources.sh
+ZERODROID_SYNC_GROUPS=default,zerodroid-rom-reference,zerodroid-optional,zerodroid-test \
+  bash third_party/scripts/sync_sources.sh
 ```
 
-The default `default` group now includes selected Android 16 AOSP platform foundations, ROM/recovery/OTA/GSI tooling, Android framework and HAL contracts, AVF/Microdroid, Android Common Kernel plus its Kleaf build system, emulator/QEMU/goldfish references, Cuttlefish, crosvm, VirtIO and graphics projects, and filesystem libraries.
+The manifest contains 71 projects:
+- 62 default projects: Android platform/runtime, AVF/Microdroid, Android Common Kernel and Kleaf, crosvm, Cuttlefish, Android Emulator/QEMU/goldfish/AEMU, graphics, recovery/OTA, and the ROM/image pipeline.
+- 6 optional ROM references: TIK, RomTools, standalone simg2img, OEM firmware extractor, Magisk and AnyKernel3.
+- 1 optional upstream mainline Linux comparison tree.
+- 2 optional Android CTS/VTS test source trees.
 
-The upstream mainline Linux tree is a large comparison checkout, not the primary Android Guest kernel. To include it too:
+## ROM and image pipeline included in the default group
 
-```bash
-ZERODROID_SYNC_GROUPS=default,zerodroid-optional,zerodroid-test bash third_party/scripts/sync_sources.sh
-```
+- ZIP/OTA archive codecs and extraction support: AOSP libziparchive, libarchive, zlib, bzip2, xz, Brotli, zstd and lz4.
+- Modern A/B OTA: AOSP update_engine plus payload-dumper-go for partition extraction from payload.bin and OTA ZIP inputs.
+- Legacy block OTA: sdat2img, img2sdat, Brotli and imgpatchtools for .dat.br, transfer-list and patch.dat workflows.
+- Dynamic partitions: AOSP lpdump, lpunpack and lpmake from system/extras/partition_tools.
+- Sparse images: AOSP libsparse simg2img/img2simg/append2simg.
+- Filesystems: e2fsprogs, erofs-utils and f2fs-tools for ext4, EROFS and F2FS.
+- Boot images: AOSP mkbootimg/unpack_bootimg plus Android_boot_image_editor for boot, vendor_boot, init_boot, recovery, DTB/DTBO, vbmeta and payload format reference.
+- DTB/DTBO: libufdt and device-tree tooling references.
 
-The Android Common Kernel is the primary Android kernel baseline because it carries Android-specific changes and the KVM/pKVM/VirtIO implementation. The pinned branch is `android16-6.12-lts`. The emulator goldfish kernel and emulator device trees are compatibility/reference material, not the production phone backend.
+The optional ROM reference group adds end-to-end tools and OEM/installer references for broader format discovery. These are not all suitable for direct production integration; inspect their licenses, dependencies, security posture and format coverage first.
 
-## Resource controls and source locks
+## Source groups and resource controls
 
-- `ZERODROID_SYNC_JOBS=4` controls parallel sync jobs.
-- `ZERODROID_SYNC_DEPTH=1` is the default shallow checkout; use `0` for full Git history.
-- `ZERODROID_SYNC_GROUPS=default` selects the source groups; add `zerodroid-optional` for upstream mainline Linux and `zerodroid-test` for CTS/VTS test source.
-- The first sync is network-, disk- and time-intensive. Kernel, Android framework, QEMU and graphics projects are large.
-- After a successful sync, `SOURCE_LOCK.xml` and `SOURCE_LOCK.json` record resolved revisions. Review and commit these generated lock files when accepting an upstream baseline.
+- `ZERODROID_SYNC_JOBS=4`: parallel sync jobs.
+- `ZERODROID_SYNC_DEPTH=1`: default shallow checkout; use 0 for full Git history.
+- `ZERODROID_SYNC_GROUPS=default`: choose repo groups.
+- Add `zerodroid-rom-reference`, `zerodroid-optional` and `zerodroid-test` to include all 71 manifest entries.
 
-Downloaded source is not automatically integrated, built or validated. Keep each upstream's native build system and license files. Cuttlefish is a reference platform, not a universal Vendor. Android Emulator/QEMU is a desktop development reference and is not the production phone VMM. AVF source does not grant ordinary APKs privileged permissions.
+The first sync is network-, disk- and time-intensive. Framework, kernel, QEMU, CTS/VTS and ROM suite repositories can be large. Successful sync emits `SOURCE_LOCK.xml` and `SOURCE_LOCK.json` with resolved revisions.
 
-We intentionally do not mirror all Android Studio/IntelliJ source, every AOSP project, prebuilt SDK archives, proprietary Vendor blobs, device firmware, signing keys, TEE/KeyMint secrets, or closed-source Google Play components. Those are either unrelated to the guest runtime, legally/device-specific restricted, or cannot be redistributed as general source dependencies.
-
-See [the source matrix](UPSTREAMS.md) and [license governance](../docs/36-upstream-source-checkout-and-license-governance.md).
+Downloaded source is not automatically integrated, built or validated. Keep upstream projects separate, preserve licenses and track local changes as auditable patches. See [source matrix](UPSTREAMS.md) and [license governance](../docs/36-upstream-source-checkout-and-license-governance.md).
