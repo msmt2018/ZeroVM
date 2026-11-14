@@ -40,7 +40,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import xml.etree.ElementTree as ET
-          root = ET.parse("third_party/manifest/zerovm.xml").getroot()
+          root = ET.parse("third_party/manifest/zerodroid.xml").getroot()
           projects = {p.get("name"): p for p in root.findall("project")}
           required = {
               "platform/system/core",
