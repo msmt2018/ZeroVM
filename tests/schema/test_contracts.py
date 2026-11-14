@@ -5,7 +5,7 @@ from pathlib import Path
 from jsonschema import Draft202012Validator, FormatChecker, ValidationError
 
 ROOT = Path(__file__).resolve().parents[2]
-SCHEMA_PATH = ROOT / "schemas/v1/zerovm.schema.json"
+SCHEMA_PATH = ROOT / "schemas/v1/zerodroid.schema.json"
 FIXTURES = ROOT / "schemas/v1/fixtures"
 
 
@@ -33,7 +33,7 @@ def semantic_errors(document):
             errors.append(f"resource_policy.{key}: min exceeds max")
         if value.get("mode") == "fixed" and value.get("min") != value.get("max"):
             errors.append(f"resource_policy.{key}: fixed value requires min == max")
-    graph = document if document.get("schema_id") == "zerovm.partition-graph" else None
+    graph = document if document.get("schema_id") == "zerodroid.partition-graph" else None
     if graph:
         ids = {node.get("node_id") for node in graph.get("nodes", [])}
         for node in graph.get("nodes", []):
