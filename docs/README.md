@@ -1,6 +1,6 @@
-# ZeroVM 技术文档
+# ZeroDroid 技术文档
 
-本目录定义 ZeroVM 的产品目标、虚拟化概念、系统架构、宿主硬件探测、自适应资源管理、虚拟硬件、Guest Kernel、启动链、GSI 镜像、Vendor HAL、图形设备、设备桥接、安全隔离、VM 生命周期、兼容性和开发路线。
+本目录定义 ZeroDroid 的产品目标、虚拟化概念、系统架构、宿主硬件探测、自适应资源管理、虚拟硬件、Guest Kernel、启动链、GSI 镜像、Vendor HAL、图形设备、设备桥接、安全隔离、VM 生命周期、兼容性和开发路线。
 
 > 本文档描述目标设计，不代表仓库已经实现对应功能。实现状态以源码、自动化测试和目标真机验证为准。
 
@@ -42,12 +42,10 @@
 34. [机器可读 Schema 与契约验证](34-machine-readable-schemas-and-validation.md)
 35. [Implementation foundation 与工具链基线](35-implementation-foundation-and-toolchain.md)
 36. [上游核心源码拉取与许可证治理](36-upstream-source-checkout-and-license-governance.md)
-35. [Implementation foundation 与工具链基线](35-implementation-foundation-and-toolchain.md)
-36. [上游核心源码拉取与许可证治理](36-upstream-source-checkout-and-license-governance.md)
 
 ## 设计基线
 
-- ZeroVM 目标是真正的系统级虚拟机：Guest 拥有独立 Kernel、地址空间、系统服务、虚拟设备和持久化数据。
+- ZeroDroid 目标是真正的系统级虚拟机：Guest 拥有独立 Kernel、地址空间、系统服务、虚拟设备和持久化数据。
 - GSI 是 Android 通用 System 镜像，不是完整虚拟设备镜像。运行 GSI 仍需匹配的 Guest Kernel、Vendor HAL、VINTF、启动配置和分区布局。
 - 宿主硬件配置必须按设备实际能力和实时资源状态计算，不使用适用于所有手机的固定 CPU/RAM/GPU 配置。
 - 虚拟硬件 ABI 尽量稳定；设备能力可以协商，资源预算可以动态变化，但不能破坏 Guest 已建立的设备契约。
