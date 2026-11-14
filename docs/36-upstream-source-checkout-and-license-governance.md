@@ -54,13 +54,13 @@ The manifest currently contains 80 project entries:
 
 Install Git, Python 3 and the official Android `repo` launcher, then run from the repository root to download all 80 projects:
 
-    ZERODROID_SYNC_GROUPS=default,zerodroid-rom-reference,zerodroid-optional,zerodroid-test bash third_party/scripts/sync_sources.sh
+    bash third_party/scripts/sync_sources.sh
 
 Controls:
 
 - `ZERODROID_SYNC_JOBS`: parallel project sync jobs (default 4).
-- `ZERODROID_SYNC_DEPTH`: shallow depth (default 1); set to 0 for full history.
-- `ZERODROID_SYNC_GROUPS`: repo groups (default `default`).
+- `ZERODROID_SYNC_DEPTH`: default 0 checks out full history for each selected branch; set to 1 only for an intentional shallow checkout.
+- `ZERODROID_SYNC_GROUPS`: default selects `default,zerodroid-rom-reference,zerodroid-optional,zerodroid-test`, covering all 80 manifest projects. Override only for a deliberate partial checkout.
 - Successful sync emits `third_party/SOURCE_LOCK.xml` and `third_party/SOURCE_LOCK.json` with resolved revisions.
 
 ## Image processing safety and correctness
@@ -88,4 +88,4 @@ Controls:
 
 ## Download status
 
-The manifest and sync tooling are committed artifacts. The 80 upstream worktrees have not yet been downloaded by GitHub repository editing. Execute the command above in a networked development environment with Git, Python 3 and the official repo launcher. A successful sync generates exact resolved revisions in SOURCE_LOCK files. Downloaded source status is `SOURCE_CHECKED_OUT`, not `INTEGRATED`, `BUILT`, `TESTED` or `DEVICE_VALIDATED`.
+The manifest and sync tooling are committed artifacts. The 80 upstream worktrees have not yet been downloaded by GitHub repository editing. Execute the command above in a networked development environment with Git, Python 3 and the official repo launcher. A successful sync generates exact resolved revisions in SOURCE_LOCK files. Lock generation rejects an incomplete project count or unresolved project revision. Downloaded source status is `SOURCE_CHECKED_OUT`, not `INTEGRATED`, `BUILT`, `TESTED` or `DEVICE_VALIDATED`.
