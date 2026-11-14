@@ -2,7 +2,7 @@
 
 ## 1. 文档目的
 
-本文将 ZeroVM 从概念设计推进到可执行的工程架构决策。每项技术选型必须回答：解决什么问题、适用条件、必要前提、替代方案、限制、集成边界、验证方式和退出/替换成本。
+本文将 ZeroDroid 从概念设计推进到可执行的工程架构决策。每项技术选型必须回答：解决什么问题、适用条件、必要前提、替代方案、限制、集成边界、验证方式和退出/替换成本。
 
 本文是技术决策入口，不替代各子系统的详细接口规范。任何组件不得仅因“流行”而引入框架，也不得把设计候选误写为已实现能力。
 
@@ -28,7 +28,7 @@ Android UI / Compose
           ├─ VM Catalog / Image Import / Settings
           ├─ Foreground Runtime Service
           └─ Diagnostics / Permission Coordinator
-              └─ ZeroVM Kotlin API
+              └─ ZeroDroid Kotlin API
                   └─ JNI Boundary
                       └─ Native Runtime Facade
                           ├─ VM Core / Lifecycle State Machine
