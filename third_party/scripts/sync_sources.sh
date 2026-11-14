@@ -7,8 +7,8 @@ AOSP_DIR="$THIRD_PARTY/aosp"
 MANIFEST_REPO="$THIRD_PARTY/.manifest-repo"
 MANIFEST="$THIRD_PARTY/manifest/zerodroid.xml"
 JOBS="${ZERODROID_SYNC_JOBS:-4}"
-DEPTH="${ZERODROID_SYNC_DEPTH:-1}"
-GROUPS="${ZERODROID_SYNC_GROUPS:-default}"
+DEPTH="${ZERODROID_SYNC_DEPTH:-0}"
+GROUPS="${ZERODROID_SYNC_GROUPS:-default,zerodroid-rom-reference,zerodroid-optional,zerodroid-test}"
 
 if ! command -v repo >/dev/null 2>&1; then
   echo "Install the official Android repo launcher: https://source.android.com/docs/setup/reference/repo" >&2
@@ -39,7 +39,7 @@ if [[ "$DEPTH" != "0" ]]; then INIT_ARGS+=(--depth="$DEPTH"); fi
 (
   cd "$AOSP_DIR"
   repo "${INIT_ARGS[@]}"
-  repo sync -c --no-tags -g "$GROUPS" -j"$JOBS"
+  repo sync -c -g "$GROUPS" -j"$JOBS"
   repo manifest -r -o "$THIRD_PARTY/SOURCE_LOCK.xml"
 )
 
@@ -70,6 +70,11 @@ output_path.write_text(json.dumps({
     "resolved_manifest": "third_party/SOURCE_LOCK.xml",
     "projects": projects
 }, indent=2) + "\n", encoding="utf-8")
+expected = int(__import__("os").environ.get("ZERODROID_EXPECTED_PROJECTS", "80"))
+if len(projects) != expected:
+    raise SystemExit("Expected %d checked-out projects, found %d; refusing to write an incomplete source lock" % (expected, len(projects)))
+if any(not item["revision"] for item in projects):
+    raise SystemExit("Resolved source lock contains an unpinned project revision")
 print("Wrote %s with %d resolved revisions" % (output_path, len(projects)))
 PY
 
