@@ -44,13 +44,17 @@
   <project name="cfig/Android_boot_image_editor" remote="github" path="tools/rom/Android_boot_image_editor" revision="refs/heads/master" groups="default,zerodroid-image,boot,avb,payload" />
   <project name="xpirt/sdat2img" remote="github" path="tools/rom/sdat2img" revision="refs/heads/master" groups="default,zerodroid-image,sdat,legacy-ota" />
   <project name="xpirt/img2sdat" remote="github" path="tools/rom/img2sdat" revision="refs/heads/master" groups="default,zerodroid-image,sdat,legacy-ota" />
+  <project name="erfanoabdi/imgpatchtools" remote="github" path="tools/rom/imgpatchtools" revision="refs/heads/Stable" groups="default,zerodroid-image,legacy-ota,block-patch" />
   <project name="platform/external/e2fsprogs" path="external/e2fsprogs" groups="default,zerodroid-image,filesystem" />
   <project name="platform/external/f2fs-tools" path="external/f2fs-tools" groups="default,zerodroid-image,filesystem" />
   <project name="platform/external/erofs-utils" path="external/erofs-utils" groups="default,zerodroid-image,filesystem" />
 
   <!-- Broad third-party ROM suites are references, not production dependencies. -->
-  <project name="ColdWindScholar/TIK" remote="github" path="reference/rom-tools/TIK" revision="refs/heads/main" groups="zerodroid-rom-reference,rom-suite" />
+  <project name="ColdWindScholar/TIK" remote="github" path="reference/rom-tools/TIK" revision="refs/heads/master" groups="zerodroid-rom-reference,rom-suite" />
   <project name="Danda420/RomTools" remote="github" path="reference/rom-tools/RomTools" revision="refs/heads/main" groups="zerodroid-rom-reference,rom-suite" />
+  <project name="erfanoabdi/Firmware_extractor" remote="github" path="reference/rom-tools/Firmware_extractor" revision="refs/heads/master" groups="zerodroid-rom-reference,oem-firmware" />
+  <project name="topjohnwu/Magisk" remote="github" path="reference/rom-tools/Magisk" revision="refs/heads/master" groups="zerodroid-rom-reference,boot-patching" />
+  <project name="osm0sis/AnyKernel3" remote="github" path="reference/rom-tools/AnyKernel3" revision="refs/heads/master" groups="zerodroid-rom-reference,kernel-package" />
   <project name="anestisb/android-simg2img" remote="github" path="reference/rom-tools/android-simg2img" revision="refs/heads/master" groups="zerodroid-rom-reference,sparse-image" />
 
   <!-- Guest Android platform: framework, native services, HAL contracts and system APIs. -->
