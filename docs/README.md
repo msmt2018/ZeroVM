@@ -40,6 +40,7 @@
 32. [VM、ROM、Guest Profile 与虚拟硬件数据结构规范](32-versioned-data-schemas-and-manifests.md)
 33. [Runtime 状态机、事件流与统一错误模型](33-runtime-state-events-and-error-model.md)
 34. [机器可读 Schema 与契约验证](34-machine-readable-schemas-and-validation.md)
+35. [Android ARM64 宿主移植、硬件适配与上游源码改造](37-android-arm64-host-porting-and-adaptation.md)
 35. [Implementation foundation 与工具链基线](35-implementation-foundation-and-toolchain.md)
 36. [上游核心源码拉取与许可证治理](36-upstream-source-checkout-and-license-governance.md)
 
