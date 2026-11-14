@@ -215,7 +215,7 @@
             "device_policy",
             "security"
           ],
-          "additionalProperties": false
+          "unevaluatedProperties": false
         }
       ]
     },
@@ -315,7 +315,7 @@
             "created_at",
             "updated_at"
           ],
-          "additionalProperties": false
+          "unevaluatedProperties": false
         }
       ]
     },
@@ -473,7 +473,7 @@
             "partitions",
             "parser_version"
           ],
-          "additionalProperties": false
+          "unevaluatedProperties": false
         }
       ]
     },
@@ -563,7 +563,7 @@
             "partitions",
             "compatibility_assessment"
           ],
-          "additionalProperties": false
+          "unevaluatedProperties": false
         }
       ]
     },
@@ -752,7 +752,7 @@
             "virtual_hardware_abi",
             "validation_state"
           ],
-          "additionalProperties": false
+          "unevaluatedProperties": false
         }
       ]
     },
@@ -854,7 +854,7 @@
             "manifest_id",
             "devices"
           ],
-          "additionalProperties": false
+          "unevaluatedProperties": false
         }
       ]
     },
@@ -952,7 +952,7 @@
             "image_set_id",
             "nodes"
           ],
-          "additionalProperties": false
+          "unevaluatedProperties": false
         }
       ]
     },
@@ -1086,7 +1086,7 @@
             "resources",
             "probe_confidence"
           ],
-          "additionalProperties": false
+          "unevaluatedProperties": false
         }
       ]
     },
@@ -1207,7 +1207,7 @@
             "memory",
             "pressure_policy"
           ],
-          "additionalProperties": false
+          "unevaluatedProperties": false
         }
       ]
     }
