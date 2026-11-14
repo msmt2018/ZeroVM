@@ -35,6 +35,7 @@
   <project name="platform/external/zlib" path="external/zlib" groups="default,zerodroid-image,compression" />
   <project name="platform/external/xz" path="external/xz" groups="default,zerodroid-image,compression,payload" />
   <project name="platform/system/libufdt" path="system/libufdt" groups="default,zerodroid-image,dtb,boot" />
+  <project name="platform/external/dtc" path="external/dtc" groups="default,zerodroid-image,dtb,boot" />
   <project name="platform/external/googletest" path="external/googletest" groups="default,zerodroid-core,test" />
 
   <!-- Android ROM flashing, OTA, dynamic partitions, recovery and boot image tooling. -->
@@ -63,6 +64,8 @@
   <project name="platform/frameworks/base" path="frameworks/base" groups="default,zerodroid-guest,framework" />
   <project name="platform/frameworks/native" path="frameworks/native" groups="default,zerodroid-guest,framework,native" />
   <project name="platform/frameworks/av" path="frameworks/av" groups="default,zerodroid-guest,media" />
+  <project name="platform/system/media" path="system/media" groups="default,zerodroid-guest,media,audio" />
+  <project name="platform/external/tinyalsa" path="external/tinyalsa" groups="default,zerodroid-guest,audio" />
   <project name="platform/hardware/interfaces" path="hardware/interfaces" groups="default,zerodroid-guest,hal,vintf" />
   <project name="platform/hardware/libhardware" path="hardware/libhardware" groups="default,zerodroid-guest,hal" />
   <project name="platform/packages/modules/adb" path="packages/modules/adb" groups="default,zerodroid-guest,bridge,debug" />
@@ -91,6 +94,8 @@
   <project name="platform/external/angle" path="external/angle" groups="default,zerodroid-graphics,graphics" />
   <project name="platform/external/swiftshader" path="external/swiftshader" groups="default,zerodroid-graphics,graphics" />
   <project name="platform/external/virglrenderer" path="external/virglrenderer" revision="refs/heads/main" groups="default,zerodroid-graphics,graphics,virtio-gpu" />
+  <project name="platform/external/mesa3d" path="external/mesa3d" groups="default,zerodroid-graphics,graphics,virtio-gpu" />
+  <project name="platform/external/vulkan-headers" path="external/vulkan-headers" groups="default,zerodroid-graphics,graphics,vulkan" />
 
   <!-- crosvm upstream pinned to an immutable commit; independent from the AOSP mirror. -->
   <project name="google/crosvm" remote="github" path="external/crosvm-upstream"
@@ -104,4 +109,10 @@
   <!-- Upstream Linux is a comparison/reference tree; Android Common Kernel remains primary. -->
   <project name="torvalds/linux" remote="linux" path="reference/linux-mainline"
            revision="refs/heads/master" groups="zerodroid-optional,linux-reference,kvm,virtio" />
+
+  <!-- Optional firmware and peripheral references; neither is required for direct-kernel boot. -->
+  <project name="tianocore/edk2" remote="github" path="reference/firmware/edk2"
+           revision="refs/tags/edk2-stable202608" groups="zerodroid-optional,uefi,firmware-reference" />
+  <project name="platform/packages/modules/Bluetooth" path="packages/modules/Bluetooth"
+           groups="zerodroid-optional,guest-platform,bluetooth" />
 </manifest>
