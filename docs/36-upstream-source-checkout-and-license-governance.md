@@ -86,4 +86,4 @@ Controls:
 
 ## Download status
 
-The manifest and sync tooling are committed artifacts. The 80 upstream worktrees have not yet been downloaded by GitHub repository editing. Execute the command above in a networked development environment with Git, Python 3 and the official repo launcher. A successful sync generates exact resolved revisions in SOURCE_LOCK files. Lock generation rejects an incomplete project count or unresolved project revision. Downloaded source status is `SOURCE_CHECKED_OUT`, not `INTEGRATED`, `BUILT`, `TESTED` or `DEVICE_VALIDATED`.
+The manifest and sync tooling are committed artifacts. The 73 upstream worktrees have not yet been downloaded by GitHub repository editing. Execute the command above in a networked development environment with Git, Python 3 and the official repo launcher. A successful sync generates exact resolved revisions in SOURCE_LOCK files. Lock generation rejects an incomplete project count or unresolved project revision. Downloaded source status is `SOURCE_CHECKED_OUT`, not `INTEGRATED`, `BUILT`, `TESTED` or `DEVICE_VALIDATED`.
