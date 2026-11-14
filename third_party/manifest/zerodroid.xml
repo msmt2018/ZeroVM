@@ -29,15 +29,29 @@
   <project name="platform/external/libxml2" path="external/libxml2" groups="default,zerodroid-core,image" />
   <project name="platform/external/zstd" path="external/zstd" groups="default,zerodroid-core,image" />
   <project name="platform/external/lz4" path="external/lz4" groups="default,zerodroid-core,image" />
+  <project name="platform/external/brotli" path="external/brotli" groups="default,zerodroid-image,compression" />
+  <project name="platform/external/libarchive" path="external/libarchive" groups="default,zerodroid-image,archive" />
+  <project name="platform/external/bzip2" path="external/bzip2" groups="default,zerodroid-image,compression" />
+  <project name="platform/system/libufdt" path="system/libufdt" groups="default,zerodroid-image,dtb,boot" />
   <project name="platform/external/googletest" path="external/googletest" groups="default,zerodroid-core,test" />
 
   <!-- Android ROM flashing, OTA, dynamic partitions, recovery and boot image tooling. -->
   <project name="platform/bootable/recovery" path="bootable/recovery" groups="default,zerodroid-image,ota,recovery" />
   <project name="platform/system/update_engine" path="system/update_engine" groups="default,zerodroid-image,ota" />
   <project name="platform/system/tools/mkbootimg" path="system/tools/mkbootimg" groups="default,zerodroid-image,boot" />
+  <!-- Independent ROM tooling references complement the canonical AOSP implementations. -->
+  <project name="ssut/payload-dumper-go" remote="github" path="tools/rom/payload-dumper-go" revision="refs/heads/main" groups="default,zerodroid-image,payload,ota" />
+  <project name="cfig/Android_boot_image_editor" remote="github" path="tools/rom/Android_boot_image_editor" revision="refs/heads/master" groups="default,zerodroid-image,boot,avb,payload" />
+  <project name="xpirt/sdat2img" remote="github" path="tools/rom/sdat2img" revision="refs/heads/master" groups="default,zerodroid-image,sdat,legacy-ota" />
+  <project name="xpirt/img2sdat" remote="github" path="tools/rom/img2sdat" revision="refs/heads/master" groups="default,zerodroid-image,sdat,legacy-ota" />
   <project name="platform/external/e2fsprogs" path="external/e2fsprogs" groups="default,zerodroid-image,filesystem" />
   <project name="platform/external/f2fs-tools" path="external/f2fs-tools" groups="default,zerodroid-image,filesystem" />
   <project name="platform/external/erofs-utils" path="external/erofs-utils" groups="default,zerodroid-image,filesystem" />
+
+  <!-- Broad third-party ROM suites are references, not production dependencies. -->
+  <project name="ColdWindScholar/TIK" remote="github" path="reference/rom-tools/TIK" revision="refs/heads/main" groups="zerodroid-rom-reference,rom-suite" />
+  <project name="Danda420/RomTools" remote="github" path="reference/rom-tools/RomTools" revision="refs/heads/main" groups="zerodroid-rom-reference,rom-suite" />
+  <project name="anestisb/android-simg2img" remote="github" path="reference/rom-tools/android-simg2img" revision="refs/heads/master" groups="zerodroid-rom-reference,sparse-image" />
 
   <!-- Guest Android platform: framework, native services, HAL contracts and system APIs. -->
   <project name="platform/frameworks/base" path="frameworks/base" groups="default,zerodroid-guest,framework" />
