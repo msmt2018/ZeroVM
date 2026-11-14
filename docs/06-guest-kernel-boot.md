@@ -2,7 +2,7 @@
 
 ## 启动目标
 
-ZeroVM 必须启动独立 ARM64 Guest Kernel，并由该 Kernel 启动 Android 用户空间。不能把 Host Kernel 上的 chroot/proot 进程称作 Guest Kernel。
+ZeroDroid 必须启动独立 ARM64 Guest Kernel，并由该 Kernel 启动 Android 用户空间。不能把 Host Kernel 上的 chroot/proot 进程称作 Guest Kernel。
 
 ## 启动材料
 
@@ -45,7 +45,7 @@ Profile 必须可校验、可追溯，不允许仅根据文件名猜测参数。
 
 ## Bootloader 与固件边界
 
-VMM 可以直接加载 Kernel、DTB 和 Ramdisk，因此 ZeroVM 不必模拟任意手机的 Boot ROM 和物理 Bootloader。若使用 AVF pVM，还必须遵循其固件、安全启动和镜像格式约束。pvmfw 不是所有普通 Guest 的通用 Bootloader。
+VMM 可以直接加载 Kernel、DTB 和 Ramdisk，因此 ZeroDroid 不必模拟任意手机的 Boot ROM 和物理 Bootloader。若使用 AVF pVM，还必须遵循其固件、安全启动和镜像格式约束。pvmfw 不是所有普通 Guest 的通用 Bootloader。
 
 ## 启动失败分类
 
