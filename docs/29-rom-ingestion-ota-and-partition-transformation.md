@@ -32,7 +32,7 @@ Sparse 转换保留逻辑块数量、块大小和填充语义；liblp 解析识�
 
 先生成 Transformation Plan，记录输入分区/哈希、操作类型、依赖与兼容依据、输出分区/尺寸/哈希、对 AVB/VINTF/fstab/SELinux/HAL/OTA 的影响、可逆性和恢复方式。
 
-优先保持原始分区不变。替换 Vendor、Kernel、DTB 或 vbmeta 属于高风险变换，只有匹配 Guest Platform Profile 且有验证证据时允许。禁止默认用同一份 Cuttlefish Vendor 替换所有 ROM。
+优先保持原始分区不变。替换 Vendor、Kernel、DTB 或 vbmeta 属于高风险变换，只有匹配 Guest Platform Profile 且有验证证据时允许。禁止默认用同一份通用虚拟设备 Vendor 替换所有 ROM。
 
 ## 7. AVB 与 dm-verity
 
