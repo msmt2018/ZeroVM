@@ -55,9 +55,9 @@ The executable manifest is `third_party/manifest/zerodroid.xml`. Run `bash third
 
 ## Source groups
 
-- `default`: 62 projects, including the core ROM pipeline and primary Android platform/runtime sources.
+- `default`: 69 projects, including the core ROM pipeline, DTB compiler, audio stack, Mesa/Vulkan graphics references and primary Android platform/runtime sources.
 - `zerodroid-rom-reference`: 6 broad third-party ROM suite/reference projects (TIK, RomTools, standalone sparse converter, OEM firmware extractor, Magisk and AnyKernel3).
-- `zerodroid-optional`: upstream mainline Linux.
+- `zerodroid-optional`: upstream mainline Linux, EDK II UEFI firmware and AOSP Bluetooth guest stack references.
 - `zerodroid-test`: CTS and VTS.
 
 Download everything in the manifest:
