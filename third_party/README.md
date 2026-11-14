@@ -10,12 +10,12 @@ Install Git, Python 3 and the official Android `repo` launcher, then run from th
 bash third_party/scripts/sync_sources.sh
 ```
 
-The default `default` group now includes the selected Android 16 AOSP platform foundations, ROM/recovery/OTA/image tooling, Android framework and HAL contracts, AVF/Microdroid sources, Android Common Kernel, emulator/QEMU/goldfish references, Cuttlefish, crosvm, VirtIO and graphics source projects, and filesystem libraries.
+The default `default` group now includes selected Android 16 AOSP platform foundations, ROM/recovery/OTA/GSI tooling, Android framework and HAL contracts, AVF/Microdroid, Android Common Kernel plus its Kleaf build system, emulator/QEMU/goldfish references, Cuttlefish, crosvm, VirtIO and graphics projects, and filesystem libraries.
 
 The upstream mainline Linux tree is a large comparison checkout, not the primary Android Guest kernel. To include it too:
 
 ```bash
-ZERODROID_SYNC_GROUPS=default,zerodroid-optional bash third_party/scripts/sync_sources.sh
+ZERODROID_SYNC_GROUPS=default,zerodroid-optional,zerodroid-test bash third_party/scripts/sync_sources.sh
 ```
 
 The Android Common Kernel is the primary Android kernel baseline because it carries Android-specific changes and the KVM/pKVM/VirtIO implementation. The pinned branch is `android16-6.12-lts`. The emulator goldfish kernel and emulator device trees are compatibility/reference material, not the production phone backend.
@@ -24,7 +24,7 @@ The Android Common Kernel is the primary Android kernel baseline because it carr
 
 - `ZERODROID_SYNC_JOBS=4` controls parallel sync jobs.
 - `ZERODROID_SYNC_DEPTH=1` is the default shallow checkout; use `0` for full Git history.
-- `ZERODROID_SYNC_GROUPS=default` selects the source groups; add `zerodroid-optional` for upstream mainline Linux.
+- `ZERODROID_SYNC_GROUPS=default` selects the source groups; add `zerodroid-optional` for upstream mainline Linux and `zerodroid-test` for CTS/VTS test source.
 - The first sync is network-, disk- and time-intensive. Kernel, Android framework, QEMU and graphics projects are large.
 - After a successful sync, `SOURCE_LOCK.xml` and `SOURCE_LOCK.json` record resolved revisions. Review and commit these generated lock files when accepting an upstream baseline.
 
