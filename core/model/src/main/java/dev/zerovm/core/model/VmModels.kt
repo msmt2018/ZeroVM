@@ -1,4 +1,4 @@
-package dev.zerovm.core.model
+package dev.zerodroid.core.model
 enum class VmState { CREATED,PREFLIGHT,PREPARED,STARTING,RUNNING,STOPPING,STOPPED,FAILED,DESTROYING,DESTROYED }
 data class VmId(val value:String) { init { require(value.isNotBlank() && value.length<=128) } }
 data class GuestProfileRef(val profileId:String,val revision:String)
