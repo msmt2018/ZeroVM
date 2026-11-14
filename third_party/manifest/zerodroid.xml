@@ -70,22 +70,15 @@
   <project name="platform/hardware/libhardware" path="hardware/libhardware" groups="default,zerodroid-guest,hal" />
   <project name="platform/packages/modules/adb" path="packages/modules/adb" groups="default,zerodroid-guest,bridge,debug" />
 
-  <!-- AVF, Microdroid, pVM firmware and reference VMM/device implementations. -->
+  <!-- AVF, Microdroid, pVM firmware and the hardware-assisted VMM path. -->
   <project name="platform/packages/modules/Virtualization" path="packages/modules/Virtualization" groups="default,zerodroid-avf,backend,pvm" />
-  <project name="device/google/cuttlefish" path="device/google/cuttlefish" groups="default,zerodroid-reference,cuttlefish" />
   <project name="platform/external/crosvm" path="external/crosvm-aosp" revision="refs/heads/main" groups="default,zerodroid-vmm,vmm,virtio" />
 
   <!-- Android Common Kernel: primary Android guest kernel and KVM/pKVM/VirtIO source. -->
   <project name="kernel/build" path="kernel/build" revision="refs/heads/main-kernel" groups="default,zerodroid-kernel,kernel-build" />
   <project name="kernel/common" path="kernel/common" revision="refs/heads/android16-6.12-lts" groups="default,zerodroid-kernel,guest-kernel,kvm,virtio" />
-  <project name="kernel/goldfish" path="kernel/goldfish" revision="refs/heads/main" groups="default,zerodroid-emulator,guest-kernel,emulator" />
-  <project name="device/generic/goldfish" path="device/generic/goldfish" groups="default,zerodroid-emulator,emulator,guest-platform" />
-  <project name="device/generic/goldfish-opengl" path="device/generic/goldfish-opengl" groups="default,zerodroid-emulator,emulator,graphics" />
 
   <!-- Official Android Emulator / QEMU source references. Not the production phone VMM. -->
-  <project name="platform/tools/emulator" path="tools/emulator" revision="refs/heads/main" groups="default,zerodroid-emulator,emulator,reference" />
-  <project name="platform/external/qemu" path="external/qemu" revision="refs/heads/emu-master-dev" groups="default,zerodroid-emulator,qemu,reference" />
-  <project name="platform/hardware/google/aemu" path="hardware/google/aemu" revision="refs/heads/main" groups="default,zerodroid-emulator,emulator,hardware" />
 
   <!-- Virtual graphics, software rendering and Android graphics translation. -->
   <project name="platform/external/minigbm" path="external/minigbm" groups="default,zerodroid-graphics,graphics" />
@@ -97,7 +90,7 @@
   <project name="platform/external/mesa3d" path="external/mesa3d" groups="default,zerodroid-graphics,graphics,virtio-gpu" />
   <project name="platform/external/vulkan-headers" path="external/vulkan-headers" groups="default,zerodroid-graphics,graphics,vulkan" />
 
-  <!-- crosvm upstream pinned to an immutable commit; independent from the AOSP mirror. -->
+  <!-- crosvm is a VMM candidate/reference, not a CPU emulator or Hypervisor. -->
   <project name="google/crosvm" remote="github" path="external/crosvm-upstream"
            revision="9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe"
            upstream="refs/heads/main" groups="default,zerodroid-vmm,vmm,virtio" />
