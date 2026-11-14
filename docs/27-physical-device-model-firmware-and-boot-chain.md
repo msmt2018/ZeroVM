@@ -4,7 +4,7 @@
 
 Guest 应被建模为完整虚拟设备实例（Virtual Phone Instance），而不是一份 system.img。它由虚拟 CPU/SoC、内存、固件、启动链、设备树、Kernel、设备模型、分区拓扑、Vendor/HAL 和安全策略共同构成。
 
-纯软件虚拟化无法普遍 1:1 复刻任意手机的基带、DSP、ISP、GPU、TEE、传感器 Hub 和专有固件。ZeroVM 应定义可验证的虚拟硬件契约，并对不能复刻的能力受控降级。
+纯软件虚拟化无法普遍 1:1 复刻任意手机的基带、DSP、ISP、GPU、TEE、传感器 Hub 和专有固件。ZeroDroid 应定义可验证的虚拟硬件契约，并对不能复刻的能力受控降级。
 
 ## 2. Virtual Phone Board Model
 
