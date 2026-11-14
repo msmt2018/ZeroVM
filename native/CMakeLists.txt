@@ -3,6 +3,8 @@ project(zerodroid_native LANGUAGES C CXX)
 
 option(ZERODROID_BUILD_TESTS "Build host-side native contract tests" ON)
 
+# Host probing is discovery only; it does not authorize or start a guest VM.
+
 add_library(zerodroid_core STATIC
     src/status.cpp
     src/runtime.cpp
