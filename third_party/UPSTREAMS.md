@@ -1,11 +1,12 @@
 # Third-party source intake and checkout plan
 
-The executable manifest is `third_party/manifest/zerodroid.xml`. Run `bash third_party/scripts/sync_sources.sh` to download the default source groups into `third_party/aosp/`. Add `ZERODROID_SYNC_GROUPS=default,zerodroid-optional` to include upstream mainline Linux as a reference tree.
+The executable manifest is `third_party/manifest/zerodroid.xml`. Run `bash third_party/scripts/sync_sources.sh` to download the default source groups into `third_party/aosp/`. Add `ZERODROID_SYNC_GROUPS=default,zerodroid-optional,zerodroid-test` to include upstream mainline Linux plus CTS/VTS test sources.
 
 ## Source matrix
 
 | Source project | Role in ZeroDroid | Policy |
 |---|---|---|
+| AOSP `system/gsid` | GSI installation and Dynamic System Update service reference | Android 16 QPR1 baseline |
 | AOSP `system/core`, `system/extras` | init-adjacent utilities, fs_mgr, libsparse, liblp and image tools | Android 16 QPR1 baseline |
 | AOSP `external/avb` | AVB, vbmeta parsing and verification | Never silently disable verification |
 | AOSP `bootable/recovery`, `system/update_engine` | Recovery, OTA payload and update flow reference | Parse/transform images; do not flash the host |
@@ -16,6 +17,7 @@ The executable manifest is `third_party/manifest/zerodroid.xml`. Run `bash third
 | AOSP `frameworks/base`, `frameworks/native`, `frameworks/av` | Guest Framework, native services, media and graphics contracts | Reference/integration source; large checkout |
 | AOSP libbase, logging, libutils, libcutils, libbinder, libhidl, libfmq, libprocessgroup | Native foundations, Binder/HIDL IPC and resource controls | Reuse only where API/ABI compatible |
 | AOSP `packages/modules/Virtualization` | AVF, Microdroid, VM service and pVM lifecycle reference | Runtime permission/feature gate remains mandatory |
+| Android Kernel build `kernel/build` | Kleaf/Bazel kernel build infrastructure | `main-kernel` branch |
 | Android Common Kernel `kernel/common` | Primary Android Guest kernel, KVM/pKVM, VirtIO and Android kernel changes | `android16-6.12-lts` baseline; match the Guest Profile |
 | Android goldfish kernel and goldfish device projects | Android Emulator guest kernel/device models | Emulator compatibility reference only |
 | AOSP `device/google/cuttlefish` | Complete virtual Android device configuration and launch reference | Not a universal Vendor or generic phone profile |
@@ -24,6 +26,7 @@ The executable manifest is `third_party/manifest/zerodroid.xml`. Run `bash third
 | AOSP minigbm, libdrm, gfxstream, ANGLE, SwiftShader, virglrenderer | Virtual GPU, graphics translation and software rendering references | Hardware capability and driver support must be probed |
 | AOSP adb | Guest debugging and host/guest development bridge | Explicitly gate and isolate debug access |
 | BoringSSL, zstd, lz4, libxml2, protobuf, googletest | Crypto/compression/serialization/XML/test support | Keep license and dependency metadata |
+| Android CTS / VTS | Compatibility, HAL, kernel and system validation suites | Optional `zerodroid-test` group; very large checkout |
 | Upstream Linux `torvalds/linux` | Compare generic KVM, ARM64 virtualization and VirtIO changes | Optional `zerodroid-optional` group; not a substitute for Android Common Kernel |
 
 ## Important boundaries
