@@ -6,7 +6,7 @@
 2. Application Service Layer：前台服务、权限管理、持久化任务、通知和 UI 生命周期解耦。
 3. JNI / Native Runtime：Kotlin 与 Native Core 的稳定边界，提供句柄、事件和错误码。
 4. VM Core：VM 配置、状态机、生命周期编排、资源协调和诊断。
-5. Virtualization Backend：AVF Backend，以及经验证的 Native crosvm/KVM Backend。
+5. Hardware Virtualization Backend：AVF Backend，或具备系统级授权的 ARM64 KVM/pKVM Backend；VMM 运行在硬件虚拟化之上。
 6. Virtual Hardware Platform：CPU、RAM、Block、Net、Vsock、GPU、Input、Audio 等设备模型。
 7. Guest Platform：Kernel、DTB、Boot、Vendor HAL、VINTF、SELinux。
 8. Image & Storage Engine：镜像解析、分区布局、虚拟磁盘、快照和刷写。
@@ -21,7 +21,7 @@
 - VM Core 不依赖 Activity 实例。
 - Image Engine 不依赖某个 VMM。
 - Guest Profile 描述设备和系统要求，不执行宿主特权操作。
-- Backend 负责把统一 VM 配置转换为具体 AVF/crosvm 配置。
+- Backend 负责把统一 VM 配置转换为 AVF 或直接 KVM/VMM 配置；不得包含 QEMU/TCG CPU 模拟路径。
 - Device Bridge 不允许 Guest 获得任意 Host 文件或设备访问。
 
 ## 核心接口能力
@@ -47,3 +47,6 @@
 ## 可观测性
 
 每个模块输出结构化日志、指标和诊断事件。日志区分 Host、VM、Guest、Backend 和 Bridge，并避免记录密钥、认证数据或敏感内容。
+## 执行路径约束
+
+ZeroDroid 的生产 Guest 执行路径必须是 ARM64 硬件辅助虚拟化：Host Android → AVF/授权 KVM → VMM → vCPU/Guest memory/virtual interrupt controller/VirtIO → Guest ARM64 Kernel → Android init/framework。VMM 可以复用或借鉴 crosvm，但必须保留 ZeroDroid 自己的 Backend、设备 ABI、Guest Boot Orchestrator 和能力门控。QEMU、Android Emulator、Goldfish、AEMU、Cuttlefish 镜像启动不属于该路径，不能作为 fallback。
