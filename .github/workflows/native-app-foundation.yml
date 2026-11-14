@@ -65,7 +65,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Configure CMake
-        run: cmake -S native -B build/native -DZEROVM_BUILD_TESTS=ON
+        run: cmake -S native -B build/native -DZERODROID_BUILD_TESTS=ON
       - name: Build native core
         run: cmake --build build/native --parallel 2
       - name: Run native ABI tests
