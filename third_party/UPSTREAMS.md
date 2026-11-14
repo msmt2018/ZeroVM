@@ -1,88 +1,75 @@
-# Third-party source intake and checkout plan
+# ZeroDroid upstream source matrix
 
-The executable manifest is `third_party/manifest/zerodroid.xml`. Run `bash third_party/scripts/sync_sources.sh` to download all 80 upstream projects, including optional ROM references, Linux/UEFI/Bluetooth references and CTS/VTS test trees, into `third_party/aosp/`. The default is a full-history checkout of each selected branch, not a shallow clone. The manifest contains 80 projects in total: 69 default, 6 optional ROM-suite references, 3 optional platform/firmware references and 2 optional Android compatibility test trees. The canonical acquisition command selects every group; group filtering is only for deliberate partial workspaces.
+The executable manifest is `third_party/manifest/zerodroid.xml`. It contains **73 upstream projects** after removing all emulator-only source trees. The default sync selects the core hardware-virtualization, Android Guest platform, kernel, VMM candidate, virtual-device, boot and image pipeline. Optional groups include ROM format references, mainline Linux comparison, UEFI/Bluetooth references and CTS/VTS.
 
-## Android ROM and image pipeline source matrix
+## Explicit exclusions
 
-| Stage / format | Source project | What ZeroDroid can use it for |
+The following are deliberately not checked out or used as runtime backends:
+
+- QEMU (including TCG CPU emulation)
+- Android Emulator
+- Goldfish kernel/device models and Goldfish OpenGL
+- AEMU
+- Cuttlefish emulator/device images
+
+ZeroDroid does not run a software CPU emulator and then boot Android images inside it. Guest ARM64 code must execute on the host CPU through hardware-assisted virtualization. A host without a usable AVF or authorized KVM/pKVM path is unsupported for full VM execution; there is no QEMU-style fallback.
+
+## Required low-level virtualization and Guest sources
+
+| Layer | Upstream source | Intended use |
 |---|---|---|
-| ROM ZIP / OTA ZIP | AOSP `system/core/libziparchive`, `external/libarchive`, AOSP zlib, bzip2, xz, Brotli, zstd, lz4 | Safe archive listing and extraction, compression codec support; ZIP metadata and path validation |
-| OTA `payload.bin` | AOSP `system/update_engine` | Authoritative payload metadata, operation, partition and delta-OTA semantics; OTA extractor and payload verification reference |
-| OTA `payload.bin` | `ssut/payload-dumper-go` | Standalone fast payload partition extraction, ZIP-in-place input, incremental OTA support and hash verification |
-| Legacy block OTA `.dat.br` | AOSP Brotli + `xpirt/sdat2img` | Decode Brotli-compressed block data and reconstruct raw partition image from transfer list + data |
-| Legacy block OTA generation | `xpirt/img2sdat` | Convert supported ext4 image into legacy Android block OTA data/transfer-list format |
-| Legacy incremental patch OTA | `erfanoabdi/imgpatchtools` | Reference implementation for block image update, file patch and patch verification; never run against host block devices |
-| Dynamic `super.img` | AOSP `system/extras/partition_tools` | `lpdump`, `lpunpack`, `lpmake`, `lpflash`: inspect metadata, extract logical partitions and build super images |
-| Android sparse `.img` | AOSP `system/core/libsparse` | Canonical `simg2img`, `img2simg`, `append2simg`, sparse parsing and validation |
-| Android sparse `.img` | `anestisb/android-simg2img` (optional reference) | Standalone portable sparse conversion implementation for comparison and test vectors |
-| ext4 | AOSP e2fsprogs + system/core ext4 utilities | Inspect, extract, validate and build ext4 filesystem images |
-| EROFS | AOSP erofs-utils | Inspect, extract and build EROFS images |
-| F2FS | AOSP f2fs-tools | Inspect, dump, validate and build F2FS images |
-| boot / vendor_boot / init_boot / recovery | AOSP `system/tools/mkbootimg` | Official `mkbootimg`, `unpack_bootimg`, repack support and boot header formats |
-| boot / vendor_boot / vbmeta / payload | `cfig/Android_boot_image_editor` | Cross-check parsing and unpack/repack of boot images, AVB metadata and payload images |
-| DTB / DTBO | AOSP `system/libufdt` and `external/dtc` (dtc/libfdt) | DTS/DTB compilation, flattened device tree parsing and DTBO operations |
-| OEM firmware containers | `erfanoabdi/Firmware_extractor` (optional reference) | Study vendor-specific firmware container extraction; keep device formats isolated |
-| Integrated ROM suites | `ColdWindScholar/TIK`, `Danda420/RomTools` (optional references) | Compare end-to-end format detection, unpack/repack workflows and format coverage |
-| Boot ramdisk patching | `topjohnwu/Magisk` (optional reference) | Study boot image/ramdisk patch workflow; not a ZeroDroid dependency |
-| Kernel installer ZIP | `osm0sis/AnyKernel3` (optional reference) | Study kernel ZIP packaging and installer scripts; never execute untrusted scripts automatically |
+| Android virtualization framework | AOSP `packages/modules/Virtualization` | AVF API/service integration, Microdroid and protected-VM lifecycle/security reference |
+| Android Guest kernel | AOSP `kernel/common` (Android Common Kernel) | ARM64 Guest kernel, KVM/pKVM interfaces, VirtIO drivers and Android kernel configuration |
+| Kernel build | AOSP `kernel/build` | Kleaf/Bazel kernel build definitions and reproducible kernel configuration |
+| VMM | AOSP `external/crosvm` and upstream `google/crosvm` | Candidate Rust VMM for vCPU, guest memory, virtual interrupt/device model and VirtIO; not a Hypervisor and not a CPU emulator |
+| Host/Guest kernel interfaces | AOSP `system/core`, `system/libbase`, `libbinder`, `libvintf`, `sepolicy` | Android service integration, IPC, policy, Guest boot/runtime support |
+| Guest HAL contracts | AOSP `hardware/interfaces`, `hardware/libhardware`, `system/libvintf` | Guest HAL/VINTF compatibility |
+| Guest Framework | AOSP `frameworks/base`, `frameworks/native`, `frameworks/av` | Independent Guest Android userspace and system services |
+| Virtual device transport | Linux/Android Kernel VirtIO implementations in `kernel/common` | Block, net, console, vsock, input and other paravirtual devices |
+| Boot and firmware material | AOSP `system/tools/mkbootimg`, `system/libufdt`, `external/dtc`, AVB | Kernel/ramdisk/DTB parsing, boot image handling and verified boot metadata |
+| GSI and partition stack | AOSP `system/gsid`, `system/extras`, `system/core`, `external/avb` | Dynamic partitions, sparse images, AVB, GSI and storage preparation |
 
-## Other upstream source matrix
+## ROM and image ingestion sources
 
-| Source project | Role | Policy |
+| Stage / format | Source | Purpose |
 |---|---|---|
-| AOSP `system/media` + `external/tinyalsa` | Android audio formats, low-level PCM and audio HAL-adjacent references | Reference only; actual audio needs a working Guest HAL and Host audio bridge |
-| AOSP `external/mesa3d` + `external/vulkan-headers` | Mesa graphics stack and Vulkan API headers for virtual GPU integration | Build only against a validated Guest/Host driver and VMM path |
-| AOSP `packages/modules/Bluetooth` (optional) | Fluoride Guest Bluetooth stack | Requires a separately implemented virtual controller or permissioned Host bridge |
-| `tianocore/edk2` (optional) | UEFI firmware reference for a firmware-based Guest boot path | Not required for direct-kernel loading; do not treat generic firmware as a phone bootloader |
+| ZIP/OTA archive | AOSP libziparchive/libarchive, zlib, bzip2, xz, Brotli, zstd, lz4 | Safe archive listing/extraction and codecs |
+| OTA payload | AOSP `system/update_engine`, `ssut/payload-dumper-go` | Payload metadata, operation semantics, full/incremental extraction and verification |
+| Legacy block OTA | `xpirt/sdat2img`, `xpirt/img2sdat`, `erfanoabdi/imgpatchtools` | transfer-list, dat and block-patch handling |
+| Dynamic partitions | AOSP `system/extras/partition_tools` | lpdump/lpunpack/lpmake and LP metadata |
+| Sparse images | AOSP `system/core/libsparse` | simg2img/img2simg and sparse validation |
+| Filesystems | AOSP e2fsprogs, erofs-utils, f2fs-tools | ext4/EROFS/F2FS inspect, extract and build |
+| Boot images | AOSP `system/tools/mkbootimg`, `cfig/Android_boot_image_editor` | boot/vendor_boot/init_boot/recovery parsing and repacking |
+| Device tree | AOSP `system/libufdt`, `external/dtc` | DTB/DTBO/DTS processing |
+| Optional ROM references | TIK, RomTools, Firmware_extractor, Magisk, AnyKernel3, android-simg2img | Format compatibility study and test oracle only; not production runtime dependencies |
 
-| Source project | Role in ZeroDroid | Policy |
-|---|---|---|
-| AOSP `system/gsid` | GSI installation and Dynamic System Update service reference | Android 16 QPR1 baseline |
-| AOSP `system/core`, `system/extras` | init-adjacent utilities, fs_mgr, libsparse, liblp and image tools | Android 16 QPR1 baseline |
-| AOSP `external/avb` | AVB, vbmeta parsing and verification | Never silently disable verification |
-| AOSP `bootable/recovery`, `system/update_engine` | Recovery, OTA payload and update flow reference | Parse/transform images; do not flash the host |
-| AOSP SELinux and `system/sepolicy` | Guest MAC policy and policy validation | Never use permissive mode as a default |
-| AOSP `libvintf`, `hardware/interfaces`, `hardware/libhardware` | VINTF manifests, HAL contracts and device interfaces | Guest profile must match HAL/VINTF |
-| AOSP `frameworks/base`, `frameworks/native`, `frameworks/av` | Guest Framework, native services, media and graphics contracts | Reference/integration source; large checkout |
-| AOSP `packages/modules/Virtualization` | AVF, Microdroid, VM service and pVM lifecycle reference | Runtime permission/feature gate remains mandatory |
-| Android Kernel build `kernel/build` | Kleaf/Bazel build infrastructure | `main-kernel` branch |
-| Android Common Kernel `kernel/common` | Primary Android Guest kernel, KVM/pKVM, VirtIO and Android kernel changes | `android16-6.12-lts` baseline; match the Guest Profile |
-| Android goldfish kernel and device projects | Android Emulator guest kernel/device models | Emulator compatibility reference only |
-| AOSP Cuttlefish, crosvm, Emulator/QEMU/AEMU | Full virtual-device, VMM and desktop emulator references | Do not mistake them for universal OEM backends |
-| AOSP minigbm, libdrm, gfxstream, ANGLE, SwiftShader, virglrenderer | Virtual GPU, graphics translation and software rendering references | Hardware capability and driver support must be probed |
-| Android CTS / VTS | Compatibility, HAL, kernel and system validation suites | Optional `zerodroid-test` group; very large checkout |
-| Upstream Linux `torvalds/linux` | Compare generic KVM, ARM64 and VirtIO changes | Optional `zerodroid-optional` group; not a substitute for Android Common Kernel |
+## Other platform references
 
-## Source groups
+- `platform/system/media` and `external/tinyalsa`: Guest audio formats and low-level audio interfaces; actual audio needs a working Guest HAL and Host bridge.
+- `external/minigbm`, `external/libdrm`, `hardware/google/gfxstream`, `external/angle`, `external/swiftshader`, `external/virglrenderer`, `external/mesa3d`, `external/vulkan-headers`: graphics API/driver references. These do not imply a working accelerated GPU path.
+- `platform/packages/modules/Bluetooth`: Guest Bluetooth stack reference; requires a separately implemented virtual controller or authorized Host bridge.
+- `torvalds/linux`: optional mainline Linux comparison tree; Android Common Kernel remains the Guest kernel baseline.
+- `tianocore/edk2`: optional UEFI firmware reference. Direct Kernel loading does not require generic UEFI firmware.
+- CTS/VTS: optional compatibility validation source trees.
 
-- `default`: 69 projects, including the core ROM pipeline, DTB compiler, audio stack, Mesa/Vulkan graphics references and primary Android platform/runtime sources.
-- `zerodroid-rom-reference`: 6 broad third-party ROM suite/reference projects (TIK, RomTools, standalone sparse converter, OEM firmware extractor, Magisk and AnyKernel3).
-- `zerodroid-optional`: upstream mainline Linux, EDK II UEFI firmware and AOSP Bluetooth guest stack references.
-- `zerodroid-test`: CTS and VTS.
+## Source groups and checkout
 
-Download everything in the manifest:
+Run `bash third_party/scripts/sync_sources.sh` to fetch every project in the manifest with full Git history by default. Optional group filtering and shallow history are deliberate overrides only. The script refuses to generate a complete source lock if the expected project count or resolved revisions do not match.
 
 ```bash
 ZERODROID_SYNC_GROUPS=default,zerodroid-rom-reference,zerodroid-optional,zerodroid-test \
   bash third_party/scripts/sync_sources.sh
 ```
 
-## Important image safety and correctness rules
+Source checkout is not integration, build success or device validation. Keep `SOURCE_LOCK.xml` and `SOURCE_LOCK.json` tied to the actual checked-out revisions.
 
-- A ROM ZIP is an archive, not a single image. List and validate entries before extracting; reject absolute paths, traversal paths, symlinks escaping the workspace, duplicate critical entries, unreasonable expansion ratios and oversized files.
-- A/B `payload.bin` is an operation stream. It is not a ZIP containing prebuilt images. Incremental payloads require the correct source/base partitions and operation support; verify payload signatures, metadata and output hashes.
-- Legacy `.new.dat.br` and `.patch.dat` OTA flows are different formats from modern payload OTA. Do not treat every `.dat` as a raw image.
-- `super.img` contains LP metadata and extents. Inspect slot metadata and logical partition groups with `lpdump`, extract with `lpunpack`, and reconstruct only with a compatible layout using `lpmake`.
-- Android sparse images are not filesystem images. Convert sparse to raw using `simg2img` before filesystem inspection; convert back with `img2simg` only when the target format requires it.
-- ext4, EROFS and F2FS are distinct filesystem formats. Do not rename one as another. Extract and rebuild with format-aware tools while preserving fs_config, file_contexts, capabilities, ownership, timestamps and SELinux labels where applicable.
-- Boot images are versioned container formats. Preserve header version, page size, cmdline, kernel, ramdisk, vendor ramdisk fragments, DTB/DTBO and bootconfig. A repacked boot image may invalidate vbmeta/AVB descriptors; verify the complete matched image set.
-- Never execute updater-script, shell scripts, installer ZIP scripts or ROM-supplied binaries during import. Parse them as untrusted data in a sandbox.
-- Image conversion and repacking must never write to physical host partitions. Outputs are guest artifacts in a bounded workspace.
+## Image safety requirements
 
-## Architectural policy
-
-The official AOSP tools and formats are the normative implementation references. Third-party utilities are compatibility references and independent test oracles; do not make them unconditional runtime dependencies. Keep their licenses and transitive dependencies separate. The manifest is curated rather than a mirror of all AOSP.
-
-AVF/KVM source availability does not grant ordinary APKs privileged VM access. crosvm is a VMM, not a hypervisor. GSI is only the system image; boot, vendor_boot, init_boot, vbmeta, super, kernel, Vendor HAL, VINTF and firmware must form a compatible Guest Image Set.
-
-Each successful sync exports `SOURCE_LOCK.xml` and `SOURCE_LOCK.json`; review and commit resolved revisions. Source checkout is not integration, build success or device validation.
+- Reject archive traversal, absolute paths, symlink escapes, duplicate critical entries, decompression bombs and oversized files.
+- Treat payload.bin as an operation stream; incremental OTA requires matching base partitions and output hash verification.
+- Parse LP metadata and logical partition groups instead of treating super.img as a raw filesystem.
+- Convert Android sparse images before filesystem inspection.
+- Preserve filesystem metadata, ownership, capabilities and SELinux labels when rebuilding.
+- Preserve boot header, page size, cmdline, ramdisk fragments, DTB/DTBO and bootconfig; verify AVB after repacking.
+- Never execute ROM-supplied updater scripts or installer binaries.
+- Write transformed artifacts only into bounded Guest workspaces, never Host physical partitions.
