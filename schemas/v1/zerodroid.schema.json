@@ -40,7 +40,7 @@
       "required": [
         "schema_id",
         "schema_version"
-      ],
+      ]
     },
     "ResourceRange": {
       "type": "object",

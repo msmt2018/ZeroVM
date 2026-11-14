@@ -10,10 +10,10 @@
 } while (false)
 
 int main() {
-    static_CHECK(sizeof(zdroid_handle) == 8);
-    static_CHECK(offsetof(zdroid_runtime_options, abi_version) == 0);
-    static_CHECK(offsetof(zdroid_runtime_options, struct_size) == 4);
-    static_CHECK(offsetof(zdroid_error_info, operation_id) == 16);
+    static_assert(sizeof(zdroid_handle) == 8);
+    static_assert(offsetof(zdroid_runtime_options, abi_version) == 0);
+    static_assert(offsetof(zdroid_runtime_options, struct_size) == 4);
+    static_assert(offsetof(zdroid_error_info, operation_id) == 16);
     CHECK(zdroid_get_abi_version() == ZDROID_ABI_VERSION);
     CHECK(zdroid_status_name(ZDROID_STATUS_OK)[0] == 'O');
 
