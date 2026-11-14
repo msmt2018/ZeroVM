@@ -35,7 +35,7 @@ This is a curated source intake, not a complete AOSP mirror. The script creates 
 
 ## Toolchain baseline
 
-AGP 9.5.0 / Gradle 9.6.0, JDK 25, Android API 37, NDK r30 30.0.16248370, C++20 and Rust 2024. Android bytecode targets Java 17 while Gradle runs on JDK 25.
+AGP 9.5.0 / Gradle 9.6.0, JDK 25, Android API 37, NDK r30 30.0.16248370, C++20 and Rust 2024. The `app` module explicitly targets Java 17 bytecode. The `core/common`, `core/model`, `core/native-bridge` and `core/runtime-api` Android library modules currently use the Android Gradle Plugin default Java 11 bytecode target because they do not override `compileOptions`. Gradle itself runs on JDK 25.
 
 ## Runtime status
 
