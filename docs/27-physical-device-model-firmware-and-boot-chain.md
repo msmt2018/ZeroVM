@@ -8,9 +8,9 @@ Guest 应被建模为完整虚拟设备实例（Virtual Phone Instance），而�
 
 ## 2. Virtual Phone Board Model
 
-层次包括 Compute（ARM64 vCPU、CPU feature mask、拓扑、计时器、中断控制器）、Memory（Guest RAM、地址空间、共享内存）、Firmware、Boot、Device Tree、Storage、Peripherals、Security 和 Platform Services。
+层次包括 Compute（ARM64 vCPU、CPU feature mask、拓扑、ARM Generic Timer、虚拟 GIC/PSCI）、Memory（Guest RAM、地址空间、共享内存）、Firmware、Boot、Device Tree、Storage、Peripherals、Security 和 Platform Services。
 
-设备清单描述设备 ID、模型版本、传输协议、feature、地址/中断分配、Guest driver 要求和 Backend 能力。
+设备清单描述设备 ID、模型版本、传输协议、feature、ARM64 Guest DTB 中的 MMIO 地址/IRQ 分配、Guest driver 要求和 Backend 能力。不得把 x86 APIC、PCI/ACPI/BIOS 默认值套用到手机虚拟板。
 
 ## 3. 启动材料
 
