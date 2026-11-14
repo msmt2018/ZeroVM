@@ -62,6 +62,18 @@ jobs:
               "platform/hardware/interfaces",
               "platform/test/vts",
               "platform/cts",
+              "ssut/payload-dumper-go",
+              "cfig/Android_boot_image_editor",
+              "xpirt/sdat2img",
+              "xpirt/img2sdat",
+              "erfanoabdi/imgpatchtools",
+              "platform/system/tools/mkbootimg",
+              "platform/external/e2fsprogs",
+              "platform/external/f2fs-tools",
+              "platform/external/erofs-utils",
+              "platform/external/brotli",
+              "platform/external/libarchive",
+              "platform/system/libufdt",
           }
           missing = required - projects.keys()
           assert not missing, f"missing upstream projects: {sorted(missing)}"
@@ -72,6 +84,10 @@ jobs:
           assert all((p.get("remote") or root.find("default").get("remote")) in remote_names for p in root.findall("project"))
           assert projects["kernel/common"].get("revision") == "refs/heads/android16-6.12-lts"
           assert projects["kernel/build"].get("revision") == "refs/heads/main-kernel"
+          assert projects["ssut/payload-dumper-go"].get("revision") == "refs/heads/main"
+          assert projects["cfig/Android_boot_image_editor"].get("revision") == "refs/heads/master"
+          assert projects["erfanoabdi/imgpatchtools"].get("revision") == "refs/heads/Stable"
+          assert "zerodroid-rom-reference" in projects["ColdWindScholar/TIK"].get("groups", "")
           print(f"validated {len(projects)} upstream project entries")
           PY
       - name: Validate source sync shell syntax
