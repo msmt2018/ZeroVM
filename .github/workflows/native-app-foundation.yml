@@ -8,6 +8,7 @@ on:
       - "native/**"
       - "rust/**"
       - "third_party/manifest/**"
+      - "third_party/porting/**"
       - "third_party/scripts/**"
       - "Cargo.toml"
       - "Cargo.lock"
@@ -121,6 +122,8 @@ jobs:
           assert "zerodroid-optional" in projects["platform/packages/modules/Bluetooth"].get("groups", "").split(",")
           print(f"validated {len(projects)} upstream project entries")
           PY
+      - name: Validate Android ARM64 portability inventory
+        run: python3 third_party/scripts/validate_android_portability.py
       - name: Validate source sync shell syntax
         run: bash -n third_party/scripts/sync_sources.sh
   native:
