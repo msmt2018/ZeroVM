@@ -19,6 +19,7 @@
   <project name="platform/system/libbinder" path="system/libbinder" groups="default,zerodroid-core,ipc" />
   <project name="platform/system/libhidl" path="system/libhidl" groups="default,zerodroid-core,ipc" />
   <project name="platform/system/vold" path="system/vold" groups="default,zerodroid-core,image" />
+  <project name="platform/system/gsid" path="system/gsid" revision="refs/heads/main" groups="default,zerodroid-image,gsi,installer" />
   <project name="platform/system/netd" path="system/netd" groups="default,zerodroid-core,network" />
   <project name="platform/system/sepolicy" path="system/sepolicy" groups="default,zerodroid-core,security" />
   <project name="platform/external/selinux" path="external/selinux" groups="default,zerodroid-core,security" />
@@ -52,6 +53,7 @@
   <project name="platform/external/crosvm" path="external/crosvm-aosp" revision="refs/heads/main" groups="default,zerodroid-vmm,vmm,virtio" />
 
   <!-- Android Common Kernel: primary Android guest kernel and KVM/pKVM/VirtIO source. -->
+  <project name="kernel/build" path="kernel/build" revision="refs/heads/main-kernel" groups="default,zerodroid-kernel,kernel-build" />
   <project name="kernel/common" path="kernel/common" revision="refs/heads/android16-6.12-lts" groups="default,zerodroid-kernel,guest-kernel,kvm,virtio" />
   <project name="kernel/goldfish" path="kernel/goldfish" revision="refs/heads/main" groups="default,zerodroid-emulator,guest-kernel,emulator" />
   <project name="device/generic/goldfish" path="device/generic/goldfish" groups="default,zerodroid-emulator,emulator,guest-platform" />
@@ -74,6 +76,10 @@
   <project name="google/crosvm" remote="github" path="external/crosvm-upstream"
            revision="9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe"
            upstream="refs/heads/main" groups="default,zerodroid-vmm,vmm,virtio" />
+
+  <!-- Android compatibility test source; opt in because CTS/VTS are very large. -->
+  <project name="platform/test/vts" path="test/vts" revision="refs/heads/main" groups="zerodroid-test,validation,vts" />
+  <project name="platform/cts" path="cts" revision="refs/heads/main" groups="zerodroid-test,validation,cts" />
 
   <!-- Upstream Linux is a comparison/reference tree; Android Common Kernel remains primary. -->
   <project name="torvalds/linux" remote="github" path="reference/linux-mainline"
