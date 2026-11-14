@@ -8,7 +8,7 @@
 
 唯一允许的主调用方向：
 
-UI/Compose → Kotlin UseCase/Repository → VM Controller/Foreground Service → JNI Facade → ZeroDroid C ABI → C++ Runtime → Backend Adapter → AVF 或 crosvm/KVM/厂商后端。
+UI/Compose → Kotlin UseCase/Repository → VM Controller/Foreground Service → JNI Facade → ZeroDroid C ABI → C++ Runtime → Backend Adapter → AVF 或获得系统授权的 ARM64 KVM/VMM/厂商 Hypervisor 后端。禁止接入 QEMU TCG 等软件 CPU 模拟路径。
 
 镜像解析、Guest Profile、资源规划和设备清单属于领域服务。Backend 不得依赖 Activity、Fragment、Compose、ViewModel 或 UI 类型。Guest 驱动与 VMM 设备模型之间使用独立设备协议，不能把 JNI API 当作 Guest VirtIO 协议。
 
