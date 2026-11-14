@@ -2,7 +2,7 @@
 
 ## 目标
 
-ZeroVM Virtual Hardware Platform 定义 Guest 可见的虚拟设备、设备标识、总线拓扑、设备能力和版本协商方式。虚拟硬件 ABI 尽量稳定，具体设备能力根据 Host 和 Backend 能力协商。
+ZeroDroid Virtual Hardware Platform 定义 Guest 可见的虚拟设备、设备标识、总线拓扑、设备能力和版本协商方式。虚拟硬件 ABI 尽量稳定，具体设备能力根据 Host 和 Backend 能力协商。
 
 ## 设备类别
 
