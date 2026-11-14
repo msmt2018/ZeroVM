@@ -9,15 +9,18 @@ ZeroDroid maintains an executable, curated upstream source manifest. The officia
 | Source family | Local checkout examples | Primary purpose |
 |---|---|---|
 | AOSP core/runtime | `system/core`, `system/extras`, `libbase`, `libutils`, `libcutils`, `libprocessgroup` | init-adjacent utilities, fs_mgr, libsparse, liblp, resource and native foundations |
+| GSI/DSU | `system/gsid` | GSI installation and Dynamic System Update service reference |
 | Boot/ROM/OTA | `bootable/recovery`, `system/update_engine`, `system/tools/mkbootimg`, AVB, e2fsprogs, f2fs-tools, erofs-utils | boot images, recovery, payload OTA, dynamic partitions and filesystems |
 | Security/IPC/HAL | SELinux, system/sepolicy, Binder, HIDL, FMQ, VINTF, hardware/interfaces, libhardware | Guest policy, service IPC, HAL and compatibility contracts |
 | Android Guest platform | frameworks/base, frameworks/native, frameworks/av, ADB | Guest Framework, native services, media and debug bridge references |
 | AVF / VM | packages/modules/Virtualization, crosvm | AVF, Microdroid, pVM lifecycle, VMM and VirtIO device model references |
+| Android kernel build | kernel/build | Kleaf/Bazel build infrastructure for Android Common Kernel |
 | Android Guest kernel | kernel/common | Primary Android Common Kernel source including Android KVM/pKVM and VirtIO changes |
 | Emulator references | kernel/goldfish, device/generic/goldfish*, tools/emulator, external/qemu, hardware/google/aemu | Official Android Emulator, QEMU, goldfish devices and emulator utility source |
 | Virtual device reference | device/google/cuttlefish | Complete Cuttlefish virtual-device configuration and host orchestration |
 | Graphics | minigbm, libdrm, gfxstream, ANGLE, SwiftShader, virglrenderer | Virtual GPU, graphics translation and software rendering reference |
 | Support | BoringSSL, zstd, lz4, libxml2, protobuf, googletest | Crypto, compression, serialization, XML and test support |
+| Android CTS/VTS (optional) | `platform/cts`, `platform/test/vts` | Compatibility, HAL, kernel and system validation suites |
 | Mainline Linux (optional) | torvalds/linux | Compare generic upstream ARM64 KVM, VirtIO and driver changes |
 
 The executable source list and per-project revisions are defined in `third_party/manifest/zerodroid.xml`. The default checkout group contains relevant Android platform, VM, kernel, image, emulator and graphics projects. The upstream mainline Linux tree is deliberately optional because it is very large and Android Common Kernel is the primary Guest kernel.
@@ -30,13 +33,13 @@ Install Git, Python 3 and the official Android `repo` launcher, then run from th
 
 To also fetch the upstream mainline Linux reference tree:
 
-    ZERODROID_SYNC_GROUPS=default,zerodroid-optional bash third_party/scripts/sync_sources.sh
+    ZERODROID_SYNC_GROUPS=default,zerodroid-optional,zerodroid-test bash third_party/scripts/sync_sources.sh
 
 Controls:
 
 - `ZERODROID_SYNC_JOBS`: parallel project sync jobs (default 4).
 - `ZERODROID_SYNC_DEPTH`: shallow depth (default 1); set to 0 for full history.
-- `ZERODROID_SYNC_GROUPS`: repo groups (default `default`).
+- `ZERODROID_SYNC_GROUPS`: repo groups (default `default`); add `zerodroid-optional` for upstream Linux and `zerodroid-test` for CTS/VTS.
 - Successful sync emits `third_party/SOURCE_LOCK.xml` and `third_party/SOURCE_LOCK.json` with resolved revisions.
 
 The selected Android platform baseline is `android16-qpr1-release`. Android Common Kernel uses `android16-6.12-lts`; emulator-only projects use their own maintained branches where needed. Upstream crosvm is pinned to immutable commit `9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe`. The AOSP crosvm mirror is also checked out for Android-specific integration context.
