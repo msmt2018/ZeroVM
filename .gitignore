@@ -22,5 +22,3 @@ google-services.json
 # Downloaded upstream worktrees and local manifest Git repo.
 third_party/aosp/
 third_party/.manifest-repo/
-third_party/SOURCE_LOCK.xml
-third_party/SOURCE_LOCK.json
