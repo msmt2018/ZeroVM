@@ -10,7 +10,7 @@ The pinned baseline is AGP 9.5.0, Gradle 9.6.0, JDK 25, API 37, NDK r30 30.0.162
 
 ## Native ABI
 
-The public C ABI uses fixed-width C types, explicit struct sizes, opaque 64-bit handles, stable status numbers and exported zvm-prefixed symbols. C++ exceptions, STL and Rust-owned values do not cross the ABI.
+The public C ABI uses fixed-width C types, explicit struct sizes, opaque 64-bit handles, stable status numbers and exported zdroid-prefixed symbols. C++ exceptions, STL and Rust-owned values do not cross the ABI.
 
 The first native implementation provides ABI discovery and Runtime handle creation/destruction only. It does not create or start a VM. Those operations remain unavailable until an authorized real backend adapter is integrated.
 
