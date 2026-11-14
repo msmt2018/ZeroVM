@@ -1,4 +1,4 @@
-# ZeroVM v1 machine-readable schemas
+# ZeroDroid v1 machine-readable schemas
 
 This directory is the first executable data-contract layer. The canonical JSON Schema uses JSON Schema Draft 2020-12 and exposes nine named definitions under `$defs`:
 
@@ -20,10 +20,10 @@ With Python 3.10+ and `jsonschema` 4.x installed:
 
 ```sh
 python -m pip install 'jsonschema>=4.21,<5'
-python -m jsonschema --instance schemas/v1/fixtures/valid-vm-spec.json --schema schemas/v1/zerovm.schema.json
+python -m unittest discover -s tests/schema -p 'test_*.py'
 ```
 
-The CLI command above validates against the document root, so production validation must select the named definition using a validator constructed from `schema["$defs"]["VmSpec"]`. The test harness added in the next implementation stage will validate every fixture against its matching definition.
+The test harness selects each fixture's named `$defs` contract with Draft 2020-12 validation and applies the additional semantic checks implemented for resource ranges and partition extents. Run it from the repository root.
 
 ## Versioning and migration
 

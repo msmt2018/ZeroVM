@@ -2,9 +2,12 @@
 
 ## 1. 目标
 
-ZeroVM 必须依据真实 Host 设备和系统环境选择后端。SoC 理论上支持 ARM 虚拟化，不代表 Android 内核、EL2 所有权、设备节点、系统服务和应用权限允许第三方 App 创建 VM。
+ZeroDroid 必须依据真实 Host 设备和系统环境选择后端。SoC 理论上支持 ARM 虚拟化，不代表 Android 内核、EL2 所有权、设备节点、系统服务和应用权限允许第三方 App 创建 VM。
 
 ## 2. 分层能力探测
+
+Native Core exposes a bounded `/dev/kvm` probe through the C ABI and JNI. It reports the compile-time host architecture, whether the process can open `/dev/kvm`, the KVM API version, and the captured `errno` when access fails. The probe never creates a VM and never requests elevated privileges. `AVAILABLE` means only that the device node was opened and `KVM_GET_API_VERSION` returned the expected interface version; it does not establish AVF authorization, `KVM_CREATE_VM` permission, EL2 ownership, or Guest boot capability. `ACCESS_DENIED`, `UNAVAILABLE`, `INCOMPATIBLE`, and `ERROR` remain distinct outcomes. The Android layer must combine this evidence with API/service/permission probes before selecting a backend.
+
 
 每项能力分别记录 silicon、firmware、kernel、device node、service、app permission、backend API 和 end-to-end 状态。CPU feature 检测结果不能直接当作 KVM/AVF 可用结论。
 
@@ -12,11 +15,11 @@ ZeroVM 必须依据真实 Host 设备和系统环境选择后端。SoC 理论上
 
 AVF：检测设备实际提供的 API、VirtualizationService、权限和支持的 VM 类型。AVF API/权限受 Android 版本、系统镜像、设备实现、应用预装/特权授权和具体 API 约束，不能简单规定 Android 13+ 所有手机可用。
 
-KVM/crosvm：需要 Host Kernel 暴露 KVM 接口、权限、EL2/虚拟化控制权和兼容的 VMM/设备后端。/dev/kvm 是否存在只是检查项，不代表 App 可访问或创建所需 VM。crosvm 可移植不代表普通 Android App 能运行它。
+直接 KVM/VMM：需要 Host Kernel 暴露 KVM 接口、权限、EL2/虚拟化控制权和兼容的 VMM/设备后端。/dev/kvm 是否存在只是检查项，不代表 App 可访问或创建所需 VM。crosvm 仅是 VMM 候选，不是 Hypervisor；可在 Android ARM64 KVM 上运行也必须通过系统权限和设备闭环验证。
 
 厂商 Hypervisor：Gunyah、GenieZone 等接口受 SoC、厂商、内核和系统集成约束，不能当作 Android 通用标准，需独立适配、授权和真机验证。
 
-软件仿真：可用于部分测试或受限用户态场景，但不能作为手机端完整 Android 系统 VM 的等价高速后备方案。没有可用硬件虚拟化时，应明确报告性能/功能限制。
+软件 CPU 仿真（包括 QEMU TCG）不属于 ZeroDroid 运行后端，也不得作为完整 Guest 的自动 fallback。没有可用硬件虚拟化时，应明确报告设备不支持完整 VM。
 
 ## 4. Root、Shizuku 与系统权限
 
@@ -34,6 +37,10 @@ Vulkan 版本/扩展存在并不足以证明 gfxstream/Venus、AHardwareBuffer�
 
 记录 host_fingerprint、android_api、kernel_release、abi、cpu_features、virtualization_extensions、avf_api、service_status、device_nodes、permission_status、backend_candidates、gpu_extensions、memory_budget、storage_budget、thermal_state、verified_features 和 probe_timestamp。敏感标识仅用于本地诊断，导出前脱敏。
 
-## 8. 验收
+## 8. Android ARM64 Host 移植门控
+
+SoC 是 ARM64 并不代表上游 VMM 可直接在 Android 上运行。必须检查 Bionic/NDK、Linux 用户态服务依赖、SELinux、linker namespace、cgroup/seccomp、设备节点和厂商 Hypervisor ABI；PC x86/PCI/ACPI/APIC/BIOS 路径必须移除或隔离。VMM 需分为 Portable Core、Android Host Adapter 和 Hypervisor Adapter。具体审计和测试标准见 [Android ARM64 宿主移植规范](37-android-arm64-host-porting-and-adaptation.md)。
+
+## 9. 验收
 
 探测结果区分理论能力与端到端验证；每个 Backend 有 capability contract 和明确错误码；无权限或后端不可用时不崩溃、不假报成功；资源配置动态且有硬上限；每种后端记录具体真机型号、系统版本和构建指纹测试结果。

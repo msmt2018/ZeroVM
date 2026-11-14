@@ -2,7 +2,7 @@
 
 ## 1. 基本规则
 
-本文定义 ZeroVM 持久化数据和跨模块 DTO 的规范模型。正式实现可采用 JSON、CBOR、Protocol Buffers 或内部 Kotlin/C++ 类型，但必须保持字段语义、版本迁移和校验规则。
+本文定义 ZeroDroid 持久化数据和跨模块 DTO 的规范模型。正式实现可采用 JSON、CBOR、Protocol Buffers 或内部 Kotlin/C++ 类型，但必须保持字段语义、版本迁移和校验规则。
 
 所有 schema 必须有独立 schema_id、schema_version 和可选 revision；使用稳定 ID；区分用户期望、解析事实、Backend 协商结果和运行时观测；记录来源、校验状态和时间；对未知字段执行显式策略；所有数值设范围、单位和溢出检查。迁移前备份原始数据，迁移失败不得覆盖源文件。
 
@@ -21,7 +21,7 @@
 VM Spec 表达用户期望配置，不是 Backend 最终运行状态。推荐结构：
 
     {
-      "schema_id": "zerovm.vm-spec",
+      "schema_id": "zerodroid.vm-spec",
       "schema_version": 1,
       "vm_id": "01J...",
       "display_name": "Android Guest",

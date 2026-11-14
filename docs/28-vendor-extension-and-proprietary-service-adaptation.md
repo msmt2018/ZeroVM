@@ -13,7 +13,7 @@ ROM 分析收集 VINTF manifest、framework compatibility matrix、init rc 服�
 ## 3. Adapter 类型
 
 - Native implementation：关键功能且可实现时，提供符合厂商 ABI、生命周期和错误语义的真实服务。
-- Compatibility proxy：将 ROM 私有接口映射到 ZeroVM 标准服务，明确字段、单位、状态机、超时和错误映射。
+- Compatibility proxy：将 ROM 私有接口映射到 ZeroDroid 标准服务，明确字段、单位、状态机、超时和错误映射。
 - Restricted stub：仅对非关键、可选或明确允许降级的功能使用；返回接口允许的 UNSUPPORTED/空能力状态，不能伪造认证或成功执行结果。
 - Device node adapter：通过受控 Guest Kernel driver 或专用服务提供虚拟节点；不能假定普通 App 可随意挂载或修改宿主 sysfs。
 - Property profile：按 ROM Profile 提供验证过的属性集合，满足命名空间、类型、只读时机和 property context 一致性；不能靠篡改 ro.* 冒充真实设备。

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <remote name="aosp" fetch="https://android.googlesource.com/" />
+  <remote name="github" fetch="https://github.com/" />
+  <remote name="linux" fetch="https://git.kernel.org/pub/scm/linux/kernel/git/" />
+  <!-- AOSP release baseline; individual projects may pin a compatible branch or commit. -->
+  <default remote="aosp" revision="refs/heads/android16-qpr1-release" sync-j="4" />
+
+  <!-- Android low-level runtime, boot, partition and image primitives. -->
+  <project name="platform/system/core" path="system/core" groups="default,zerodroid-core,image,boot" />
+  <project name="platform/system/extras" path="system/extras" groups="default,zerodroid-core,image,boot" />
+  <project name="platform/system/logging" path="system/logging" groups="default,zerodroid-core" />
+  <project name="platform/system/libbase" path="system/libbase" groups="default,zerodroid-core" />
+  <project name="platform/system/libutils" path="system/libutils" groups="default,zerodroid-core" />
+  <project name="platform/system/libcutils" path="system/libcutils" groups="default,zerodroid-core" />
+  <project name="platform/system/libprocessgroup" path="system/libprocessgroup" groups="default,zerodroid-core,resource" />
+  <project name="platform/system/libvintf" path="system/libvintf" groups="default,zerodroid-core,guest-platform" />
+  <project name="platform/system/libfmq" path="system/libfmq" groups="default,zerodroid-core,ipc" />
+  <project name="platform/system/libbinder" path="system/libbinder" groups="default,zerodroid-core,ipc" />
+  <project name="platform/system/libhidl" path="system/libhidl" groups="default,zerodroid-core,ipc" />
+  <project name="platform/system/vold" path="system/vold" groups="default,zerodroid-core,image" />
+  <project name="platform/system/gsid" path="system/gsid" revision="refs/heads/main" groups="default,zerodroid-image,gsi,installer" />
+  <project name="platform/system/netd" path="system/netd" groups="default,zerodroid-core,network" />
+  <project name="platform/system/sepolicy" path="system/sepolicy" groups="default,zerodroid-core,security" />
+  <project name="platform/external/selinux" path="external/selinux" groups="default,zerodroid-core,security" />
+  <project name="platform/external/avb" path="external/avb" groups="default,zerodroid-core,image,security" />
+  <project name="platform/external/boringssl" path="external/boringssl" groups="default,zerodroid-core,security" />
+  <project name="platform/external/protobuf" path="external/protobuf" groups="default,zerodroid-core,protocol" />
+  <project name="platform/external/libxml2" path="external/libxml2" groups="default,zerodroid-core,image" />
+  <project name="platform/external/zstd" path="external/zstd" groups="default,zerodroid-core,image" />
+  <project name="platform/external/lz4" path="external/lz4" groups="default,zerodroid-core,image" />
+  <project name="platform/external/brotli" path="external/brotli" groups="default,zerodroid-image,compression" />
+  <project name="platform/external/libarchive" path="external/libarchive" groups="default,zerodroid-image,archive" />
+  <project name="platform/external/bzip2" path="external/bzip2" groups="default,zerodroid-image,compression" />
+  <project name="platform/external/zlib" path="external/zlib" groups="default,zerodroid-image,compression" />
+  <project name="platform/external/xz" path="external/xz" groups="default,zerodroid-image,compression,payload" />
+  <project name="platform/system/libufdt" path="system/libufdt" groups="default,zerodroid-image,dtb,boot" />
+  <project name="platform/external/dtc" path="external/dtc" groups="default,zerodroid-image,dtb,boot" />
+  <project name="platform/external/googletest" path="external/googletest" groups="default,zerodroid-core,test" />
+
+  <!-- Android ROM flashing, OTA, dynamic partitions, recovery and boot image tooling. -->
+  <project name="platform/bootable/recovery" path="bootable/recovery" groups="default,zerodroid-image,ota,recovery" />
+  <project name="platform/system/update_engine" path="system/update_engine" groups="default,zerodroid-image,ota" />
+  <project name="platform/system/tools/mkbootimg" path="system/tools/mkbootimg" groups="default,zerodroid-image,boot" />
+  <!-- Independent ROM tooling references complement the canonical AOSP implementations. -->
+  <project name="ssut/payload-dumper-go" remote="github" path="tools/rom/payload-dumper-go" revision="refs/heads/main" groups="default,zerodroid-image,payload,ota" />
+  <project name="cfig/Android_boot_image_editor" remote="github" path="tools/rom/Android_boot_image_editor" revision="refs/heads/master" groups="default,zerodroid-image,boot,avb,payload" />
+  <project name="xpirt/sdat2img" remote="github" path="tools/rom/sdat2img" revision="refs/heads/master" groups="default,zerodroid-image,sdat,legacy-ota" />
+  <project name="xpirt/img2sdat" remote="github" path="tools/rom/img2sdat" revision="refs/heads/master" groups="default,zerodroid-image,sdat,legacy-ota" />
+  <project name="erfanoabdi/imgpatchtools" remote="github" path="tools/rom/imgpatchtools" revision="refs/heads/Stable" groups="default,zerodroid-image,legacy-ota,block-patch" />
+  <project name="platform/external/e2fsprogs" path="external/e2fsprogs" groups="default,zerodroid-image,filesystem" />
+  <project name="platform/external/f2fs-tools" path="external/f2fs-tools" groups="default,zerodroid-image,filesystem" />
+  <project name="platform/external/erofs-utils" path="external/erofs-utils" groups="default,zerodroid-image,filesystem" />
+
+  <!-- Broad third-party ROM suites are references, not production dependencies. -->
+  <project name="ColdWindScholar/TIK" remote="github" path="reference/rom-tools/TIK" revision="refs/heads/master" groups="zerodroid-rom-reference,rom-suite" />
+  <project name="Danda420/RomTools" remote="github" path="reference/rom-tools/RomTools" revision="refs/heads/main" groups="zerodroid-rom-reference,rom-suite" />
+  <project name="erfanoabdi/Firmware_extractor" remote="github" path="reference/rom-tools/Firmware_extractor" revision="refs/heads/master" groups="zerodroid-rom-reference,oem-firmware" />
+  <project name="topjohnwu/Magisk" remote="github" path="reference/rom-tools/Magisk" revision="refs/heads/master" groups="zerodroid-rom-reference,boot-patching" />
+  <project name="osm0sis/AnyKernel3" remote="github" path="reference/rom-tools/AnyKernel3" revision="refs/heads/master" groups="zerodroid-rom-reference,kernel-package" />
+  <project name="anestisb/android-simg2img" remote="github" path="reference/rom-tools/android-simg2img" revision="refs/heads/master" groups="zerodroid-rom-reference,sparse-image" />
+
+  <!-- Guest Android platform: framework, native services, HAL contracts and system APIs. -->
+  <project name="platform/frameworks/base" path="frameworks/base" groups="default,zerodroid-guest,framework" />
+  <project name="platform/frameworks/native" path="frameworks/native" groups="default,zerodroid-guest,framework,native" />
+  <project name="platform/frameworks/av" path="frameworks/av" groups="default,zerodroid-guest,media" />
+  <project name="platform/system/media" path="system/media" groups="default,zerodroid-guest,media,audio" />
+  <project name="platform/external/tinyalsa" path="external/tinyalsa" groups="default,zerodroid-guest,audio" />
+  <project name="platform/hardware/interfaces" path="hardware/interfaces" groups="default,zerodroid-guest,hal,vintf" />
+  <project name="platform/hardware/libhardware" path="hardware/libhardware" groups="default,zerodroid-guest,hal" />
+  <project name="platform/packages/modules/adb" path="packages/modules/adb" groups="default,zerodroid-guest,bridge,debug" />
+
+  <!-- AVF, Microdroid, pVM firmware and the hardware-assisted VMM path. -->
+  <project name="platform/packages/modules/Virtualization" path="packages/modules/Virtualization" groups="default,zerodroid-avf,backend,pvm" />
+  <project name="platform/external/crosvm" path="external/crosvm-aosp" revision="refs/heads/main" groups="default,zerodroid-vmm,vmm,virtio" />
+
+  <!-- Android Common Kernel: primary Android guest kernel and KVM/pKVM/VirtIO source. -->
+  <project name="kernel/build" path="kernel/build" revision="refs/heads/main-kernel" groups="default,zerodroid-kernel,kernel-build" />
+  <project name="kernel/common" path="kernel/common" revision="refs/heads/android16-6.12-lts" groups="default,zerodroid-kernel,guest-kernel,kvm,virtio" />
+
+
+  <!-- Virtual graphics, software rendering and Android graphics translation. -->
+  <project name="platform/external/minigbm" path="external/minigbm" groups="default,zerodroid-graphics,graphics" />
+  <project name="platform/external/libdrm" path="external/libdrm" groups="default,zerodroid-graphics,graphics" />
+  <project name="platform/hardware/google/gfxstream" path="hardware/google/gfxstream" groups="default,zerodroid-graphics,graphics" />
+  <project name="platform/external/angle" path="external/angle" groups="default,zerodroid-graphics,graphics" />
+  <project name="platform/external/swiftshader" path="external/swiftshader" groups="default,zerodroid-graphics,graphics" />
+  <project name="platform/external/virglrenderer" path="external/virglrenderer" revision="refs/heads/main" groups="default,zerodroid-graphics,graphics,virtio-gpu" />
+  <project name="platform/external/mesa3d" path="external/mesa3d" groups="default,zerodroid-graphics,graphics,virtio-gpu" />
+  <project name="platform/external/vulkan-headers" path="external/vulkan-headers" groups="default,zerodroid-graphics,graphics,vulkan" />
+
+  <!-- crosvm is a VMM candidate/reference, not a CPU emulator or Hypervisor. -->
+  <project name="google/crosvm" remote="github" path="external/crosvm-upstream"
+           revision="9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe"
+           upstream="refs/heads/main" groups="default,zerodroid-vmm,vmm,virtio" />
+
+  <!-- Android compatibility test source; opt in because CTS/VTS are very large. -->
+  <project name="platform/test/vts" path="test/vts" revision="refs/heads/main" groups="zerodroid-test,validation,vts" />
+  <project name="platform/cts" path="cts" revision="refs/heads/main" groups="zerodroid-test,validation,cts" />
+
+  <!-- Upstream Linux is a comparison/reference tree; Android Common Kernel remains primary. -->
+  <project name="torvalds/linux" remote="linux" path="reference/linux-mainline"
+           revision="refs/heads/master" groups="zerodroid-optional,linux-reference,kvm,virtio" />
+
+  <!-- Optional firmware and peripheral references; neither is required for direct-kernel boot. -->
+  <project name="tianocore/edk2" remote="github" path="reference/firmware/edk2"
+           revision="refs/tags/edk2-stable202608" groups="zerodroid-optional,uefi,firmware-reference" />
+  <project name="platform/packages/modules/Bluetooth" path="packages/modules/Bluetooth"
+           groups="zerodroid-optional,guest-platform,bluetooth" />
+</manifest>

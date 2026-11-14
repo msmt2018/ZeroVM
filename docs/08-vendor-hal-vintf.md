@@ -2,7 +2,7 @@
 
 ## Vendor 的职责
 
-Guest System 通过稳定的 Treble 接口与 Vendor 实现交互。ZeroVM 必须提供与虚拟硬件匹配的 Vendor Platform，不能只提供 system.img 就期待 Android Framework 自动发现所有虚拟设备。
+Guest System 通过稳定的 Treble 接口与 Vendor 实现交互。ZeroDroid 必须提供与虚拟硬件匹配的 Vendor Platform，不能只提供 system.img 就期待 Android Framework 自动发现所有虚拟设备。
 
 ## HAL 范围
 
@@ -20,8 +20,8 @@ VINTF 是 System 与 Vendor 的契约检查机制，不是可忽略的启动装�
 
 优先顺序：
 1. 使用 AOSP/Cuttlefish 已有且许可证允许的虚拟设备 HAL。
-2. 复用上游接口和实现，适配 ZeroVM 设备 ABI。
-3. 为 ZeroVM 专有桥接设备编写 Native HAL Service。
+2. 复用上游接口和实现，适配 ZeroDroid 设备 ABI。
+3. 为 ZeroDroid 专有桥接设备编写 Native HAL Service。
 4. 对无法提供的硬件能力不注册虚假 HAL，或通过受支持接口报告 unavailable。
 
 HAL 必须真实执行功能并处理错误、超时、服务重启和设备断连。

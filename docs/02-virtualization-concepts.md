@@ -2,7 +2,7 @@
 
 ## Host 与 Guest
 
-- Host：运行 ZeroVM App 和虚拟化服务的真实 Android 设备。
+- Host：运行 ZeroDroid App 和虚拟化服务的真实 Android 设备。
 - Guest：由 VMM 创建、运行独立 Kernel 和 Android 系统的虚拟设备。
 - Hypervisor：提供 CPU 虚拟化、二阶段地址转换和隔离的底层机制。
 - VMM：创建 vCPU、分配 Guest 内存、构建设备模型并管理 VM 运行。
@@ -20,7 +20,7 @@
 | 独立内核版本 | 是 | 否 |
 | Hypervisor 隔离 | 可具备 | 通常使用宿主内核隔离机制 |
 
-ZeroVM 的产品定义要求真正的 VM。设备不支持所需虚拟化能力时，应报告不支持，不能悄悄退化为容器仍称作虚拟机。
+ZeroDroid 的产品定义要求真正的 VM。设备不支持所需虚拟化能力时，应报告不支持，不能悄悄退化为容器仍称作虚拟机。
 
 ## KVM、pKVM、AVF 与 crosvm
 
@@ -29,7 +29,7 @@ ZeroVM 的产品定义要求真正的 VM。设备不支持所需虚拟化能力�
 - AVF：Android 提供的虚拟化框架、管理 API、服务和相关组件。
 - VirtualizationService：Android 系统侧虚拟化管理服务。
 - crosvm：Rust 实现的 VMM，管理 VM、vCPU、内存和虚拟设备。
-- Cuttlefish：AOSP 完整虚拟 Android 设备参考平台，包含设备配置、Kernel、Vendor、HAL 和工具链。
+- ZeroDroid 不采用 Cuttlefish/Android Emulator/QEMU/Goldfish/AEMU 的模拟器启动链；这些项目不属于运行时依赖。
 
 这些概念处于不同层次，不可互换。AVF 不是 Hypervisor，crosvm 不是 Guest Kernel，VirtIO 也不是虚拟化后端。
 
@@ -43,7 +43,7 @@ GSI 是面向 Treble 设备的通用 Android System 实现。它主要提供 Sys
 
 AVF 能否使用取决于设备硬件、系统版本、厂商配置、服务状态和调用权限。框架 API 可能受到系统权限和预装应用限制。普通第三方 App 不应假定可以直接调用所有 AVF 接口，也不能假定 /dev/kvm 对应用可见。
 
-ZeroVM 必须检测 AVF 版本、VirtualizationService、应用权限、Guest 类型支持和实际 VM 创建结果。
+ZeroDroid 必须检测 AVF 版本、VirtualizationService、应用权限、Guest 类型支持和实际 VM 创建结果。
 
 ## 关键边界
 
@@ -52,3 +52,10 @@ ZeroVM 必须检测 AVF 版本、VirtualizationService、应用权限、Guest �
 - Host 有某个物理设备不代表 Guest 可以直接访问它。
 - Guest HAL 必须与 Guest System 的接口版本兼容。
 - 运行时资源动态调整受 Guest Kernel 和 VMM 能力约束。
+## ZeroDroid 的执行模型（强制约束）
+
+- Guest ARM64 指令必须由宿主 CPU 的硬件虚拟化扩展执行；不采用 QEMU TCG 等软件 CPU 指令翻译作为运行后端。
+- Hypervisor/KVM/pKVM 提供特权级隔离、二阶段地址转换、虚拟 CPU 与中断基础；VMM 负责 VM 生命周期、Guest 内存映射、vCPU 调度接口、设备模型和启动装载。
+- AVF 是 Android 平台可用时优先评估的受控虚拟化入口；直接 KVM 后端只在系统确实开放 KVM、EL2、所需 ioctl 和权限时启用。普通 APK 不得假设具备这些条件。
+- crosvm 是可评估的 VMM 实现，不是 Hypervisor，也不是 QEMU 式 CPU 模拟器。若采用它，必须验证 ARM64 KVM backend、Android 构建/权限和设备模型闭环；否则实现 ZeroDroid 自有 Native VMM adapter/device runtime。
+- 不支持硬件虚拟化的设备应明确标记为不支持完整 VM，不得悄悄切换到低性能 CPU 模拟。

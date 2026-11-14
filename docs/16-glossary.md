@@ -2,7 +2,7 @@
 
 | 术语 | 含义 |
 |---|---|
-| Host | 运行 ZeroVM 的真实 Android 设备 |
+| Host | 运行 ZeroDroid 的真实 Android 设备 |
 | Guest | VM 内运行的独立操作系统 |
 | Hypervisor | 提供硬件虚拟化和隔离的底层机制 |
 | VMM | 管理 VM、vCPU、内存和虚拟设备的软件 |

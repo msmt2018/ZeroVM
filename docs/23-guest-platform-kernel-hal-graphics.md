@@ -2,7 +2,7 @@
 
 ## 1. Guest Platform 的定义
 
-Guest Platform 是让 Android System 能在 ZeroVM 虚拟硬件上运行的完整底座，不等于一份 Vendor 镜像。它包含 Kernel、模块、DTB、启动材料、分区布局、Vendor/HAL、VINTF、SELinux policy、init 配置和虚拟设备 ABI。
+Guest Platform 是让 Android System 能在 ZeroDroid 虚拟硬件上运行的完整底座，不等于一份 Vendor 镜像。它包含 Kernel、模块、DTB、启动材料、分区布局、Vendor/HAL、VINTF、SELinux policy、init 配置和虚拟设备 ABI。
 
 ## 2. 版本化平台策略
 
@@ -20,13 +20,13 @@ Guest Platform 是让 Android System 能在 ZeroVM 虚拟硬件上运行的完�
 
 ## 3. Kernel 工程
 
-从对应 Android Common Kernel/Cuttlefish 参考分支建立可复现构建。维护 defconfig、fragment、必要 patch、模块清单、DTS/DTB 生成、符号/KMI 检查和产物哈希。
+从与目标 Guest Android 版本匹配的 Android Common Kernel/GKI 分支建立可复现构建；不依赖 Goldfish 模拟器 Kernel。维护 defconfig、fragment、必要 patch、模块清单、DTS/DTB 生成、符号/KMI 检查和产物哈希。
 
 内核功能按启动依赖排序：CPU/内存/中断、VirtIO transport、Block/Console、文件系统、Device Mapper、Binder、网络、图形和其他设备。早期启动依赖必须内建或在 Ramdisk 中可加载。
 
 ## 4. Vendor HAL 工程
 
-先从目标 Android 版本的 Cuttlefish/AOSP 虚拟设备 HAL 评估可复用实现。每个 HAL 明确：
+先从 AOSP HAL 接口定义、Guest Framework 依赖和实际 VirtIO/虚拟设备 ABI 评估可复用实现；不把 Cuttlefish 设备配置或 Vendor 当作生产依赖。每个 HAL 明确：
 - AIDL/HIDL 接口版本；
 - instance 名称；
 - init rc；

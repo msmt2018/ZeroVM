@@ -1,5 +1,5 @@
 {
-  "schema_id": "zerovm.vm-spec",
+  "schema_id": "zerodroid.vm-spec",
   "schema_version": 1,
   "vm_id": "vm:bad-001",
   "display_name": "Invalid Guest",

@@ -2,9 +2,9 @@
 
 ## 项目定位
 
-ZeroVM 是面向 Android 宿主设备的完整 Android 系统虚拟机项目。目标是在支持的 Android 手机上创建隔离的 ARM64 Guest 设备，运行独立 Android Kernel 和完整 Android 用户空间，并允许导入符合兼容条件的 Android GSI。
+ZeroDroid 是面向 Android 宿主设备的完整 Android 系统虚拟机项目。目标是在支持的 Android 手机上创建隔离的 ARM64 Guest 设备，运行独立 Android Kernel 和完整 Android 用户空间，并允许导入符合兼容条件的 Android GSI。
 
-ZeroVM 的产品对象是虚拟 Android 设备，不是 Android 应用容器，也不是把另一个系统的界面嵌入当前应用。
+ZeroDroid 的产品对象是虚拟 Android 设备，不是 Android 应用容器，也不是把另一个系统的界面嵌入当前应用。
 
 ## 核心目标
 

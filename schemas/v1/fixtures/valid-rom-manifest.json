@@ -1,5 +1,5 @@
 {
-  "schema_id": "zerovm.rom-manifest",
+  "schema_id": "zerodroid.rom-manifest",
   "schema_version": 1,
   "manifest_id": "manifest:demo",
   "source": {

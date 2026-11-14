@@ -4,13 +4,13 @@
 
 GSI 是通用 Android System 镜像，目标是符合 Treble 要求的设备。它通常不能独立提供虚拟设备所需 Kernel、Vendor HAL、设备树、启动 Ramdisk、完整分区布局和虚拟硬件驱动。
 
-ZeroVM 提供两种导入路径：
+ZeroDroid 提供两种导入路径：
 
 ### GSI System Import
-用户导入 system.img。ZeroVM 选择经过验证的 Guest Platform Base，匹配 Kernel、Vendor、Boot、VINTF 和虚拟设备 ABI，再执行兼容性检查。
+用户导入 system.img。ZeroDroid 选择经过验证的 Guest Platform Base，匹配 Kernel、Vendor、Boot、VINTF 和虚拟设备 ABI，再执行兼容性检查。
 
 ### Full Guest Image Import
-用户导入完整 Guest 设备镜像或一组分区镜像。ZeroVM 解析 Boot、Vendor、Super、VBMeta、Data 等材料并验证布局。
+用户导入完整 Guest 设备镜像或一组分区镜像。ZeroDroid 解析 Boot、Vendor、Super、VBMeta、Data 等材料并验证布局。
 
 两种路径必须在 UI、数据模型和校验逻辑中明确区分。
 

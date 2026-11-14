@@ -2,7 +2,7 @@
 
 ## 1. 目标与边界
 
-ZeroVM 的目标是尽可能扩大 Android ROM 的可运行范围，包括 AOSP GSI、AOSP 派生系统、Pixel 系统映像，以及 HyperOS/MIUI、One UI、ColorOS、OriginOS 等厂商定制系统。
+ZeroDroid 的目标是尽可能扩大 Android ROM 的可运行范围，包括 AOSP GSI、AOSP 派生系统、Pixel 系统映像，以及 HyperOS/MIUI、One UI、ColorOS、OriginOS 等厂商定制系统。
 
 “任意 ROM”不是单一通用 Vendor 或万能 Stub 可以保证的工程承诺。ROM 可能依赖特定 SoC、设备树、内核驱动、专有 HAL、TEE、基带、分区布局、AVB 信任链和厂商服务。缺少对应硬件或专有实现时，可能无法启动，或启动后关键功能不可用。
 
@@ -38,7 +38,7 @@ ZeroVM 的目标是尽可能扩大 Android ROM 的可运行范围，包括 AOSP 
 
 优先保持 ROM 原有 System/Vendor/ODM 组合并验证其虚拟化适配性；若 System/Product 可与另一套 Vendor ABI 兼容，才使用经过验证的平台组合；对可隔离的扩展开发版本化 Adapter；对无法实现的物理硬件功能明确降级。
 
-直接用 Cuttlefish Vendor 替换任意厂商 Vendor 不是通用方案。System 与 Vendor 的 VINTF、HAL、属性、SELinux、内核接口和私有服务必须匹配。
+直接用某个虚拟设备 Vendor 替换任意厂商 Vendor 不是通用方案。System 与 Vendor 的 VINTF、HAL、属性、SELinux、内核接口和私有服务必须匹配。
 
 ## 6. Adapter 插件模型
 

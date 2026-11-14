@@ -1,0 +1,173 @@
+name: Native and Android foundation
+on:
+  push:
+    branches: [main, "feat/native-app-foundation"]
+    paths:
+      - "app/**"
+      - "core/**"
+      - "native/**"
+      - "rust/**"
+      - "third_party/manifest/**"
+      - "third_party/porting/**"
+      - "third_party/scripts/**"
+      - "gradle.properties"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "settings.gradle.kts"
+      - "build.gradle.kts"
+      - "gradle/**"
+      - ".github/workflows/native-app-foundation.yml"
+  pull_request:
+    paths:
+      - "app/**"
+      - "core/**"
+      - "native/**"
+      - "rust/**"
+      - "third_party/manifest/**"
+      - "third_party/porting/**"
+      - "third_party/scripts/**"
+      - "gradle.properties"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "settings.gradle.kts"
+      - "build.gradle.kts"
+      - "gradle/**"
+      - ".github/workflows/native-app-foundation.yml"
+permissions:
+  contents: read
+jobs:
+  source-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate source manifest XML
+        run: |
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          root = ET.parse("third_party/manifest/zerodroid.xml").getroot()
+          projects = {p.get("name"): p for p in root.findall("project")}
+          required = {
+              "platform/system/core",
+              "platform/external/avb",
+              "platform/packages/modules/Virtualization",
+              "kernel/common",
+              "google/crosvm",
+              "platform/external/minigbm",
+              "platform/hardware/google/gfxstream",
+              "platform/bootable/recovery",
+              "platform/system/gsid",
+              "kernel/build",
+              "platform/system/update_engine",
+              "platform/external/crosvm",
+              "platform/frameworks/base",
+              "platform/hardware/interfaces",
+              "platform/test/vts",
+              "platform/cts",
+              "ssut/payload-dumper-go",
+              "cfig/Android_boot_image_editor",
+              "xpirt/sdat2img",
+              "xpirt/img2sdat",
+              "erfanoabdi/imgpatchtools",
+              "platform/system/tools/mkbootimg",
+              "platform/external/e2fsprogs",
+              "platform/external/f2fs-tools",
+              "platform/external/erofs-utils",
+              "platform/external/brotli",
+              "platform/external/zlib",
+              "platform/external/xz",
+              "platform/external/libarchive",
+              "platform/system/libufdt",
+              "platform/external/dtc",
+              "platform/system/media",
+              "platform/external/tinyalsa",
+              "platform/external/mesa3d",
+              "platform/external/vulkan-headers",
+              "platform/packages/modules/Bluetooth",
+              "tianocore/edk2",
+              "erfanoabdi/imgpatchtools",
+              "ColdWindScholar/TIK",
+              "Danda420/RomTools",
+              "erfanoabdi/Firmware_extractor",
+              "topjohnwu/Magisk",
+              "osm0sis/AnyKernel3",
+          }
+          missing = required - projects.keys()
+          assert not missing, f"missing upstream projects: {sorted(missing)}"
+          assert projects["google/crosvm"].get("revision") == "9b63ea5f62f1493b5d2bb1c0da54f090d5e25ebe"
+          paths = [p.get("path") for p in root.findall("project")]
+          assert len(paths) == len(set(paths)), "duplicate checkout paths in upstream manifest"
+          remote_names = {r.get("name") for r in root.findall("remote")}
+          assert all((p.get("remote") or root.find("default").get("remote")) in remote_names for p in root.findall("project"))
+          assert projects["kernel/common"].get("revision") == "refs/heads/android16-6.12-lts"
+          assert projects["kernel/build"].get("revision") == "refs/heads/main-kernel"
+          assert projects["ssut/payload-dumper-go"].get("revision") == "refs/heads/main"
+          assert projects["cfig/Android_boot_image_editor"].get("revision") == "refs/heads/master"
+          assert projects["erfanoabdi/imgpatchtools"].get("revision") == "refs/heads/Stable"
+          assert "zerodroid-rom-reference" in projects["ColdWindScholar/TIK"].get("groups", "")
+          for name in (
+              "ssut/payload-dumper-go",
+              "cfig/Android_boot_image_editor",
+              "xpirt/sdat2img",
+              "xpirt/img2sdat",
+              "erfanoabdi/imgpatchtools",
+          ):
+              assert "default" in projects[name].get("groups", "").split(","), f"{name} must be in default source group"
+          assert len(projects) == 73, f"expected 73 hardware-virtualization source projects, got {len(projects)}"
+          forbidden_tokens = ("qemu", "emulator", "goldfish", "aemu", "cuttlefish")
+          forbidden = sorted(name for name in projects if any(token in name.lower() for token in forbidden_tokens))
+          assert not forbidden, f"emulator-only sources must not enter ZeroDroid: {forbidden}"
+          default_projects = [p for p in root.findall("project") if "default" in p.get("groups", "").split(",")]
+          assert len(default_projects) == 62, f"expected 62 default projects, got {len(default_projects)}"
+          assert projects["kernel/common"].get("groups") and "kvm" in projects["kernel/common"].get("groups").split(",")
+          assert "zerodroid-avf" in projects["platform/packages/modules/Virtualization"].get("groups", "").split(",")
+          assert "zerodroid-vmm" in projects["google/crosvm"].get("groups", "").split(",")
+          assert "zerodroid-optional" in projects["tianocore/edk2"].get("groups", "").split(",")
+          assert "zerodroid-optional" in projects["platform/packages/modules/Bluetooth"].get("groups", "").split(",")
+          print(f"validated {len(projects)} upstream project entries")
+          PY
+      - name: Validate Android ARM64 portability inventory
+        run: python3 third_party/scripts/validate_android_portability.py
+      - name: Validate source sync shell syntax
+        run: bash -n third_party/scripts/sync_sources.sh
+  native:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure CMake
+        run: cmake -S native -B build/native -DZERODROID_BUILD_TESTS=ON
+      - name: Build native core
+        run: cmake --build build/native --parallel 2
+      - name: Run native ABI tests
+        run: ctest --test-dir build/native --output-on-failure
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Run Rust tests
+        run: cargo test --workspace --locked
+  android:
+    runs-on: ubuntu-latest
+    env:
+      ANDROID_HOME: /usr/local/lib/android/sdk
+      ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "9.6.0"
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+      - name: Accept Android SDK licenses
+        run: yes | sdkmanager --licenses >/dev/null || true
+      - name: Install Android SDK components
+        run: sdkmanager "platforms;android-37.0" "build-tools;37.0.0" "ndk;30.0.16248370" "cmake;3.31.6"
+      - name: Generate wrapper for CI
+        run: gradle wrapper --gradle-version 9.6.0
+      - name: Assemble debug APK
+        run: ./gradlew --no-daemon :app:assembleDebug

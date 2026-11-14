@@ -8,7 +8,7 @@
 
 唯一允许的主调用方向：
 
-UI/Compose → Kotlin UseCase/Repository → VM Controller/Foreground Service → JNI Facade → ZeroVM C ABI → C++ Runtime → Backend Adapter → AVF 或 crosvm/KVM/厂商后端。
+UI/Compose → Kotlin UseCase/Repository → VM Controller/Foreground Service → JNI Facade → ZeroDroid C ABI → C++ Runtime → Backend Adapter → AVF 或获得系统授权的 ARM64 KVM/VMM/厂商 Hypervisor 后端。禁止接入 QEMU TCG 等软件 CPU 模拟路径。
 
 镜像解析、Guest Profile、资源规划和设备清单属于领域服务。Backend 不得依赖 Activity、Fragment、Compose、ViewModel 或 UI 类型。Guest 驱动与 VMM 设备模型之间使用独立设备协议，不能把 JNI API 当作 Guest VirtIO 协议。
 
@@ -29,7 +29,7 @@ UI/Compose → Kotlin UseCase/Repository → VM Controller/Foreground Service �
 JNI 仅负责类型转换、线程衔接和错误映射；业务状态机不得放在 JNI glue 层。
 
 C ABI 是跨语言稳定边界：
-- 导出符号统一使用 zvm_ 前缀；
+- 导出符号统一使用 zdroid_ 前缀；
 - 公共结构体包含 abi_version 和 struct_size；
 - 不暴露 C++ class、STL、异常、Rust trait 或编译器特定布局；
 - 字符串明确 UTF-8、长度和 NUL 规则；
@@ -40,36 +40,38 @@ C ABI 是跨语言稳定边界：
 
 建议 ABI 轮廓：
 
-    typedef uint64_t zvm_handle;
+    typedef uint64_t zdroid_handle;
     typedef struct {
         uint32_t abi_version;
         uint32_t struct_size;
         uint64_t flags;
-    } zvm_runtime_options;
+    } zdroid_runtime_options;
 
     typedef struct {
+        uint32_t struct_size;
         uint32_t code;
         uint32_t domain;
+        uint32_t reserved;
         uint64_t operation_id;
         char message[256];
-    } zvm_error_info;
+    } zdroid_error_info;
 
-    zvm_status zvm_runtime_create(
-        const zvm_runtime_options* options,
-        zvm_handle* out_runtime,
-        zvm_error_info* out_error);
+    zdroid_status zdroid_runtime_create(
+        const zdroid_runtime_options* options,
+        zdroid_handle* out_runtime,
+        zdroid_error_info* out_error);
 
-    zvm_status zvm_vm_create(
-        zvm_handle runtime,
+    zdroid_status zdroid_vm_create(
+        zdroid_handle runtime,
         const uint8_t* spec,
         size_t spec_size,
-        zvm_handle* out_vm,
-        zvm_error_info* out_error);
+        zdroid_handle* out_vm,
+        zdroid_error_info* out_error);
 
-    zvm_status zvm_handle_release(
-        zvm_handle runtime,
-        zvm_handle object,
-        zvm_error_info* out_error);
+    zdroid_status zdroid_handle_release(
+        zdroid_handle runtime,
+        zdroid_handle object,
+        zdroid_error_info* out_error);
 
 该示例规定接口形态，不替代正式头文件。正式 ABI 必须定义字段布局、对齐、最大长度、所有权、线程安全和版本兼容规则。
 

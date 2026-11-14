@@ -2,7 +2,7 @@
 
 ## 图形完整链路
 
-Android 图形路径通常涉及应用渲染、BufferQueue、SurfaceFlinger、Hardware Composer、Gralloc Allocator/Mapper、EGL/GLES/Vulkan、Kernel DRM/GPU 驱动以及 VMM/Host GPU 后端。ZeroVM 必须同时解决 Guest 图形栈和 Host 显示传输。
+Android 图形路径通常涉及应用渲染、BufferQueue、SurfaceFlinger、Hardware Composer、Gralloc Allocator/Mapper、EGL/GLES/Vulkan、Kernel DRM/GPU 驱动以及 VMM/Host GPU 后端。ZeroDroid 必须同时解决 Guest 图形栈和 Host 显示传输。
 
 ## 组件职责
 
