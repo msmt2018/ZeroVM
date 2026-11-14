@@ -101,7 +101,11 @@ AVF 与直接 KVM/VMM 的配置模型不同。上层使用统一 Guest Profile �
 - 记录 NDK、Clang、CMake、Rust、ABI、API level、依赖 commit 和 patch。
 - 依赖升级必须执行 Native 单测、ABI 检查和目标设备验证。
 
-## 10. 测试
+## 10. Android ARM64 移植要求
+
+Native Core 不得把 Linux PC Host 依赖直接带入 APK。所有 VMM 代码按 Portable Core、Android Host Adapter、Hypervisor Adapter 分层；系统调用、内存映射、线程、日志、设备发现、权限和安全策略必须通过 Android 实现。PC 专属 x86/PCI/ACPI/APIC/BIOS 设备后端不能进入生产路径。详细审计、重写边界和自动化验收见 [Android ARM64 宿主移植规范](37-android-arm64-host-porting-and-adaptation.md)。
+
+## 11. 测试
 
 - Native 单元测试：状态机、错误映射、资源预算、解析器。
 - Fuzz：Boot Image、Sparse、LP metadata、GPT、VBMeta 等不可信输入。
