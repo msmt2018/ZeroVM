@@ -11,15 +11,15 @@ ZERODROID_SYNC_GROUPS=default,zerodroid-rom-reference,zerodroid-optional,zerodro
   bash third_party/scripts/sync_sources.sh
 ```
 
-The manifest contains 71 projects:
-- 62 default projects: Android platform/runtime, AVF/Microdroid, Android Common Kernel and Kleaf, crosvm, Cuttlefish, Android Emulator/QEMU/goldfish/AEMU, graphics, recovery/OTA, and the ROM/image pipeline.
+The manifest contains 73 projects:
+- 64 default projects: Android platform/runtime, AVF/Microdroid, Android Common Kernel and Kleaf, crosvm, Cuttlefish, Android Emulator/QEMU/goldfish/AEMU, graphics, recovery/OTA, and the ROM/image pipeline.
 - 6 optional ROM references: TIK, RomTools, standalone simg2img, OEM firmware extractor, Magisk and AnyKernel3.
 - 1 optional upstream mainline Linux comparison tree.
 - 2 optional Android CTS/VTS test source trees.
 
 ## ROM and image pipeline included in the default group
 
-- ZIP/OTA archive codecs and extraction support: AOSP libziparchive, libarchive, zlib, bzip2, xz, Brotli, zstd and lz4.
+- ZIP/OTA archive codecs and extraction support: AOSP libziparchive, libarchive, AOSP zlib, bzip2, xz, Brotli, zstd and lz4.
 - Modern A/B OTA: AOSP update_engine plus payload-dumper-go for partition extraction from payload.bin and OTA ZIP inputs.
 - Legacy block OTA: sdat2img, img2sdat, Brotli and imgpatchtools for .dat.br, transfer-list and patch.dat workflows.
 - Dynamic partitions: AOSP lpdump, lpunpack and lpmake from system/extras/partition_tools.
@@ -35,7 +35,7 @@ The optional ROM reference group adds end-to-end tools and OEM/installer referen
 - `ZERODROID_SYNC_JOBS=4`: parallel sync jobs.
 - `ZERODROID_SYNC_DEPTH=1`: default shallow checkout; use 0 for full Git history.
 - `ZERODROID_SYNC_GROUPS=default`: choose repo groups.
-- Add `zerodroid-rom-reference`, `zerodroid-optional` and `zerodroid-test` to include all 71 manifest entries.
+- Add `zerodroid-rom-reference`, `zerodroid-optional` and `zerodroid-test` to include all 73 manifest entries.
 
 The first sync is network-, disk- and time-intensive. Framework, kernel, QEMU, CTS/VTS and ROM suite repositories can be large. Successful sync emits `SOURCE_LOCK.xml` and `SOURCE_LOCK.json` with resolved revisions.
 
