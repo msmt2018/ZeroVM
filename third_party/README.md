@@ -37,10 +37,10 @@ The optional ROM reference group adds end-to-end tools and OEM/installer referen
 ## Source groups and resource controls
 
 - `ZERODROID_SYNC_JOBS=4`: parallel sync jobs.
-- `ZERODROID_SYNC_DEPTH=1`: default shallow checkout; use 0 for full Git history.
-- `ZERODROID_SYNC_GROUPS=default`: choose repo groups.
-- Add `zerodroid-rom-reference`, `zerodroid-optional` and `zerodroid-test` to include all 80 manifest entries.
+- `ZERODROID_SYNC_DEPTH=0`: default full history for the selected branch of every upstream repository. Set to `1` only when intentionally requesting a shallow checkout.
+- `ZERODROID_SYNC_GROUPS=default,zerodroid-rom-reference,zerodroid-optional,zerodroid-test`: default includes every one of the 80 manifest entries, including ROM references, Linux/UEFI/Bluetooth references and CTS/VTS trees.
+- Override `ZERODROID_SYNC_GROUPS` only for an intentional partial checkout; do not use it for the canonical full source acquisition.
 
-The first sync is network-, disk- and time-intensive. Framework, kernel, QEMU, CTS/VTS and ROM suite repositories can be large. Successful sync emits `SOURCE_LOCK.xml` and `SOURCE_LOCK.json` with resolved revisions.
+The first sync is network-, disk- and time-intensive. Framework, kernel, QEMU, CTS/VTS and ROM suite repositories can be large. Successful sync emits `SOURCE_LOCK.xml` and `SOURCE_LOCK.json` with resolved revisions. The lock-generation step refuses to publish a lock unless all 80 projects are present and revision-pinned.
 
 Downloaded source is not automatically integrated, built or validated. Keep upstream projects separate, preserve licenses and track local changes as auditable patches. See [source matrix](UPSTREAMS.md) and [license governance](../docs/36-upstream-source-checkout-and-license-governance.md).
